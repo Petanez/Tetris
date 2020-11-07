@@ -1,0 +1,601 @@
+<!DOCTYPE html5>
+<head>
+    <title>Petterin tetris</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <style>
+        canvas {
+            position: absolute;
+            padding-left: 0%;
+        }
+
+        body {
+            padding-bottom: 20px;
+        }
+        
+        #info {
+            background-color: rgb(245, 239, 239);
+            margin-left: 370px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-size: 20px;
+            position: relative;
+            width: 500px;
+            background: linear-gradient(199deg, rgb(46, 46, 46) 20%, rgb(255, 255, 255) 70%);
+        }
+
+        .buttons {
+            margin-top: -7%;
+            display: inline-flexbox;
+            /* padding-left: 25%;
+            padding-right: 25%;
+            justify-content: center; */
+        }
+
+        button {
+            opacity: 90%;
+            margin-top: 10px;
+            float: left;
+            border-radius: 5px;
+            background: linear-gradient(4deg, rgb(49, 49, 49) 5%, rgba(255,255,255,1) 90%);
+            border-color: white;
+            font-family: fantasy;
+            letter-spacing: 2px;
+            text-shadow: -1px -2px 2px white;
+            color: rgb(17, 17, 17);
+            font-weight: 600;
+            font-size: 30px;
+            cursor: pointer;
+            width: 50%;
+        }
+
+        li {
+            opacity: 90%;
+            margin-top: -5px;
+            margin-left: -25px;
+            text-shadow: -1px 0px 7px rgb(53, 51, 51);
+        }
+
+        .scoreboard {
+            display: inline-flexbox;
+            background-color: white;
+            letter-spacing: 6px;
+        }
+
+        h1 {
+            letter-spacing: 5px;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            padding-left: 2%;
+            color: white;
+            text-shadow: -2px 2px 3px black;
+            font-size: 35px;
+            align-content: center;
+            background: linear-gradient(359deg, rgb(85, 85, 85) 10%, rgba(255,255,255,1) 90%);
+            padding-bottom: 0%;
+        }
+        
+        h2 {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            margin-top: -24px;
+            padding-left: 10px;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        .ul1 {
+            margin-left: 151px;
+            list-style-type: none;
+        }
+
+        .signature {
+            opacity: 50%;
+            font-size: large;
+            margin-left: 500px;
+            margin-top: -320px;
+            position: absolute;
+            text-shadow: 2px -2px 3px black;
+        }
+
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas"></canvas>
+    <div id="info">
+        <h1>
+            TETRIS
+        </h1>
+        <div class="scoreboard" id="scoreboard" style="opacity: 0;">
+            <h2 style="float: left;">
+                SCORE:
+            </h2>
+            <h2 id="score"
+                style="float: left; padding-left: 40%; height: 20px; color: white; font-size: 40px; margin-top: -30px; letter-spacing: 0px;">
+            </h2>
+        </div>
+        <ul>
+            <li style="margin-top: 20%;">
+                To start the game select <b>EASY</b> or <b>NORMAL</b>
+            </li>
+            <li>
+                To pause the game press <b>P</b>
+            </li>
+            <li>
+                To move the piece <b>PRESS</b> arrow:
+                <ul class="ul1">
+                    <li>
+                        <b>DOWN</b> - Lower piece
+                    </li>
+                    <li>
+                        <b>LEFT</b> - Move piece left
+                    </li>
+                    <li>
+                        <b>RIGHT</b> - Move piece right
+                    </li>
+                    <li style="padding-bottom: 16px;">
+                        <b>UP</b> - Rotate piece
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <div class="buttons">
+            <div id="user-button">
+                <button id="eZy">Easy</button>
+            </div>
+            <div id="user-button">
+                <button id="norm">Normal</button>
+            </div>
+        </div>
+    </div>
+    <div class="signature">
+        <h4>
+            By 
+            <em>
+                Petteri Moilanen
+            </em>
+        </h4>
+    </div>
+    <script>
+    //#region Configuration
+        let c = document.getElementById("myCanvas");
+        let ctx = c.getContext("2d");
+        let fps = 2;
+        // was 40
+        let blockSize = 35;
+        let borderLineWidth = 10;
+        let gridHeight = blockSize * 24;
+        let gridWidth = blockSize * 10;
+        let squareColor = "red";
+        c.height = gridHeight + borderLineWidth * 2;
+        c.width = gridWidth + borderLineWidth * 2;
+    //#endregion
+
+    //#region CLASSES
+        class Square {
+            constructor(x, y, isOccupied = false) {
+                this.x = x;
+                this.y = y;
+                this.isOccupied = isOccupied;
+            }
+            isOccupied;
+            isLocked = false;
+
+            set isLocked(value) {
+                this.isLocked = value;
+            }
+
+            get isLocked() {
+                return this.isLocked;
+            }
+        }
+
+        class lPiece {            
+            PIECE = [
+                new Square(4, 0, true),
+                new Square(4, 1, true),
+                new Square(4, 2, true),
+                new Square(5, 2, true)
+            ];
+        }
+
+        class lPieceIsomer {
+            PIECE = [
+                new Square(4, 0, true),
+                new Square(4, 1, true),
+                new Square(4, 2, true),
+                new Square(3, 2, true)
+            ];
+        }
+        
+        class sPiece {
+            PIECE = [
+                new Square(4, 0, true),
+                new Square(4, 1, true),
+                new Square(5, 1, true),
+                new Square(5, 2, true)
+            ];
+        }
+        
+        class sPieceIsomer {
+            PIECE = [
+                new Square(5, 0, true),
+                new Square(5, 1, true),
+                new Square(4, 1, true),
+                new Square(4, 2, true)
+            ];
+        }
+
+        class iPiece {
+            PIECE = [
+                new Square(4, 0, true),
+                new Square(4, 1, true),
+                new Square(4, 2, true),
+                new Square(4, 3, true)
+            ];
+        }
+
+        class tPiece {
+            PIECE = [
+                new Square(3, 0, true),
+                new Square(4, 0, true),
+                new Square(5, 0, true),
+                new Square(4, 1, true)
+            ];
+        }
+
+        class oPiece {
+            PIECE = [
+                new Square(4, 0, true),
+                new Square(5, 0, true),
+                new Square(4, 1, true),
+                new Square(5, 1, true)
+            ];
+        }    
+    //#endregion
+
+        //  DRAWING
+        function drawBorders() {
+            let borderLineAdjustment = 5;
+            ctx.beginPath();
+            ctx.lineWidth = borderLineWidth;
+            ctx.strokeStyle = "black";
+            ctx.moveTo(borderLineAdjustment, 0);
+            ctx.lineTo(borderLineAdjustment, c.height - borderLineAdjustment);
+            ctx.lineTo(c.width - borderLineAdjustment, c.height - borderLineAdjustment);
+            ctx.lineTo(c.width - borderLineAdjustment, 0);
+            ctx.stroke();
+        }
+        
+        function drawSquare(x, y) {
+            ctx.beginPath();
+            ctx.fillStyle = squareColor;
+            ctx.lineWidth = 5;
+            ctx.strokeStyle = "black";
+            ctx.strokeRect(borderLineWidth + blockSize * x, borderLineWidth + blockSize * y, blockSize, blockSize)
+            ctx.fillRect(borderLineWidth + blockSize * x, borderLineWidth + blockSize * y, blockSize, blockSize);
+            ctx.stroke();
+        }
+        
+        function drawPiece(p) {
+            for (let i = 0; i < p.length; i++) {
+                if (p[i].isOccupied) {
+                    drawSquare(p[i].x, p[i].y);
+                }
+            }
+        }
+        
+        function drawBoard(p) {
+            drawBorders();
+            for (let y = board.length - 1; y > 0; y--) {
+                for (let x = 0; x < board[y].length; x++) {
+                    if (board[y][x].isLocked) {
+                        drawSquare(x, y);
+                    }
+                }
+            }
+        }
+        
+        function drawEverything() {
+            ctx.clearRect(0, 0, c.width, c.height);     
+            drawBoard();
+            drawPiece(piece.PIECE);
+        }
+        
+        //  GAME LOGIC        
+        const setPiece = () => {
+            return piece = isEz ? new oPiece() : randomPiece(); 
+        }
+
+        const lockPiece = (p) => {
+            p.every(function(val) {
+                return board[val.y][val.x].isLocked = true;
+            });
+        }
+
+        const randomPiece = () => {
+            let randomNum = Math.floor(Math.random()*7);
+            return randomNum === 0 ? new lPiece() : randomNum === 1 ? new oPiece() : randomNum === 2 ? new tPiece() : 
+                   randomNum === 3 ? new lPieceIsomer() : randomNum === 4 ? new sPiece() : randomNum === 5 ? new sPieceIsomer() : new iPiece();
+        }    
+
+        function lowerPieceIfNotBlocked(p) {
+            let isReseted = false;
+            if (p.every(square => square.y < board.length - 1)) {
+                for (let i = 0; i < p.length; i++) {
+                    p[i].y++;
+                }
+            } else {
+                lockPiece(p);
+                setPiece();
+                isReseted = true;
+            }
+            if (!isReseted
+            &&  p.some(square => board[square.y][square.x].isLocked)) {
+                for (let i = 0; i < p.length; i++) {
+                    p[i].y--;
+                }
+                lockPiece(p);
+                setPiece();
+            }
+        }
+        
+        function movePiece(direction, p) {
+            if (direction === "left") {
+                // check for boards min width
+                if (p.every(square => square.x > 0)) {
+                    for (let i = 0; i < p.length; i++) {
+                        p[i].x--;
+                    }
+                }
+                if (p.some(square => board[square.y][square.x].isLocked)) {
+                    console.log("cant move there");
+                    for (let i = 0; i < p.length; i++) {
+                        p[i].x++;
+                    }
+                }
+            }
+            if (direction === "right") {
+                // check for boards max width
+                if (p.every(square => square.x < board[0].length - 1)) {
+                    for (let i = 0; i < p.length; i++) {
+                        p[i].x++;
+                    }
+                }
+                if (p.some(square => board[square.y][square.x].isLocked)) {
+                    console.log("cant move there");
+                    for (let i = 0; i < p.length; i++) {
+                        p[i].x--;
+                    }
+                }
+            }
+            if (direction === "down") {
+                lowerPieceIfNotBlocked(piece.PIECE);
+            }
+        }
+
+        function rotatePiece(p) {
+            if (p.constructor.name === "oPiece") { return; }
+            // use the second piece in the array as an anchor
+            let anchor = {
+                x: p.PIECE[1].x,
+                y: p.PIECE[1].y,
+            }
+            newCoordinates = [{x: 0, y: 0}, {x: anchor.x, y: anchor.y}, {x: 0, y: 0}, {x: 0, y: 0}]
+            for (let i = 0; i < p.PIECE.length; i++) {
+                if (i === 1) { continue; }
+                let xDiff = p.PIECE[i].x - anchor.x;
+                let yDiff = p.PIECE[i].y - anchor.y;
+                let xIsNegative = Math.sign(xDiff) === -1;
+                let yIsNegative = Math.sign(yDiff) === -1;
+                if (xDiff === 0) {
+                    newCoordinates[i].x = yIsNegative ? anchor.x + Math.abs(yDiff) : anchor.x - Math.abs(yDiff);
+                    newCoordinates[i].y = anchor.y;
+                } else if (yDiff === 0) {
+                    newCoordinates[i].x = anchor.x;
+                    newCoordinates[i].y = xIsNegative ? anchor.y - Math.abs(xDiff) : anchor.y + Math.abs(xDiff);
+                } else if (xIsNegative && yIsNegative) {
+                    newCoordinates[i].x = anchor.x + Math.abs(yDiff);
+                    newCoordinates[i].y = anchor.y - Math.abs(xDiff);
+                } else if (!xIsNegative && !yIsNegative) {
+                    newCoordinates[i].x = anchor.x - Math.abs(yDiff);
+                    newCoordinates[i].y = anchor.y + Math.abs(xDiff);
+                } else if (xIsNegative && !yIsNegative) {
+                    newCoordinates[i].x = anchor.x - Math.abs(yDiff);
+                    newCoordinates[i].y = anchor.y - Math.abs(xDiff);
+                } else if (!xIsNegative && yIsNegative) {
+                    newCoordinates[i].x = anchor.x + Math.abs(yDiff);
+                    newCoordinates[i].y = anchor.y + Math.abs(xDiff);
+                }
+            }
+            if (newCoordinates.some(square => square.x < 0 || square.x > board[0].length - 1 || square.y > board.length - 1 || board[square.y][square.x].isLocked)) {
+                console.log("can't rotate piece");
+                return;
+            } else {
+                for (let i = 0; i < newCoordinates.length; i++) {
+                    if (i === 1) { continue; }
+                    p.PIECE[i].x = newCoordinates[i].x
+                    p.PIECE[i].y = newCoordinates[i].y
+                }
+            }
+        }
+        let newCoordinates;
+
+        function checkFullRowsAndEndCondition() {
+            for (let y = board.length - 1; y >= 0; y--) {
+                let isFullRow = true;
+                for (let x = 0; x < board[y].length; x++) {
+                    if (!board[y][x].isLocked) {
+                        isFullRow = false;
+                    }
+                    // 
+                    if (y <= 1 && board[y][x].isLocked) {
+                        gameOver = true;
+                    }
+                }
+                if (isFullRow) {
+                    rowsToReplace.push(y);
+                }
+            }
+        }
+
+        function addFullRow() {     
+            return board.unshift([
+                new Square(0, 0),
+                new Square(1, 0),
+                new Square(2, 0),
+                new Square(3, 0),
+                new Square(4, 0),
+                new Square(5, 0),
+                new Square(6, 0),
+                new Square(7, 0),
+                new Square(8, 0),
+                new Square(9, 0),
+            ])
+        }
+
+        function replaceRows() {
+            let linePoint = 40;
+            // if rows to remove is not empty, execute
+            if (rowsToReplace.length > 0) {
+                console.log(`Removing ${rowsToReplace.length} rows`);
+                score += rowsToReplace.length === 1 ? 40 : 
+                         rowsToReplace.length === 2 ? 100 :
+                         rowsToReplace.length === 3 ? 300 : 1200;
+                let i = rowsToReplace.length;
+                while (i >= 0) {
+                    board.splice(rowsToReplace[i], 1);
+                    addFullRow();
+                    i--;
+                }
+            }
+            return rowsToReplace = [];
+        }
+        let rowsToReplace = [];
+
+        function createBoard() {
+        //  board is an array of arrays of squares
+        //  use for loop to fill the arrays with 10 squares
+            board = new Array(24);
+            for (var y = 0; y < board.length; y++) {
+                board[y] = [
+                    new Square(0, y),
+                    new Square(1, y),
+                    new Square(2, y),
+                    new Square(3, y),
+                    new Square(4, y),
+                    new Square(5, y),
+                    new Square(6, y),
+                    new Square(7, y),
+                    new Square(8, y),
+                    new Square(9, y),
+                ]
+            }
+        }
+
+        function playGame() {
+            score = 0;
+            createBoard();
+            setPiece();
+            //  use secondary interval to detect full rows
+            secondaryInterval = setInterval(function () {
+                if (!isPaused) {
+                    checkFullRowsAndEndCondition();
+                    replaceRows(rowsToReplace);
+                    downIsPressed = false;
+                }
+                if (gameOver) {
+                    clearInterval(secondaryInterval);
+                }
+            }, 100);
+
+            // Main interval to lower pieces
+            mainInterval = setInterval(function () { 
+                if (!downIsPressed && !isPaused) {
+                    scoreElement.innerHTML = score;
+                    drawEverything();
+                    lowerPieceIfNotBlocked(piece.PIECE);
+                }
+                if (gameOver) {
+                    clearInterval(mainInterval);
+                    console.log("Game over");
+                }
+            }, 1000 / fps);
+
+        }
+        let mainInterval;
+        let secondaryInterval;
+
+        let board; 
+        let piece;
+        let isPaused = false;
+        let downIsPressed = false;
+        let isEz = false;
+        let gameOver = false;
+        let score = 0;
+        let checkBoardInterval;
+
+        // listen for the key presses
+        document.addEventListener('keydown', function(e) {
+            if (gameOver) {
+                return;
+            }
+            switch (e.keyCode) {
+                case 80:
+                    if (!isPaused) {
+                        console.log("Game paused");
+                        isPaused = true;
+                    } else {
+                        console.log("Game resumed");
+                        isPaused = false;
+                    }
+                    break;
+                case 37:
+                    movePiece("left", piece.PIECE);
+                    drawEverything();
+                    break;
+                case 38:
+                    // up key for rotating piece
+                    rotatePiece(piece);
+                    drawEverything();
+                    break;
+                case 39:
+                    movePiece("right", piece.PIECE);
+                    drawEverything();
+                    break;
+                case 40:
+                    downIsPressed = true;
+                    // clearPiece(piece.PIECE);
+                    movePiece("down", piece.PIECE); 
+                    // drawPiece(piece.PIECE);
+                    drawEverything();
+                    break;
+                }
+        });
+        let scoreElement = document.getElementById("score");
+        scoreElement.innerHTML = score;
+        let eZy = document.getElementById("eZy");
+        let norm = document.getElementById("norm");
+        //  "Easy" button changes isEz's state
+        eZy.onclick = function() {
+            document.getElementById("scoreboard").setAttribute("style", "opacity:100;")
+            console.log("so ez");
+            gameOver = false;
+            isEz = true;
+            clearInterval(mainInterval);
+            playGame();
+        }
+
+        //  "Normal" button changes isEz's state
+        norm.onclick = function() {
+            document.getElementById("scoreboard").setAttribute("style", "opacity:100;")
+            gameOver = false;
+            isEz ? isEz = false : isEz;
+            clearInterval(mainInterval);
+            playGame();
+        }
+        
+        window.onload = () => {
+            drawBorders();
+        }
+    </script>
+</body>
