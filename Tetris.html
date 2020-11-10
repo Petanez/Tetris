@@ -288,8 +288,6 @@
         let score = 0;
     //#endregion
 
-
-        levelElement.innerHTML = "Level " + level;
         scoreElement.innerHTML = score;
         // listen for the key presses
         document.addEventListener('keydown', function(e) {
@@ -359,17 +357,7 @@
                 if (levelOpacityInterval != null) { clearInterval(levelOpacityInterval); }  
                 if (gameOverInterval != null) { clearInterval(gameOverInterval); }  
                 clearBoard(); 
-                normButton.innerHTML = "Restart Game";
-                gameOverElement.setAttribute("style", "opacity: 0%;")
-                gamePausedElement.innerHTML = "";
-                finalScoreElement.innerHTML = "";
-                levelElement.setAttribute("style", "letter-spacing: 0px; background: none; opacity: 100;");
-                scoreBoardElement.setAttribute("style", "opacity:100;");
-                isPaused = false;
-                gameOver = false;
-                trackRowCount = 0;
-                isEz ? isEz = false : isEz;
-                playGame();
+                restartGame();
             }
         }
         
@@ -535,6 +523,7 @@
                 if (opacity >= 100) {
                     window.clearInterval(gameOverInterval);
                     gameOverTextFinished = true;
+                    normButton.innerHTML = "START GAME";
                     return;
                 }
             }, intervalTime)
@@ -546,6 +535,8 @@
             let opacity = 100;       
             let leftMargin = 200;     
             let intervalTime = 25;
+            levelElement.setAttribute("style", "margin-left: 200px;")
+            levelElement.innerHTML = "Level " + level;
             levelOpacityInterval = setInterval(function() {
                 levelElement.setAttribute("style", `opacity: ${opacity}%; margin-left: ${leftMargin}px;`)   
                 leftMargin -= 2.9;  
@@ -721,6 +712,14 @@
                             r.length === 3 ? 300 * level: 1200 * level;
         }
 
+        function incrementLevelAfter10Clears() {
+        if (trackRowCount >= 10) {
+                trackRowCount = trackRowCount - 10;
+                level++;
+                console.log("Level is " + level + "\ntrackRowCount is: " + trackRowCount);
+            }
+        }
+
         // when trackRowCount >= 10, reset & increment level
         let rowsToReplace = [];
         let trackRowCount = 0;
@@ -736,12 +735,6 @@
                     i--;
                 }
                 trackRowCount += rowsToReplace.length;
-                //  increment level here
-                if (trackRowCount >= 10) {
-                    trackRowCount = trackRowCount - 10;
-                    level++;
-                    levelElement.innerHTML = "Level " + level;
-                }
             }
             return rowsToReplace = [];
         }
@@ -766,6 +759,20 @@
             }
         }
 
+        function restartGame() {
+            normButton.innerHTML = "RESTART";
+            gameOverElement.setAttribute("style", "opacity: 0%;")
+            gamePausedElement.innerHTML = "";
+            finalScoreElement.innerHTML = "";
+            levelElement.setAttribute("style", "letter-spacing: 0px; background: none; opacity: 100;");
+            scoreBoardElement.setAttribute("style", "opacity:100;");
+            isPaused = false;
+            gameOver = false;
+            trackRowCount = 0;
+            isEz ? isEz = false : isEz;
+            playGame();
+        }
+
         function runLevel() {
             if (!downIsPressed && !isPaused) {
                 scoreElement.innerHTML = score;
@@ -774,50 +781,60 @@
             }
         }
 
+        function moveToNextLevel() {
+            console.log(`Moving to level ${level}`);
+            clearInterval(mainInterval);
+            calculateTimer = (mainIntervalDivident / (defaultFps * level));
+            mainIntervalTimer = calculateTimer;
+            displayLevelText();
+            mainInterval = setInterval(runLevel, mainIntervalTimer);
+        }
+
+        function gameOverConditionReached() {
+            console.log("Game over");
+            displayGameOver();
+            displayFinalScore();
+            clearInterval(mainInterval);
+            clearInterval(secondaryInterval);
+            if (gameOverInterval != null && gameOverTextFinished) {
+                console.log("gameover interval not null, gameover text not finished");
+                clearInterval(gameOverInterval);
+            }
+        }
+
         let mainInterval;
         let secondaryInterval;
+        let mainIntervalDivident = 1500;
         function playGame() {
             if (mainInterval != null) { clearInterval(mainInterval); }
             if (secondaryInterval != null) { clearInterval(secondaryInterval); }
             score = 0;
             level = 1;
             let currentLevel = level;
-            let splitAmount = 1700;
-            let secondaryTimer = 100;
-            let mainIntervalTimer = (splitAmount / (defaultFps * level));
-            levelElement.innerHTML = "Level " + level;
+            let calculateTimer = (mainIntervalDivident / (defaultFps * level));
+            let mainIntervalTimer = calculateTimer;
+            let secondaryIntervalTimer = 100;
             displayLevelText();
             createBoard();
             setPiece();
             //  use secondary interval to detect full rows and change main interval if level changes
             secondaryInterval = setInterval(function () {
-                if (currentLevel != level) {
-                    clearInterval(mainInterval);
-                    mainIntervalTimer = (splitAmount / (defaultFps * level))
-                    mainInterval = setInterval(runLevel, mainIntervalTimer);
-                    currentLevel = level;
-                    displayLevelText();
-                }
                 if (!isPaused) {
                     checkFullRowsAndEndCondition();
                     replaceRowsAndAddToScore(rowsToReplace);
-                    downIsPressed = false;
-                }
-                if (gameOver) {
-                    console.log("Game over");
-                    displayGameOver();
-                    displayFinalScore();
-                    clearInterval(mainInterval);
-                    clearInterval(secondaryInterval);
-                    if (gameOverInterval != null && gameOverTextFinished) {
-                        console.log("gameover interval not null, gameover text not over")
-                        clearInterval(gameOverInterval);
+                    incrementLevelAfter10Clears();
+                    if (currentLevel != level) {
+                        moveToNextLevel();
+                        currentLevel = level;
                     }
                 }
-            }, secondaryTimer);
+                if (gameOver) {
+                    gameOverConditionReached();
+                }
+                downIsPressed = false;
+            }, secondaryIntervalTimer);
 
             // Main interval to lower pieces
-            // mainInterval = setInterval(runLevel, 1000 / (defaultFps + level - 1));
             mainInterval = setInterval(runLevel, mainIntervalTimer);
         }
     //#endregion
