@@ -3,189 +3,74 @@
     <title>Tetris</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
-    <style>
-        .pageContainer {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            left: 0;
-            top: 0;
-            background: white;
-        }
-
-        canvas {
-            position: absolute;
-            margin-top: 25px;
-            padding-left: 0%;
-            z-index: -1;
-        }
-
-        body {
-            padding-bottom: 20px;
-        }
-        
-        #info {
-            background-color: rgb(245, 239, 239);
-            margin-left: 370px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            font-size: 20px;
-            position: relative;
-            width: 500px;
-            background: linear-gradient(199deg, rgb(46, 46, 46) 20%, rgb(255, 255, 255) 70%);
-        }
-
-        .buttons {
-            margin-top: -7%;
-            display: inline-flexbox;
-            /* padding-left: 25%;
-            padding-right: 25%;
-            justify-content: center; */
-        }
-
-        button {
-            opacity: 90%;
-            margin-top: 10px;
-            float: left;
-            border-radius: 5px;
-            background: linear-gradient(4deg, rgb(49, 49, 49) 5%, rgba(255,255,255,1) 90%);
-            border-color: white;
-            font-family: fantasy;
-            letter-spacing: 2px;
-            text-shadow: -1px -2px 2px white;
-            color: rgb(17, 17, 17);
-            font-weight: 600;
-            font-size: 30px;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        li {
-            opacity: 90%;
-            margin-top: -5px;
-            margin-left: -25px;
-            text-shadow: -1px 0px 7px rgb(53, 51, 51);
-        }
-
-        .score-board {
-            display: inline-flexbox;
-            background-color: white;
-            letter-spacing: 0px;
-        }
-
-        h1 {
-            letter-spacing: 5px;
-            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-            padding-left: 2%;
-            color: white;
-            text-shadow: -2px 2px 3px black;
-            font-size: 35px;
-            align-content: center;
-            background: linear-gradient(359deg, rgb(85, 85, 85) 10%, rgba(255,255,255,1) 90%);
-            padding-bottom: 0%;
-        }
-        
-        h2 {
-            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            margin-top: -24px;
-            padding-left: 10px;
-        }
-
-        ul {
-            list-style-type: none;
-        }
-
-        .ul1 {
-            margin-left: 151px;
-            list-style-type: none;
-        }
-
-        .signature {
-            opacity: 50%;
-            font-size: large;
-            margin-left: 500px;
-            margin-top: -335px;
-            text-shadow: 2px -2px 3px black;
-        }
-
-        .gameInfo {
-            margin-left: 370px;
-        }
-
-        .levelInfo {
-            position: absolute;
-            overflow: hidden;
-            white-space: nowrap;
-            margin-left: 15px;
-            margin-top: -75px;
-            width: 360px;
-        }
-        /* .levelInfo {
-            position: absolute;
-            margin-top: 143px;
-            margin-left: 380px;
-            width: 200px;
-        } */
-
-        #lvl {
-            color: black;
-            font-size: 50px;
-            letter-spacing: 0px; 
-            background: none;
-        }
-
-        .gameOvr {
-            z-index: 1;
-            width: 350px;
-            margin-top: 10px;
-            position: absolute;
-            opacity: 1;
-        }
-
-        #gamePaused {
-            text-align: center;
-            color: red;
-            font-size: 40px;
-            margin-top: -100px;
-        }
-
-        .gameOvrText {
-            text-align: center;
-            background: none;
-            font-size: 100px; 
-            color: white;
-            /* background: black;
-            border: 10px;
-            border-style: solid;
-            border-color: black; */
-        }
-
-        #finalScore {
-            margin-top: -100px;
-            color: red;
-            font-size: 50px;
-            text-align: center;
-            text-shadow: 2px 2px 2px black;
-            opacity: 70%;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script defer src="Square.js"></script>
+    <script defer src="Pieces.js"></script>
+    <script defer src="graphics.js"></script>
+    <script defer src="logic.js"></script>
+    <script defer src="script.js"></script>
+    <script defer src="listeners.js"></script>
 </head>
 <body>
-    <div class="pageContainer">
-        <canvas id="myCanvas"></canvas>
-        <div id="info">
+    <div class="page-container">
+        <div class="game-container">
+            <canvas id="myCanvas"></canvas>    
+            <div class="state-info">
+                <div class="state-info__level">
+                    <h1 id="lvl" style="opacity: 0;">
+                        <!--
+                            Update current level here
+                        -->
+                    </h1>
+                </div>
+                <div class="state-info__game-over">
+                    <h1 id="gOvr" class="game-over-text">
+                        GAME OVER
+                    </h1>
+                    <h2 id="gamePaused">
+                        <!--
+                            Game paused here
+                        -->
+                    </h2>
+                    <h2 id="finalScore">
+                        <!--
+                            Update final score here
+                        -->
+                    </h2>
+                </div>
+            </div>    
+        </div>
+        <div class="game-info">
             <h1>
                 TETRIS
+                <h4 class="signature">
+                    By 
+                    <em>
+                        Petteri Moilanen
+                    </em>
+                </h4>
             </h1>
             <div class="score-board" id="scoreboard" style="opacity: 0;">
-                <h2 style="float: left;">
+                <h2>
                     SCORE:
                 </h2>
-                <h2 id="score"
-                    style="float: left; padding-left: 40%; height: 20px; color: white; font-size: 40px; margin-top: -30px; letter-spacing: 0px;">
+                <h2 id="score">
                 </h2>
             </div>
-            <ul>
-                <li style="margin-top: 20%;">
+            <a href="#" id="themeSwitch">
+                <div class="theme-switch-icon">polarize</div>     
+                <div class="cover"></div>        
+            </a>
+            <a id="toggleControls" data-clicked="false">
+                <h2>
+                    Controls 
+                    <div class="hide-controls__arrow">
+                        &uarr;
+                    </div>
+                </h2>
+            </a>
+            <ul class="game-info__controls" id="perkele">
+                <li>
                     To <b>START</b> press the <b>START GAME</b> button
                 </li>
                 <li>
@@ -193,7 +78,7 @@
                 </li>
                 <li>
                     To move the piece <b>PRESS</b> arrow:
-                    <ul class="ul1">
+                    <ul style="margin-left: 20%;">
                         <li>
                             <b>DOWN</b> - Move piece down
                         </li>
@@ -203,642 +88,15 @@
                         <li>
                             <b>RIGHT</b> - Move piece right
                         </li>
-                        <li style="padding-bottom: 16px;">
+                        <li>
                             <b>UP</b> - Rotate piece
                         </li>
                     </ul>
                 </li>
             </ul>
-            <div class="buttons">
-                <!-- <div id="user-button">
-                    <button id="ezButton">Ez</button>
-                </div> -->
-                <div id="user-button">
-                    <button id="normButton">START GAME</button>
-                </div>
+            <div>
+                <button id="normButton" onkeypress="event.preventDefault()"</button>START GAME</button>
             </div>
         </div>
-        <div class="signature">
-            <h4>
-                By 
-                <em>
-                    Petteri Moilanen
-                </em>
-            </h4>
-        </div>
-        <div class="levelInfo">
-            <h1 id="lvl" style="opacity: 0;">
-                <!--
-                    Update current level here
-                -->
-            </h1>
-        </div>
-        <div class="gameOvr">
-            <h1 id="gOvr" class="gameOvrText" style="opacity: 0;">
-                GAME OVER
-            </h1>
-            <h2 id="gamePaused">
-                <!--
-                    Game paused here
-                -->
-            </h2>
-            <h2 id="finalScore">
-                <!--
-                    Update final score here
-                -->
-            </h2>
-        </div>
-
     </div>
-    <!-- <div class="gameInfo">
-        <ul>
-            <li>
-                Level increases after every 10 rows cleared 
-            </li>
-        </ul>
-    </div> -->
-    <script>
-    //#region Configuration
-        const c = document.getElementById("myCanvas");
-        const ctx = c.getContext("2d");
-        const blockSize = 35;
-        const borderLineWidth = 10;
-        const gridHeight = blockSize * 24;
-        const gridWidth = blockSize * 10;
-        const squareColor = "grey";
-        const scoreBoardElement = document.getElementById("scoreboard");
-        const scoreElement = document.getElementById("score");
-        const levelElement = document.getElementById("lvl");
-        const finalScoreElement = document.getElementById("finalScore");
-        const gameOverElement = document.getElementById("gOvr");
-        const ezButton = document.getElementById("ezButton");
-        const normButton = document.getElementById("normButton");
-        const gamePausedElement = document.getElementById("gamePaused");
-
-        c.height = gridHeight + borderLineWidth * 2;
-        c.width = gridWidth + borderLineWidth * 2;
-
-        let defaultFps = 2;
-        let level;
-        let board; 
-        let piece;
-        let isPaused = false;
-        let downIsPressed = false;
-        let isEz = false;
-        let gameOver = false;
-        let score = 0;
-    //#endregion
-
-        scoreElement.innerHTML = score;
-        // listen for the key presses
-        document.addEventListener('keydown', function(e) {
-            if (gameOver) {
-                return;
-            }
-            switch (e.keyCode) {
-                case 80:
-                    if (!isPaused) {
-                        console.log("Game paused");
-                        gamePausedElement.innerHTML = "Game paused";
-                        isPaused = true;
-                    } else {
-                        console.log("Game resumed");
-                        gamePausedElement.innerHTML = "";
-                        isPaused = false;
-                    }
-                    break;
-                case 37:
-                    if (!isPaused) {
-                        movePiece("left", piece.PIECE);
-                        drawEverything();
-                    }
-                    break;
-                case 38:
-                    // up key for rotating piece
-                    if (!isPaused) {
-                        rotatePiece(piece);
-                        drawEverything();
-                    }
-                    break;
-                case 39:
-                    if (!isPaused) {
-                        movePiece("right", piece.PIECE);
-                        drawEverything();
-                    }
-                    break;
-                case 40:
-                    if (!isPaused) {
-                        downIsPressed = true;
-                        // clearPiece(piece.PIECE);
-                        movePiece("down", piece.PIECE); 
-                        // drawPiece(piece.PIECE);
-                        drawEverything();
-                    }
-                    break;
-                }
-        });
-        //  "Easy" button changes isEz's state
-        // ezButton.onclick = function() {
-        //     if (gameOverTextFinished) {
-        //         if (levelOpacityInterval != null) { clearInterval(levelOpacityInterval); }
-        //         if (gameOverInterval != null) { clearInterval(gameOverInterval); }  
-        //         gameOverElement.setAttribute("style", "opacity: 0%;")
-        //         clearBoard(); 
-        //         finalScoreElement.innerHTML = "";
-        //         levelElement.setAttribute("style", "letter-spacing: 0px; background: none; opacity: 100;");
-        //         document.getElementById("scoreboard").setAttribute("style", "opacity:100;");
-        //         gameOver = false;
-        //         isEz = true;
-        //         playGame();
-        //     }
-        // }
-        //  "normButtonal" button changes isEz's state
-        normButton.onclick = function() {
-            if (gameOverTextFinished) {     
-                if (levelOpacityInterval != null) { clearInterval(levelOpacityInterval); }  
-                if (gameOverInterval != null) { clearInterval(gameOverInterval); }  
-                clearBoard(); 
-                restartGame();
-            }
-        }
-        
-        window.onload = () => {           
-            drawBorders();
-        }
-
-    //#region CLASSES
-        class Square {
-            constructor(x, y, isOccupied = false) {
-                this.x = x;
-                this.y = y;
-                this.isOccupied = isOccupied;
-            }
-            isOccupied;
-
-            set isOccupied(value) {
-                this.isOccupied = value;
-            }
-
-            get isOccupied() {
-                return this.isOccupied;
-            }
-        }
-
-        class lPiece {            
-            PIECE = [
-                new Square(4, 0, true),
-                new Square(4, 1, true),
-                new Square(4, 2, true),
-                new Square(5, 2, true)
-            ];
-        }
-
-        class lPieceIsomer {
-            PIECE = [
-                new Square(4, 0, true),
-                new Square(4, 1, true),
-                new Square(4, 2, true),
-                new Square(3, 2, true)
-            ];
-        }
-        
-        class sPiece {
-            PIECE = [
-                new Square(4, 0, true),
-                new Square(4, 1, true),
-                new Square(5, 1, true),
-                new Square(5, 2, true)
-            ];
-        }
-        
-        class sPieceIsomer {
-            PIECE = [
-                new Square(5, 0, true),
-                new Square(5, 1, true),
-                new Square(4, 1, true),
-                new Square(4, 2, true)
-            ];
-        }
-
-        class iPiece {
-            PIECE = [
-                new Square(4, 0, true),
-                new Square(4, 1, true),
-                new Square(4, 2, true),
-                new Square(4, 3, true)
-            ];
-        }
-
-        class tPiece {
-            PIECE = [
-                new Square(3, 0, true),
-                new Square(4, 0, true),
-                new Square(5, 0, true),
-                new Square(4, 1, true)
-            ];
-        }
-
-        class oPiece {
-            PIECE = [
-                new Square(4, 0, true),
-                new Square(5, 0, true),
-                new Square(4, 1, true),
-                new Square(5, 1, true)
-            ];
-        }    
-    //#endregion
-
-    //#region DRAWING
-        function clearBoard() {
-            ctx.clearRect(0 + borderLineWidth, 0 + borderLineWidth, c.width - borderLineWidth * 2, c.height - borderLineWidth * 2);
-        }
-
-        function drawBorders() {
-            let borderLineAdjustment = 5;
-            ctx.beginPath();
-            ctx.lineWidth = borderLineWidth;
-            ctx.strokeStyle = "black";
-            ctx.moveTo(borderLineAdjustment, 0);
-            ctx.lineTo(borderLineAdjustment, c.height - borderLineAdjustment);
-            ctx.lineTo(c.width - borderLineAdjustment, c.height - borderLineAdjustment);
-            ctx.lineTo(c.width - borderLineAdjustment, 0);
-            ctx.stroke();
-        }
-        
-        function drawSquare(x, y) {
-            let sLineWidth = 1;
-            ctx.beginPath();
-            ctx.lineWidth = sLineWidth;
-            ctx.strokeStyle = "black";
-            //  draw square lines
-            // ctx.strokeRect(borderLineWidth + sLineWidth + blockSize * x, borderLineWidth + sLineWidth + blockSize * y, blockSize - sLineWidth * 2, blockSize - sLineWidth * 2);
-            //  Linear gradience
-            let sq = ctx.createLinearGradient(borderLineWidth + blockSize * x, borderLineWidth + blockSize * y, blockSize * x + blockSize, blockSize * y + blockSize);
-            sq.addColorStop(0, "white")
-            // sq.addColorStop(1, "#E7DDDB")
-            sq.addColorStop(0.8, "#393838")
-            ctx.fillStyle = sq;
-            ctx.fillRect(borderLineWidth + blockSize * x, borderLineWidth + blockSize * y, blockSize, blockSize);
-            ctx.stroke();
-        }
-        
-        function drawPiece(p) {
-            for (let i = 0; i < p.length; i++) {
-                if (p[i].isOccupied) {
-                    drawSquare(p[i].x, p[i].y);
-                }
-            }
-        }
-        
-        function drawBoard(p) {
-            drawBorders();
-            for (let y = board.length - 1; y > 0; y--) {
-                for (let x = 0; x < board[y].length; x++) {
-                    if (board[y][x].isOccupied) {
-                        drawSquare(x, y);
-                    }
-                }
-            }
-        }
-        
-        function drawEverything() {
-            ctx.clearRect(0, 0, c.width, c.height);     
-            drawBoard();
-            drawPiece(piece.PIECE);
-        }
-
-        let gameOverInterval;
-        let gameOverTextFinished = true;
-        // gameOverTextFinished is to prevent premature restarting of the game
-        function displayGameOver() {
-            console.log("inside display game over");
-            gameOverTextFinished = false;
-            let opacity = 0;
-            let txtShadow = 0;
-            let intervalTime = 5;
-            gameOverInterval = setInterval(function() {
-                gameOverElement.setAttribute("style", `opacity: ${opacity}%; text-shadow: 0px 0px ${txtShadow}px black;`)     
-                // document.getElementById("gOvr").setAttribute("style", `opacity: ${opacity}%; text-shadow: ${-txtShadow}px ${txtShadow}px ${txtShadow}px black;`)     
-                opacity++;      
-                txtShadow += 0.2;
-                if (opacity >= 100) {
-                    window.clearInterval(gameOverInterval);
-                    gameOverTextFinished = true;
-                    normButton.innerHTML = "START GAME";
-                    return;
-                }
-            }, intervalTime)
-            return;
-        }
-
-        let levelOpacityInterval;
-        function displayLevelText() {
-            let opacity = 100;       
-            let leftMargin = 200;     
-            let intervalTime = 25;
-            levelElement.setAttribute("style", "margin-left: 200px;")
-            levelElement.innerHTML = "Level " + level;
-            levelOpacityInterval = setInterval(function() {
-                levelElement.setAttribute("style", `opacity: ${opacity}%; margin-left: ${leftMargin}px;`)   
-                leftMargin -= 2.9;  
-                opacity--;      
-                if (opacity <= 30) {
-                    window.clearInterval(levelOpacityInterval);
-                }
-            }, intervalTime)
-        }
-        
-        function displayFinalScore() {
-            finalScoreElement.innerHTML = "Your score: " + score;
-        }
-    //#endregion    
-
-    //#region GAME LOGIC
-        const setPiece = () => {
-            return piece = isEz ? new oPiece() : randomPiece(); 
-        }
-
-        const lockPiece = (p) => {
-            p.every(function(val) {
-                return board[val.y][val.x].isOccupied = true;
-            });
-        }
-
-        const randomPiece = () => {
-            let randomNum = Math.floor(Math.random()*7);
-            return randomNum === 0 ? new lPiece() : randomNum === 1 ? new oPiece() : randomNum === 2 ? new tPiece() : 
-                   randomNum === 3 ? new lPieceIsomer() : randomNum === 4 ? new sPiece() : randomNum === 5 ? new sPieceIsomer() : new iPiece();
-        }    
-
-        function lowerPieceIfNotBlocked(p) {
-            let isReseted = false;
-            if (p.every(square => square.y < board.length - 1)) {
-                for (let i = 0; i < p.length; i++) {
-                    p[i].y++;
-                }
-            } else {
-                lockPiece(p);
-                setPiece();
-                return;
-                // isReseted = true;
-            }
-            // if the new x, y has an occupied square return to previous x, y
-            if (p.some(square => board[square.y][square.x].isOccupied)) {
-                for (let i = 0; i < p.length; i++) {
-                    p[i].y--;
-                }
-                lockPiece(p);
-                setPiece();
-            }
-        }
-        
-        function movePiece(direction, p) {
-            if (direction === "left") {
-                // check for boards min width
-                if (p.every(square => square.x > 0)) {
-                    for (let i = 0; i < p.length; i++) {
-                        p[i].x--;
-                    }
-                }
-                if (p.some(square => board[square.y][square.x].isOccupied)) {
-                    console.log("cant move there");
-                    for (let i = 0; i < p.length; i++) {
-                        p[i].x++;
-                    }
-                }
-            }
-            if (direction === "right") {
-                // check for boards max width
-                if (p.every(square => square.x < board[0].length - 1)) {
-                    for (let i = 0; i < p.length; i++) {
-                        p[i].x++;
-                    }
-                }
-                if (p.some(square => board[square.y][square.x].isOccupied)) {
-                    console.log("cant move there");
-                    for (let i = 0; i < p.length; i++) {
-                        p[i].x--;
-                    }
-                }
-            }
-            if (direction === "down") {
-                lowerPieceIfNotBlocked(piece.PIECE);
-            }
-        }
-
-        // function returns newCoordinates if none of the new coordinates are out of bounds or in a occupied square
-        let newCoordinates;
-        function rotatePiece(p) {
-            if (p.constructor.name === "oPiece") { return; }
-            // use the second piece in the array as an anchor
-            let anchor = {
-                x: p.PIECE[1].x,
-                y: p.PIECE[1].y,
-            }
-            newCoordinates = [{x: 0, y: 0}, {x: anchor.x, y: anchor.y}, {x: 0, y: 0}, {x: 0, y: 0}]
-            for (let i = 0; i < p.PIECE.length; i++) {
-                if (i === 1) { continue; }
-                let xDiff = p.PIECE[i].x - anchor.x;
-                let yDiff = p.PIECE[i].y - anchor.y;
-                let xIsNegative = Math.sign(xDiff) === -1;
-                let yIsNegative = Math.sign(yDiff) === -1;
-                if (xDiff === 0) {
-                    newCoordinates[i].x = yIsNegative ? anchor.x + Math.abs(yDiff) : anchor.x - Math.abs(yDiff);
-                    newCoordinates[i].y = anchor.y;
-                } else if (yDiff === 0) {
-                    newCoordinates[i].x = anchor.x;
-                    newCoordinates[i].y = xIsNegative ? anchor.y - Math.abs(xDiff) : anchor.y + Math.abs(xDiff);
-                } else if (xIsNegative && yIsNegative) {
-                    newCoordinates[i].x = anchor.x + Math.abs(yDiff);
-                    newCoordinates[i].y = anchor.y - Math.abs(xDiff);
-                } else if (!xIsNegative && !yIsNegative) {
-                    newCoordinates[i].x = anchor.x - Math.abs(yDiff);
-                    newCoordinates[i].y = anchor.y + Math.abs(xDiff);
-                } else if (xIsNegative && !yIsNegative) {
-                    newCoordinates[i].x = anchor.x - Math.abs(yDiff);
-                    newCoordinates[i].y = anchor.y - Math.abs(xDiff);
-                } else if (!xIsNegative && yIsNegative) {
-                    newCoordinates[i].x = anchor.x + Math.abs(yDiff);
-                    newCoordinates[i].y = anchor.y + Math.abs(xDiff);
-                }
-            }
-            if (newCoordinates.some(square => square.x < 0 || square.x > board[0].length - 1 || square.y > board.length - 1 || board[square.y][square.x].isOccupied)) {
-                console.log("can't rotate piece");
-                return;
-            } else {
-                for (let i = 0; i < newCoordinates.length; i++) {
-                    if (i === 1) { continue; }
-                    p.PIECE[i].x = newCoordinates[i].x
-                    p.PIECE[i].y = newCoordinates[i].y
-                }
-            }
-        }
-
-        function checkFullRowsAndEndCondition() {
-            for (let y = board.length - 1; y >= 0; y--) {
-                let isFullRow = true;
-                for (let x = 0; x < board[y].length; x++) {
-                    if (!board[y][x].isOccupied) {
-                        isFullRow = false;
-                    }
-                    if (y === 0 && board[y][x].isOccupied) {
-                        gameOver = true;
-                        return;
-                    }
-                }
-                if (isFullRow) {
-                    rowsToReplace.push(y);
-                }
-            }
-        }
-
-        function addFullRow() {     
-            return board.unshift([
-                new Square(0, 0),
-                new Square(1, 0),
-                new Square(2, 0),
-                new Square(3, 0),
-                new Square(4, 0),
-                new Square(5, 0),
-                new Square(6, 0),
-                new Square(7, 0),
-                new Square(8, 0),
-                new Square(9, 0),
-            ])
-        }
-
-        function addScore(r) {
-            return score += r.length === 1 ? 40 * level : 
-                            r.length === 2 ? 100 * level:
-                            r.length === 3 ? 300 * level: 1200 * level;
-        }
-
-        function incrementLevelAfter10Clears() {
-        if (trackRowCount >= 10) {
-                trackRowCount = trackRowCount - 10;
-                level++;
-                console.log("Level is " + level + "\ntrackRowCount is: " + trackRowCount);
-            }
-        }
-
-        // when trackRowCount >= 10, reset & increment level
-        let rowsToReplace = [];
-        let trackRowCount = 0;
-        function replaceRowsAndAddToScore() {
-            // if rows to remove is not empty, execute
-            if (rowsToReplace.length > 0) {
-                console.log(`Removing ${rowsToReplace.length} row${rowsToReplace.length > 1 ? "s" : ""}`);
-                addScore(rowsToReplace);
-                let i = rowsToReplace.length;
-                while (i >= 0) {
-                    board.splice(rowsToReplace[i], 1);
-                    addFullRow();
-                    i--;
-                }
-                trackRowCount += rowsToReplace.length;
-            }
-            return rowsToReplace = [];
-        }
-
-        function createBoard() {
-        //  board is an array of arrays of squares
-        //  use for loop to fill the arrays with 10 squares
-            board = new Array(24);
-            for (var y = 0; y < board.length; y++) {
-                board[y] = [
-                    new Square(0, y),
-                    new Square(1, y),
-                    new Square(2, y),
-                    new Square(3, y),
-                    new Square(4, y),
-                    new Square(5, y),
-                    new Square(6, y),
-                    new Square(7, y),
-                    new Square(8, y),
-                    new Square(9, y),
-                ]
-            }
-        }
-
-        function restartGame() {
-            normButton.innerHTML = "RESTART";
-            gameOverElement.setAttribute("style", "opacity: 0%;")
-            gamePausedElement.innerHTML = "";
-            finalScoreElement.innerHTML = "";
-            levelElement.setAttribute("style", "letter-spacing: 0px; background: none; opacity: 100;");
-            scoreBoardElement.setAttribute("style", "opacity:100;");
-            isPaused = false;
-            gameOver = false;
-            trackRowCount = 0;
-            isEz ? isEz = false : isEz;
-            playGame();
-        }
-
-        function runLevel() {
-            if (!downIsPressed && !isPaused) {
-                scoreElement.innerHTML = score;
-                drawEverything();
-                lowerPieceIfNotBlocked(piece.PIECE);
-            }
-        }
-
-        function moveToNextLevel() {
-            console.log(`Moving to level ${level}`);
-            clearInterval(mainInterval);
-            calculateTimer = (mainIntervalDivident / (defaultFps * level));
-            mainIntervalTimer = calculateTimer;
-            displayLevelText();
-            mainInterval = setInterval(runLevel, mainIntervalTimer);
-        }
-
-        function gameOverConditionReached() {
-            console.log("Game over");
-            displayGameOver();
-            displayFinalScore();
-            clearInterval(mainInterval);
-            clearInterval(secondaryInterval);
-            if (gameOverInterval != null && gameOverTextFinished) {
-                console.log("gameover interval not null, gameover text not finished");
-                clearInterval(gameOverInterval);
-            }
-        }
-
-        let mainInterval;
-        let secondaryInterval;
-        let mainIntervalDivident = 1500;
-        function playGame() {
-            if (mainInterval != null) { clearInterval(mainInterval); }
-            if (secondaryInterval != null) { clearInterval(secondaryInterval); }
-            score = 0;
-            level = 1;
-            let currentLevel = level;
-            let calculateTimer = (mainIntervalDivident / (defaultFps * level));
-            let mainIntervalTimer = calculateTimer;
-            let secondaryIntervalTimer = 100;
-            displayLevelText();
-            createBoard();
-            setPiece();
-            //  use secondary interval to detect full rows and change main interval if level changes
-            secondaryInterval = setInterval(function () {
-                if (!isPaused) {
-                    checkFullRowsAndEndCondition();
-                    replaceRowsAndAddToScore(rowsToReplace);
-                    incrementLevelAfter10Clears();
-                    if (currentLevel != level) {
-                        moveToNextLevel();
-                        currentLevel = level;
-                    }
-                }
-                if (gameOver) {
-                    gameOverConditionReached();
-                }
-                downIsPressed = false;
-            }, secondaryIntervalTimer);
-
-            // Main interval to lower pieces
-            mainInterval = setInterval(runLevel, mainIntervalTimer);
-        }
-    //#endregion
-
-    </script>
 </body>
