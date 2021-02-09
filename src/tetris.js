@@ -1,4 +1,5 @@
-    //#region Configuration
+
+//#region Configuration
     const c = document.getElementById("myCanvas");
     const ctx = c.getContext("2d");
     const blockSize = 35;
@@ -106,6 +107,8 @@
         drawBorders();
     }
 
+    // when trackRowCount >= 10, reset & increment level
+    let rowsToReplace = [];
     let mainInterval;
     let secondaryInterval;
     let mainIntervalDivident = 1500;
@@ -125,7 +128,7 @@
         secondaryInterval = setInterval(function () {
             if (!isPaused) {
                 checkFullRowsAndEndCondition();
-                replaceRowsAndAddToScore(rowsToReplace);
+                rowsToReplace = replaceRowsAndAddToScore(rowsToReplace);
                 incrementLevelAfter10Clears();
                 if (currentLevel != level) {
                     moveToNextLevel();

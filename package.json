@@ -1,0 +1,28 @@
+{
+  "name": "tetris",
+  "jest": {
+    "verbose": true
+  },
+  "version": "1.0.0",
+  "description": "Tetris",
+  "main": "Tetris.html",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Petanez/Tetris.git"
+  },
+  "keywords": [
+    "Tetris"
+  ],
+  "author": "Petteri Moilanen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Petanez/Tetris/issues"
+  },
+  "homepage": "https://github.com/Petanez/Tetris#readme"
+}

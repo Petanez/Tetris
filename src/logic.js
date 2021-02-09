@@ -15,22 +15,16 @@ const randomPiece = () => {
 }    
 
 function lowerPieceIfNotBlocked(p) {
-    let isReseted = false;
     if (p.every(square => square.y < board.length - 1)) {
-        for (let i = 0; i < p.length; i++) {
-            p[i].y++;
-        }
+        for (let i = 0; i < p.length; i++) p[i].y++;   
     } else {
         lockPiece(p);
         setPiece();
         return;
-        // isReseted = true;
     }
     // if the new x, y has an occupied square return to previous x, y
     if (p.some(square => board[square.y][square.x].isOccupied)) {
-        for (let i = 0; i < p.length; i++) {
-            p[i].y--;
-        }
+        for (let i = 0; i < p.length; i++) p[i].y--;   
         lockPiece(p);
         setPiece();
     }
@@ -39,35 +33,25 @@ function lowerPieceIfNotBlocked(p) {
 function movePiece(direction, p) {
     if (direction === "left") {
         // check for boards min width
-        if (p.every(square => square.x > 0)) {
-            for (let i = 0; i < p.length; i++) {
-                p[i].x--;
-            }
-        }
+        if (p.every(square => square.x > 0)) 
+            for (let i = 0; i < p.length; i++) p[i].x--;
         if (p.some(square => board[square.y][square.x].isOccupied)) {
             console.log("cant move there");
-            for (let i = 0; i < p.length; i++) {
-                p[i].x++;
-            }
+            for (let i = 0; i < p.length; i++) p[i].x++;        
         }
     }
     if (direction === "right") {
         // check for boards max width
         if (p.every(square => square.x < board[0].length - 1)) {
-            for (let i = 0; i < p.length; i++) {
-                p[i].x++;
-            }
+            for (let i = 0; i < p.length; i++) p[i].x++; 
         }
         if (p.some(square => board[square.y][square.x].isOccupied)) {
             console.log("cant move there");
-            for (let i = 0; i < p.length; i++) {
-                p[i].x--;
-            }
+            for (let i = 0; i < p.length; i++) p[i].x--;         
         }
     }
-    if (direction === "down") {
-        lowerPieceIfNotBlocked(piece.PIECE);
-    }
+    if (direction === "down") lowerPieceIfNotBlocked(piece.PIECE);
+    
 }
 
 // function returns newCoordinates if none of the new coordinates are out of bounds or in a occupied square
@@ -160,23 +144,23 @@ if (trackRowCount >= 10) {
 }
 
 // when trackRowCount >= 10, reset & increment level
-let rowsToReplace = [];
+// let rowsToReplace = [];
 let trackRowCount = 0;
-function replaceRowsAndAddToScore() {
+function replaceRowsAndAddToScore(rows) {
     // if rows to remove is not empty, execute
-    if (rowsToReplace.length > 0) {
-        console.log(`Removing ${rowsToReplace.length} row${rowsToReplace.length > 1 ? "s" : ""}`);
-        addScore(rowsToReplace);
+    if (rows.length > 0) {
+        console.log(`Removing ${rows.length} row${rows.length > 1 ? "s" : ""}`);
+        addScore(rows);
         scoreElement.innerHTML = score;
-        let i = rowsToReplace.length;
+        let i = rows.length;
         while (i >= 0) {
-            board.splice(rowsToReplace[i], 1);
+            board.splice(rows[i], 1);
             addFullRow();
             i--;
         }
-        trackRowCount += rowsToReplace.length;
+        trackRowCount += rows.length;
     }
-    return rowsToReplace = [];
+    return rows = [];
 }
 
 function createBoard() {
@@ -241,3 +225,5 @@ function gameOverConditionReached() {
         clearInterval(gameOverInterval);
     }
 }
+
+module.exports = replaceRowsAndAddToScore
