@@ -7,7 +7,7 @@
     --color-tercery: rgb(255, 73, 73);
     --color-page-background: black;
     --color-canvas-background: white;
-    --color-box-pre:  rgb(255, 213, 60);
+    --color-box-pre:  white;
     --color-box-shadow: rgba(0, 0, 0, 1);
     --color-controls-bg: rgba(255, 255, 255, .5);
     
@@ -18,9 +18,9 @@
     --color-primary: white;
     --color-secondary: black;
     --color-page-background: white;
-    --color-box-pre:  rgb(255, 213, 60);
+    --color-box-pre:  black;
     /* --color-box-shadow:  rgba(255, 255, 255, .8); */
-    --color-box-shadow:  black;
+    --color-box-shadow:  white;
     --color-canvas-background: black;
     --color-controls-bg: rgba(0, 0, 0, .5);
 }
@@ -139,6 +139,7 @@ a {
     background: var(--color-page-background);
     padding-top: 2rem;
     transition: background .3s ease-in, color .6s ease-in-out;
+    transition-delay: .7s;
 }
 
 .game-container {
@@ -214,7 +215,8 @@ a {
     background: var(--color-primary);
     color: var(--color-secondary);
 
-    top: 50rem;
+    top: 10rem;
+    right: 20%;
     width: 5rem;
     height: 5rem;
 
@@ -249,14 +251,10 @@ a {
 
 .cover {
     position: absolute;
-    z-index: -5;
+    z-index: 1000;
     border-radius: 10rem;
     background: var(--color-box-pre);
-}
-
-.theme-switch-icon:hover ~ .cover {
     animation: theme-switch-cover 1s ease-in forwards;
-    /* background: linear-gradient(var(--color-box-shadow), transparent 50%); */
 }
 
 @keyframes theme-switch-cover {
@@ -288,12 +286,19 @@ a {
         height: 50vh;
         background: var(--color-box-shadow);
     }
-    100% {
+    80% {
         top: -50vh;
         left: -50vw;
         width: 150vw;
         height: 150vh;
         background: var(--color-box-shadow);
+    }
+    100% {
+        top: 20vh;
+        left: 100vw;
+        width: 0vw;
+        height: 0vh;
+        background: var(--color-box-pre);
     }
 }
 /* @keyframes theme-switch-cover {

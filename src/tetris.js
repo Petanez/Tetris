@@ -54,6 +54,14 @@
             squareColor2 = "white";
             borderColor = "white";
         }
+        let el = document.createElement("div")
+        el.classList = "cover"
+        el.style.cssText = "position: absolute;"
+        document.querySelector(".page-container").appendChild(el)
+        setTimeout(() => {
+            el.remove()
+            console.log("removing")
+        }, 1000)
         drawEverything();
     }
     // const squareColor1 = "black";

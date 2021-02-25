@@ -4,10 +4,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <script defer src="logic.js"></script>
     <script defer src="Square.js"></script>
     <script defer src="Pieces.js"></script>
     <script defer src="graphics.js"></script>
-    <script defer src="logic.js"></script>
     <script defer src="tetris.js"></script>
     <script defer src="listeners.js"></script>
 </head>
@@ -50,6 +50,7 @@
                     </em>
                 </h4>
             </h1>
+
             <div class="score-board" id="scoreboard" style="opacity: 0;">
                 <h2>
                     SCORE:
@@ -57,10 +58,13 @@
                 <h2 id="score">
                 </h2>
             </div>
+
             <a href="#" id="themeSwitch">
-                <div class="theme-switch-icon">polarize</div>     
-                <div class="cover"></div>        
+                <div class="theme-switch-icon" id="themeSwitch">
+                    polarize
+                </div>     
             </a>
+
             <a id="toggleControls" data-clicked="false">
                 <h2>
                     Controls 
@@ -69,6 +73,7 @@
                     </div>
                 </h2>
             </a>
+
             <ul class="game-info__controls" id="perkele">
                 <li>
                     To <b>START</b> press the <b>START GAME</b> button
@@ -94,6 +99,7 @@
                     </ul>
                 </li>
             </ul>
+
             <div>
                 <button id="normButton" onkeypress="event.preventDefault()"</button>START GAME</button>
             </div>

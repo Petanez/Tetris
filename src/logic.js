@@ -225,5 +225,3 @@ function gameOverConditionReached() {
         clearInterval(gameOverInterval);
     }
 }
-
-module.exports = replaceRowsAndAddToScore
