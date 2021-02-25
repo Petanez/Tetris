@@ -7,7 +7,8 @@
     --color-tercery: rgb(255, 73, 73);
     --color-page-background: black;
     --color-canvas-background: white;
-    --color-box-shadow: rgba(0, 0, 0, .5);
+    --color-box-pre:  rgb(255, 213, 60);
+    --color-box-shadow: rgba(0, 0, 0, 1);
     --color-controls-bg: rgba(255, 255, 255, .5);
     
     --button-font-size: 4rem;
@@ -17,7 +18,9 @@
     --color-primary: white;
     --color-secondary: black;
     --color-page-background: white;
-    --color-box-shadow:  rgba(255, 255, 255, .5);
+    --color-box-pre:  rgb(255, 213, 60);
+    /* --color-box-shadow:  rgba(255, 255, 255, .8); */
+    --color-box-shadow:  black;
     --color-canvas-background: black;
     --color-controls-bg: rgba(0, 0, 0, .5);
 }
@@ -248,30 +251,90 @@ a {
     position: absolute;
     z-index: -5;
     border-radius: 10rem;
-    background: var(--color-box-shadow);
+    background: var(--color-box-pre);
 }
 
 .theme-switch-icon:hover ~ .cover {
-    animation: theme-switch-cover .8s ease-out forwards;
+    animation: theme-switch-cover 1s ease-in forwards;
     /* background: linear-gradient(var(--color-box-shadow), transparent 50%); */
 }
 
 @keyframes theme-switch-cover {
     0% {
-        /* top: 19vh; */
-        /* left: 3vw; */
-        top: -50vh;
-        left: -50vw;
-        width: 0vh;
+        top: 20vh;
+        left: 100vw;
+        width: 0vw;
         height: 0vh;
+        background: var(--color-box-pre);
+    }
+    15% {
+        top: 20vh;
+        left: -30vw;
+        width: 10vw;
+        height: 2vh;
+        background: var(--color-box-pre);
+    }
+    30% {
+        top: 20vh;
+        left: -30vw;
+        width: 40vw;
+        height: 8vh;
+        background: var(--color-box-shadow);
+    }
+    65% {
+        top: 0vh;
+        left: -30vw;
+        width: 150vw;
+        height: 50vh;
+        background: var(--color-box-shadow);
     }
     100% {
         top: -50vh;
         left: -50vw;
         width: 150vw;
         height: 150vh;
+        background: var(--color-box-shadow);
     }
 }
+/* @keyframes theme-switch-cover {
+    0% {
+        top: 19vh;
+        left: 3vw;
+        top: 20vh;
+        left: 100vw;
+        width: 0vw;
+        height: 0vh;
+        background: var(--color-box-pre);
+    }
+    15% {
+        top: 20vh;
+        left: -30vw;
+        width: 150vw;
+        height: 2vh;
+        background: var(--color-box-pre);
+    }
+    30% {
+        top: 20vh;
+        left: -30vw;
+        width: 150vw;
+        height: 8vh;
+        background: var(--color-box-shadow);
+    }
+    65% {
+        top: -30vh;
+        left: -30vw;
+        width: 150vw;
+        height: 50vh;
+        background: var(--color-box-shadow);
+    }
+    100% {
+        top: -50vh;
+        left: -50vw;
+        width: 150vw;
+        height: 150vh;
+        background: var(--color-box-shadow);
+    }
+} */
 
 .signature {
     opacity: 50%;
