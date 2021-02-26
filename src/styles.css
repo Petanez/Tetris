@@ -214,9 +214,8 @@ a {
     content: " ";
     background: var(--color-primary);
     color: var(--color-secondary);
-
-    top: 10rem;
-    right: 20%;
+    right: -25vw;
+    top: -12vh;
     width: 5rem;
     height: 5rem;
 
