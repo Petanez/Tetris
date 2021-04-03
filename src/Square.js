@@ -1,17 +1,17 @@
 class Square {
-    constructor(x, y, isOccupied = false) {
-        this.x = x;
-        this.y = y;
-        this.isOccupied = isOccupied;
-    }
+  constructor(x, y, isOccupied = false) {
+    this.x = x;
+    this.y = y;
+    this.isOccupied = isOccupied;
+  }
 
-    isOccupied;
+  isOccupied;
 
-    set isOccupied(value) {
-        this.isOccupied = value;
-    }
+  set isOccupied(value) {
+    this.isOccupied = value;
+  }
 
-    get isOccupied() {
-        return this.isOccupied;
-    }
+  get isOccupied() {
+    return this.isOccupied;
+  }
 }

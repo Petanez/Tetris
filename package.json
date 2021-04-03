@@ -5,7 +5,7 @@
   },
   "version": "1.0.0",
   "description": "Tetris",
-  "main": "Tetris.html",
+  "main": "index.html",
   "directories": {
     "test": "test"
   },

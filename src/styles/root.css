@@ -1,0 +1,93 @@
+:root {
+  font-size: 1vh;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  --body-effect-delay: 0.7s;
+
+  --color-primary: black;
+  --color-secondary: white;
+  --color-tercery: rgb(255, 73, 73);
+  --color-page-background: linear-gradient(90deg,white 0%, black 70%, black 100%);
+  --color-canvas-background: white;
+  --color-box-pre:  white;
+  --bg-position: left;
+  --color-box-shadow: rgba(0, 0, 0, 1);
+  --color-controls-bg: rgba(255, 255, 255, .5);
+  
+  --button-font-size: 4rem;
+}
+
+.polarized {
+  --color-primary: white;
+  --color-secondary: black;
+  --bg-position: right;
+  /* --color-page-background: white; */
+  --color-box-pre:  black;
+  /* --color-box-shadow:  rgba(255, 255, 255, .8); */
+  --color-box-shadow:  white;
+  --color-canvas-background: black;
+  --color-controls-bg: rgba(0, 0, 0, .5);
+}
+
+* {
+  user-select: none;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+button {
+  opacity: 90%;
+  border-radius: 1rem;
+  border-width: .2rem;
+  background: linear-gradient(4deg, var(--color-primary) 5%, var(--color-secondary) 90%);
+  border-color: var(--color-secondary);
+  
+  font-weight: 600;
+  font-size: var(--button-font-size);
+  font-family: inherit;
+  color: var(--color-primary);
+  text-shadow: -1px -2px 2px var(--color-secondary);
+  letter-spacing: .2rem;
+
+  cursor: pointer;
+  width: 100%;
+}
+
+button:focus  {
+  outline: none;
+}
+
+h1 {
+  margin: 0;
+  margin-block-end: 0;
+  margin-block-start: 0;
+  letter-spacing: .5rem;
+  /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
+  font-family: inherit;
+  text-shadow: -1rem 0 1.5rem var(--color-primary);
+  font-size: 5rem;
+  background: linear-gradient(359deg, var(--color-primary) 10%, var(--color-secondary) 90%);
+}
+
+h2 {
+  margin: 0;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+li {
+  opacity: 90%;
+  text-shadow: -1px 0px 7px var(--color-primary);
+}
+
+a {
+  position: relative;
+  top: 0;
+  z-index: 10;
+}
