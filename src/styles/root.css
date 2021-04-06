@@ -1,5 +1,5 @@
 :root {
-  font-size: 1vh;
+  font-size: calc(1vh);
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   --body-effect-delay: 0.7s;
 
@@ -30,16 +30,6 @@
 
 * {
   user-select: none;
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  height: 100%;
-  overflow: hidden;
 }
 
 button {
