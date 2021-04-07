@@ -4,14 +4,14 @@
   <title>Tetris</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
-  <link rel="stylesheet" type="text/css" href="src/styles/styles.css">
-  <link rel="stylesheet" type="text/css" href="src/styles/root.css">
-  <script defer src="src/logic.js"></script>
-  <script defer src="src/Square.js"></script>
-  <script defer src="src/Pieces.js"></script>
-  <script defer src="src/tetris.js"></script>
-  <script defer src="src/listeners.js"></script>
-  <script defer src="src/graphics.js"></script>
+  <link rel="stylesheet" type="text/css" href="./src/styles/styles.css">
+  <link rel="stylesheet" type="text/css" href="./src/styles/root.css">
+  <script defer src="./src/logic.js"></script>
+  <script defer src="./src/Square.js"></script>
+  <script defer src="./src/Pieces.js"></script>
+  <script defer src="./src/tetris.js"></script>
+  <script defer src="./src/listeners.js"></script>
+  <script defer src="./src/graphics.js"></script>
 </head>
 
 <body>
@@ -20,7 +20,9 @@
 
     <div class="game-container">
 
-      <canvas id="myCanvas"></canvas>
+      <div class="canvas-wrapper">
+        <canvas id="myCanvas"></canvas>
+      </div>
 
       <div class="state-info">
         <div class="state-info__level">
@@ -83,7 +85,7 @@
         </h2>
       </a>
 
-      <ul class="game-info__controls" id="perkele">
+      <ul class="game-info__controls">
         <li>
           To <b>START</b> press the <b>START GAME</b> button
         </li>
@@ -92,7 +94,7 @@
         </li>
         <li>
           To move the piece <b>PRESS</b> arrow:
-          <ul style="margin-left: 20%;">
+          <ul style="margin-left: 20%; padding-inline-start: 0;">
             <li>
               <b>DOWN</b> - Move piece down
             </li>

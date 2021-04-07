@@ -1,6 +1,15 @@
+body {
+  overflow-y: hidden;
+}
+
+.canvas-wrapper {
+  height: 100%;
+}
+
 #myCanvas {
-  /* min-height: calc(90vh); */
-  /* max-height: calc(90vh); */
+  /* min-height: 100%; */
+  /* max-height: 100%; */
+  height: 100%;
   z-index: 1;
   background: var(--color-canvas-background);
 }
@@ -18,13 +27,9 @@
   margin-top: -15rem;
 }
 
-#normButton {
-  position: relative;
-  margin-top: -7rem;
-}
-
 #score {
   padding-right: 10rem;
+  /* padding-right: auto; */
 }
 
 #finalScore {
@@ -42,6 +47,7 @@
 
 .page-container {
   display: flex;
+  justify-content: center;
   height: 100%;
   width: 100%;
   position: relative;
@@ -52,29 +58,32 @@
   /* transition-delay: var(--body-effect-delay); */
 }
 
-.left-side {
+/* .left-side {
   flex-grow: 1;
-}
+} */
 
-.game-container {
-  /* height: 95%; */
-  /* width: 39%; */
-  width: 41rem;
-}
+
+
+/* ////////////////////////////////////////////////////////////////////////////// */
+/* ///////////////         GAME INFO           //////////////////////////////        */
 
 .game-info {
   font-size: 2rem;
-  /* width: 50rem; */
+  width: 80rem;
   height: fit-content;
-  flex-grow: 1;
-  background: linear-gradient(199deg, var(--color-primary) 20%, var(--color-secondary) 70%, var(--color-primary) 90%);
+  /* flex-grow: 1; */
+  /* background: linear-gradient(199deg, var(--color-primary) 20%, var(--color-secondary) 70%, var(--color-primary) 90%); */
+  background-color: transparent;
 }
 
 .game-info__controls {
   /* height: 0; */
+  box-sizing: border-box;
+  padding: 5rem;
   overflow: hidden;
   background: var(--color-controls-bg);
-  border-bottom-right-radius: 10rem;
+  /* background-color: white; */
+  border-top-right-radius: 10rem;
 }
 
 .hide-controls__arrow {
@@ -107,17 +116,13 @@
   color: var(--color-secondary);
 }
 
-.game-info > ul {
+.game-info ul {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   color: var(--color-primary);
   width: 100%;
   margin: 0;
-  padding-left: 2em;
   list-style-type: none;
-  padding-top: 30px;
-  padding-bottom: 30px;
-
-  margin-bottom: 150px;
+  /* padding-inline-start: 0; */
 }
 
 .game-info ul {
@@ -129,8 +134,8 @@
   content: " ";
   background: var(--color-primary);
   color: var(--color-secondary);
-  top: 240px;
-  left: 30px;
+  top: 20rem;
+  left: 2rem;
   width: 5rem;
   height: 5rem;
   box-shadow: 1rem 0 .1rem 2rem var(--color-primary);
@@ -138,7 +143,7 @@
   font-family: fantasy;
   font-size: 3rem;
   text-align: center;
-  text-shadow: 0 0 10px var(--color-primary);
+  text-shadow: 0 0 1rem var(--color-primary);
   
   border: 2rem solid var(--color-secondary);
   border-top: none;
@@ -166,7 +171,7 @@
   font-family: serif;
   color: var(--color-primary);
   font-size: 2rem;
-  text-shadow: 2px -2px 1px var(--color-secondary);
+  text-shadow: 0.2rem -0.2rem 0.1rem var(--color-secondary);
 }
 
 .score-board {
@@ -187,8 +192,8 @@
 
 .state-info {
   position: absolute;
-  overflow: hidden;
-  width: inherit;
+  /* overflow: hidden; */
+  width: 100%;
   top: 2rem;
 }
 
