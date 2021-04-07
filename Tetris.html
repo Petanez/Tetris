@@ -4,21 +4,21 @@
   <title>Tetris</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
-  <link rel="stylesheet" type="text/css" href="./src/styles/styles.css">
-  <link rel="stylesheet" type="text/css" href="./src/styles/root.css">
-  <script defer src="./src/logic.js"></script>
-  <script defer src="./src/Square.js"></script>
-  <script defer src="./src/Pieces.js"></script>
-  <script defer src="./src/tetris.js"></script>
-  <script defer src="./src/listeners.js"></script>
-  <script defer src="./src/graphics.js"></script>
+  <link rel="stylesheet" type="text/css" href="./src/css/styles.css">
+  <link rel="stylesheet" type="text/css" href="./src/css/root.css">
+  <script defer src="./src/js/logic.js"></script>
+  <script defer src="./src/js/Square.js"></script>
+  <script defer src="./src/js/Pieces.js"></script>
+  <script defer src="./src/js/tetris.js"></script>
+  <script defer src="./src/js/listeners.js"></script>
+  <script defer src="./src/js/graphics.js"></script>
 </head>
 
 <body>
   <div class="page-container">
     <div class="left-side"></div>
 
-    <div class="game-container">
+    <div class="tetris-container">
 
       <div class="canvas-wrapper">
         <canvas id="myCanvas"></canvas>
@@ -49,6 +49,7 @@
         </div>
       </div>
 
+
     </div>
 
     <div class="game-info">
@@ -76,14 +77,14 @@
         </div>
       </a>
 
-      <a id="toggleControls" data-clicked="false">
+      <!-- <a id="toggleControls" data-clicked="false">
         <h2>
           Controls
           <div class="hide-controls__arrow">
             &uarr;
           </div>
         </h2>
-      </a>
+      </a> -->
 
       <ul class="game-info__controls">
         <li>

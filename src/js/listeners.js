@@ -35,19 +35,19 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
-hideControls.onclick = () => {
-  let isClicked = hideControls.getAttribute("data-clicked") == "true"
-  console.log(isClicked)
-  if (isClicked) {
-    gameControls.classList.add("hidden")
-    hideControlsArrow.classList.add("upside-down")
+// hideControls.onclick = () => {
+//   let isClicked = hideControls.getAttribute("data-clicked") == "true"
+//   console.log(isClicked)
+//   if (isClicked) {
+//     gameControls.classList.add("hidden")
+//     hideControlsArrow.classList.add("upside-down")
 
-  } else {
-    gameControls.classList.remove("hidden")
-    hideControlsArrow.classList.remove("upside-down")
-  }
-  hideControls.dataset.clicked = !isClicked
-}
+//   } else {
+//     gameControls.classList.remove("hidden")
+//     hideControlsArrow.classList.remove("upside-down")
+//   }
+//   hideControls.dataset.clicked = !isClicked
+// }
 
 
 themeSwitch.onclick = () => {
