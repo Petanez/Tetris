@@ -9,6 +9,11 @@ body {
   width: auto;
   z-index: 1;
   background: var(--color-canvas-background);
+  background-color: transparent;
+}
+
+.canvas-wrapper {
+  /* max-width: 100%; */
 }
 
 #lvl {
@@ -26,6 +31,7 @@ body {
 
 #score {
   padding-right: 10rem;
+
   /* padding-right: auto; */
 }
 
@@ -44,7 +50,9 @@ body {
 
 .page-container {
   display: flex;
+  box-sizing: border-box;
   justify-content: center;
+  padding: var(--padding-top-and-bottom) 0;
   height: 100%;
   width: 100%;
   position: relative;
@@ -69,8 +77,10 @@ body {
 /* ///////////////         GAME INFO           //////////////////////////////        */
 
 .game-info {
+  display: block;
   font-size: 2rem;
   width: 60rem;
+
   height: fit-content;
   /* flex-grow: 1; */
   /* background: linear-gradient(199deg, var(--color-primary) 20%, var(--color-secondary) 70%, var(--color-primary) 90%); */
@@ -131,14 +141,15 @@ body {
 }
 
 .theme-switch-icon {
-  position: absolute;
+  position: relative;
   content: " ";
   background: var(--color-primary);
   color: var(--color-secondary);
-  top: 5rem;
-  left: 47rem;
-  width: 5rem;
-  height: 5rem;
+  top: 10rem;
+  float: right;
+  left: -4rem;
+  width: 4.5rem;
+  height: 4.5rem;
   box-shadow: 1rem 0 .1rem 2rem var(--color-primary);
   
   font-family: fantasy;
@@ -151,12 +162,12 @@ body {
   border-right: none;
   border-radius: 999999px;
   
-  transition: transform .2s ease-in-out, background .5s, box-shadow .5s ease;
+  transition: transform .2s ease-in-out, background .7s, box-shadow .5s ease;
 }
 
 .theme-switch-icon:hover {
-  transform: scale(1.1) translateX(1rem);
-  color: var(--color-primary);
+  transform: scale(1.1) translate(.5rem, -.5rem);
+  /* color: var(--color-primary); */
   box-shadow: 1rem 0 2rem 3rem var(--color-box-shadow);
   border-color: var(--color-primary);
   background: var(--color-secondary);
@@ -195,9 +206,11 @@ body {
 .state-info {
   position: absolute;
   /* overflow: hidden; */
-  width: calc(37.5vh + 0.3rem);
-  height: 100%;
-  top: 0;
+  /* width: calc(37.5vh + 0.3rem); */
+  /* width: calc(37.5vh + 0.3rem); */
+  width: 35.2vh;
+  height: calc(100% - (2 * var(--padding-top-and-bottom)));
+  top: var(--padding-top-and-bottom);
 }
 
 .state-info__level {
@@ -220,5 +233,45 @@ body {
   background: none;
   font-size: 12rem;
   color: white;
+}
+
+.mobile-controls-wrapper {
+  display: none;
+}
+
+.mobile-controls {
+  position: inherit;
+  height: 14rem;
+  width: 21rem;
+}
+
+.mobile-controls > div{
+  box-sizing: border-box;
+  position: absolute;
+  background: ghostwhite;
+  text-align: center;
+  font-size: 5rem;
+  height: 7rem;
+  width: 7rem;
+  border: 0.2rem solid black;
+  border-radius: 1rem;
+}
+
+.js-arrow-up {
+  left: 7rem;
+}
+
+.js-arrow-left {
+  top: 7rem;
+}
+
+.js-arrow-right {
+  top: 7rem;
+  right: 0;
+}
+
+.js-arrow-down {
+  left: 7rem;
+  bottom: 0;
 }
 
