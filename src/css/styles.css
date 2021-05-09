@@ -63,6 +63,11 @@ body {
   /* transition-delay: var(--body-effect-delay); */
 }
 
+.tetris-container {
+  position: relative;
+  top: 0;
+}
+
 /* .left-side {
   flex-grow: 1;
 }
@@ -205,12 +210,12 @@ body {
 
 .state-info {
   position: absolute;
+  top: 0;
   /* overflow: hidden; */
   /* width: calc(37.5vh + 0.3rem); */
   /* width: calc(37.5vh + 0.3rem); */
-  width: 35.2vh;
+  /* width: 35.2vh; */
   height: calc(100% - (2 * var(--padding-top-and-bottom)));
-  top: var(--padding-top-and-bottom);
 }
 
 .state-info__level {
@@ -226,6 +231,8 @@ body {
 }
 
 .game-over-text {
+  position: relative;
+  z-index: 10000;
   opacity: 0;
   width: inherit;
   text-align: center;

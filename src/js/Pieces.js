@@ -4,7 +4,7 @@ class lPiece {
     new Square(4, 1, true),
     new Square(4, 2, true),
     new Square(5, 2, true)
-  ];
+  ]
 }
 
 class lPieceIsomer {
@@ -13,7 +13,7 @@ class lPieceIsomer {
     new Square(4, 1, true),
     new Square(4, 2, true),
     new Square(3, 2, true)
-  ];
+  ]
 }
 
 class sPiece {
@@ -22,7 +22,7 @@ class sPiece {
     new Square(4, 1, true),
     new Square(5, 1, true),
     new Square(5, 2, true)
-  ];
+  ]
 }
 
 class sPieceIsomer {
@@ -31,7 +31,7 @@ class sPieceIsomer {
     new Square(5, 1, true),
     new Square(4, 1, true),
     new Square(4, 2, true)
-  ];
+  ]
 }
 
 class iPiece {
@@ -40,7 +40,7 @@ class iPiece {
     new Square(4, 1, true),
     new Square(4, 2, true),
     new Square(4, 3, true)
-  ];
+  ]
 }
 
 class tPiece {
@@ -49,7 +49,7 @@ class tPiece {
     new Square(4, 0, true),
     new Square(5, 0, true),
     new Square(4, 1, true)
-  ];
+  ]
 }
 
 class oPiece {
@@ -58,5 +58,5 @@ class oPiece {
     new Square(5, 0, true),
     new Square(4, 1, true),
     new Square(5, 1, true)
-  ];
+  ]
 }
