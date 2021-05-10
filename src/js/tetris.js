@@ -1,3 +1,5 @@
+const gameInfo = document.querySelector(".game-info")
+
 let level
 let board
 let piece

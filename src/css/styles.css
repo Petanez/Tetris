@@ -5,15 +5,21 @@ body {
 #myCanvas {
   /* min-height: 100%; */
   /* max-height: 100%; */
-  height: 100%;
-  width: auto;
+  /* height: 100%; */
+  overflow: visible;
+  height: 98vh;
   z-index: 1;
   background: var(--color-canvas-background);
-  background-color: transparent;
-}
+  background: linear-gradient(97deg, transparent 75%, var(--color-primary) 100%),
+    linear-gradient(-170deg, transparent 85%, var(--color-primary) 100%);
+  background-repeat: no-repeat, no-repeat;
 
-.canvas-wrapper {
-  /* max-width: 100%; */
+  box-shadow: 0 150px 10em 1em inset var(--color-secondary);
+  border: 7px none var(--color-secondary);
+
+  border-radius: 2rem;
+  border-top-right-radius: 10%;
+  border-top-left-radius: 20%;
 }
 
 #lvl {
@@ -51,13 +57,16 @@ body {
 .page-container {
   display: flex;
   box-sizing: border-box;
+  overflow-x: hidden;
   justify-content: center;
+  position: relative;
   padding: var(--padding-top-and-bottom) 0;
   height: 100%;
   width: 100%;
   position: relative;
-  background: var(--color-page-background);
-  background-size: 200%;
+  background: linear-gradient(10deg, black 0%, transparent 50%), var(--color-page-background);
+  background-repeat: no-repeat, no-repeat;
+  background-size: 200%, 200%;
   background-position-x: var(--bg-position);
   transition: background-position-x .2s ease-in-out, color 1s ease-in-out;
   /* transition-delay: var(--body-effect-delay); */
@@ -65,6 +74,7 @@ body {
 
 .tetris-container {
   position: relative;
+  overflow: hidden;
   top: 0;
 }
 
@@ -83,6 +93,10 @@ body {
 
 .game-info {
   display: block;
+  position: relative;
+  left: 0;
+  top: 50%;
+  transform: translateY(-65%);
   font-size: 2rem;
   width: 60rem;
 
@@ -214,8 +228,7 @@ body {
   /* overflow: hidden; */
   /* width: calc(37.5vh + 0.3rem); */
   /* width: calc(37.5vh + 0.3rem); */
-  /* width: 35.2vh; */
-  height: calc(100% - (2 * var(--padding-top-and-bottom)));
+  /* height: calc(100% - (2 * var(--padding-top-and-bottom))); */
 }
 
 .state-info__level {

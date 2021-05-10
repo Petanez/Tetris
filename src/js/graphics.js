@@ -37,19 +37,19 @@ function drawBorders() {
 }
 
 function drawSquare(x, y) {
-  let sLineWidth = 1
+  let sLineWidth = .2
   ctx.beginPath()
   ctx.lineWidth = sLineWidth
   ctx.strokeStyle = "black"
   //  draw square lines
-  // ctx.strokeRect(borderLineWidth + sLineWidth + blockSize * x, borderLineWidth + sLineWidth + blockSize * y, blockSize - sLineWidth * 2, blockSize - sLineWidth * 2)
   //  Linear gradience
   let sq = ctx.createLinearGradient(borderLineWidth + blockSize * x, borderLineWidth + blockSize * y, blockSize * x + blockSize, blockSize * y + blockSize)
-  sq.addColorStop(0, squareColor1)
+  sq.addColorStop(0, squareColor2)
   // sq.addColorStop(1, "#E7DDDB")
-  sq.addColorStop(0.8, squareColor2)
+  sq.addColorStop(1, squareColor1)
   ctx.fillStyle = sq
   ctx.fillRect(borderLineWidth + blockSize * x, borderLineWidth + blockSize * y, blockSize, blockSize)
+  ctx.strokeRect(borderLineWidth + sLineWidth + blockSize * x, borderLineWidth + sLineWidth + blockSize * y, blockSize - sLineWidth * 2, blockSize - sLineWidth * 2)
   ctx.stroke()
 }
 

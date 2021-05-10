@@ -4,9 +4,11 @@
   --body-effect-delay: 0.7s;
 
   --color-primary: black;
+  --color-primary: rgba(0, 0, 0, 0.9);
   --color-secondary: white;
   --color-tercery: rgb(255, 73, 73);
   --color-page-background: linear-gradient(90deg,white 0%, black 70%, black 100%);
+  --color-page-background: linear-gradient(70deg, black 5%, white 25%, white 50%, black 70%);
   --color-canvas-background: white;
   --color-box-pre:  white;
   --bg-position: left;
@@ -18,6 +20,7 @@
 
 .polarized {
   --color-primary: white;
+  --color-primary: rgba(255, 255, 255, 0.3);
   --color-secondary: black;
   --bg-position: right;
   /* --color-page-background: white; */

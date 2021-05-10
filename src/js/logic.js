@@ -9,7 +9,7 @@ const lockPiece = (p) => {
 }
 
 const randomPiece = () => {
-  let randomNum = Math.floor(Math.random() * 7)
+  const randomNum = Math.floor(Math.random() * 7)
   return randomNum === 0 ? new lPiece() : randomNum === 1 ? new oPiece() : randomNum === 2 ? new tPiece() :
     randomNum === 3 ? new lPieceIsomer() : randomNum === 4 ? new sPiece() : randomNum === 5 ? new sPieceIsomer() : new iPiece()
 }
@@ -64,7 +64,7 @@ function movePiece(direction, p) {
 // function returns newCoordinates if none of the new coordinates are out of bounds or in a occupied square
 function rotatePiece(p) {
   if (p.constructor.name === "oPiece") return
-  let newCoordinates = calculateRotation(p)
+  const newCoordinates = calculateRotation(p)
   if (spaceIsOccupied(newCoordinates)) {
     console.log("can't rotate piece")
     return
@@ -78,7 +78,7 @@ function rotatePiece(p) {
 }
 
 function calculateRotation(p) {
-  let anchor = {
+  const anchor = {
     x: p.PIECE[1].x,
     y: p.PIECE[1].y,
   }
@@ -131,7 +131,7 @@ function checkFullRowsAndEndCondition() {
 }
 
 function addFullRow() {
-  let row = Array.from({ length: 10 }, (_, i) => new Square(i, 0))
+  const row = Array.from({ length: 10 }, (_, i) => new Square(i, 0))
   return board.unshift(row)
 }
 
