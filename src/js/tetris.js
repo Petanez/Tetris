@@ -1,5 +1,3 @@
-const gameInfo = document.querySelector(".game-info")
-
 let level
 let board
 let piece
@@ -8,6 +6,8 @@ let downIsPressed = false
 let isEz = false
 let gameOver = false
 let score = 0
+const scoreElement = document.getElementById("score")
+scoreElement.innerHTML = score
 
 let mainInterval
 let secondaryInterval

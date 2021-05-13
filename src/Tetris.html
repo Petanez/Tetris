@@ -4,21 +4,27 @@
   <title>Tetris</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
-  <link rel="stylesheet" type="text/css" href="./css/root.css">
-  <link rel="stylesheet" type="text/css" href="./css/styles.css">
-  <link rel="stylesheet" type="text/css" href="./css/responsive.css">
-  <script defer src="./js/logic.js"></script>
-  <script defer src="./js/Square.js"></script>
-  <script defer src="./js/Pieces.js"></script>
-  <script defer src="./js/graphics.js"></script>
-  <script defer src="./js/listeners.js"></script>
-  <script defer src="./js/tetris.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/root.css">
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
+  <link rel="stylesheet" type="text/css" href="css/responsive.css">
+  <script defer src="js/logic.js"></script>
+  <script defer src="js/Square.js"></script>
+  <script defer src="js/Pieces.js"></script>
+  <script defer src="js/graphics.js"></script>
+  <script defer src="js/listeners.js"></script>
+  <script defer src="js/tetris.js"></script>
 </head>
 
 <body>
   <div class="page-container">
-    <div class="left-side"></div>
+    <!-- <div class="left-side"></div> -->
 
+    <a href="#" id="themeSwitch">
+      <div class="theme-switch-icon">
+        polarize
+      </div>
+    </a>
+    
     <div class="tetris-container">
 
       <canvas id="myCanvas"></canvas>
@@ -31,15 +37,15 @@
                       -->
           </h1>
         </div>
+        <h2 id="gamePaused">
+          <!--
+                        Game paused here
+                    -->
+        </h2>
         <div class="state-info__game-over">
           <h1 id="gOvr" class="game-over-text">
             GAME OVER
           </h1>
-          <h2 id="gamePaused">
-            <!--
-                          Game paused here
-                      -->
-          </h2>
           <h2 id="finalScore">
             <!--
                           Update final score here
@@ -47,12 +53,10 @@
           </h2>
         </div>
       </div>
-
-
     </div>
 
     <div class="game-info">
-      <h1>
+      <h1 class="game-info__header">
         TETRIS
         <h4 class="signature">
           By
@@ -62,20 +66,13 @@
         </h4>
       </h1>
 
-      <div class="score-board" id="scoreboard" style="opacity: 0;">
+      <div class="scoreboard">
         <h2>
           SCORE:
         </h2>
         <h2 id="score">
         </h2>
       </div>
-
-      <a href="#" id="themeSwitch">
-        <div class="theme-switch-icon" id="themeSwitch">
-          polarize
-        </div>
-      </a>
-
       <!-- <a id="toggleControls" data-clicked="false">
         <h2>
           Controls
@@ -115,6 +112,7 @@
         <button id="normButton" onkeypress="event.preventDefault()" </button>START GAME</button>
       </div>
     </div>
+
     <div class="mobile-controls-wrapper">
       <div class="mobile-controls">
         <div class="js-arrow-up">&#x2B06</div>
@@ -123,6 +121,6 @@
         <div class="js-arrow-left">&#x2B05</div>
       </div>
     </div>
-    <div class="right-side"></div>
+    <!-- <div class="right-side"></div> -->
   </div>
 </body>

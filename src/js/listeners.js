@@ -63,11 +63,13 @@ themeSwitch.onclick = () => {
     squareColor1 = "white"
     squareColor2 = "black"
     borderColor = "black"
+    squareBorderColor = "black"
   } else {
     document.body.classList.add("polarized")
     squareColor1 = "black"
     squareColor2 = "white"
     borderColor = "white"
+    squareBorderColor = "ghostwhite"
   }
   let el = document.createElement("div")
   el.classList = "cover"

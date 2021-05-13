@@ -12,11 +12,10 @@ const levelElement = document.getElementById("lvl")
 const finalScoreElement = document.getElementById("finalScore")
 const gameOverElement = document.getElementById("gOvr")
 const gamePausedElement = document.getElementById("gamePaused")
-const scoreElement = document.getElementById("score")
-scoreElement.innerHTML = score
 
 let isPolarized = document.body.classList.contains("polarized")
 let borderColor = "black"
+let squareBorderColor = "ghostwhite"
 let squareColor1 = "white"
 let squareColor2 = "black"
 
@@ -37,14 +36,14 @@ function drawBorders() {
 }
 
 function drawSquare(x, y) {
-  let sLineWidth = .2
+  let sLineWidth = .5
   ctx.beginPath()
   ctx.lineWidth = sLineWidth
-  ctx.strokeStyle = "black"
+  ctx.strokeStyle = squareBorderColor
   //  draw square lines
   //  Linear gradience
   let sq = ctx.createLinearGradient(borderLineWidth + blockSize * x, borderLineWidth + blockSize * y, blockSize * x + blockSize, blockSize * y + blockSize)
-  sq.addColorStop(0, squareColor2)
+  sq.addColorStop(0.4, squareColor2)
   // sq.addColorStop(1, "#E7DDDB")
   sq.addColorStop(1, squareColor1)
   ctx.fillStyle = sq

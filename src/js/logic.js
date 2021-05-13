@@ -184,7 +184,7 @@ function restartGame() {
   gamePausedElement.innerText = ""
   finalScoreElement.innerText = ""
   levelElement.setAttribute("style", "letter-spacing: 0px background: none opacity: 100")
-  scoreBoardElement.setAttribute("style", "opacity:100")
+  // scoreBoardElement.setAttribute("style", "opacity:1")
   isPaused = false
   gameOver = false
   trackRowCount = 0

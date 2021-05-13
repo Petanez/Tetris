@@ -1,34 +1,37 @@
 :root {
-  font-size: calc(1vh);
+  font-size: 16px;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   --body-effect-delay: 0.7s;
-
-  --color-primary: black;
-  --color-primary: rgba(0, 0, 0, 0.9);
-  --color-secondary: white;
-  --color-tercery: rgb(255, 73, 73);
-  --color-page-background: linear-gradient(90deg,white 0%, black 70%, black 100%);
-  --color-page-background: linear-gradient(70deg, black 5%, white 25%, white 50%, black 70%);
-  --color-canvas-background: white;
-  --color-box-pre:  white;
-  --bg-position: left;
-  --color-box-shadow: rgba(0, 0, 0, 1);
-  --color-controls-bg: rgba(255, 255, 255, .5);
+  --clr-ff-brightwhite: black;
   
-  --button-font-size: 4rem;
+  --clr-primary: black;
+  --clr-primary: rgba(0, 0, 0, 0.9);
+  --clr-secondary: white;
+  --clr-tercery: rgb(255, 73, 73);
+  --clr-page-background: linear-gradient(90deg,white 0%, black 70%, black 100%);
+  --clr-page-background: linear-gradient(70deg, black 5%, white 25%, white 50%, black 70%);
+  --clr-canvas-background: white;
+  --clr-box-pre:  white;
+  --bg-position: left;
+  --clr-box-shadow: rgba(0, 0, 0, 1);
+
+  --controls-ff-shadow: 0 0 1px black;
+  --controls-clr-bg: rgba(0, 0, 0, .2);
 }
 
 .polarized {
-  --color-primary: white;
-  --color-primary: rgba(255, 255, 255, 0.3);
-  --color-secondary: black;
+  --clr-primary: white;
+  --clr-primary: rgba(255, 255, 255, .5);
+  --clr-secondary: black;
+  --clr-ff-brightwhite: white;
   --bg-position: right;
-  /* --color-page-background: white; */
-  --color-box-pre:  black;
-  /* --color-box-shadow:  rgba(255, 255, 255, .8); */
-  --color-box-shadow:  white;
-  --color-canvas-background: black;
-  --color-controls-bg: rgba(255, 255, 255, .2);
+  /* --clr-page-background: white; */
+  --clr-box-pre:  black;
+  /* --clr-box-shadow:  rgba(255, 255, 255, .8); */
+  --clr-box-shadow:  white;
+  --clr-canvas-background: black;
+  --controls-clr-bg: rgba(255, 255, 255, .1);
+  --controls-ff-shadow: 0 0 1px white;
 }
 
 * {
@@ -37,36 +40,35 @@
 
 button {
   opacity: 90%;
-  border-radius: 1rem;
+  border-bottom-right-radius: 1rem;
   border-width: .2rem;
-  background: linear-gradient(4deg, var(--color-primary) 5%, var(--color-secondary) 90%);
-  border-color: var(--color-secondary);
+  /* background: linear-gradient(4deg, var(--clr-primary) 5%, var(--clr-secondary) 90%); */
+  background: var(--clr-primary);
+  background: var(--clr-secondary);
+  /* border: none; */
+  border: .7rem double var(--clr-ff-brightwhite);
   
   font-weight: 600;
-  font-size: var(--button-font-size);
+  font-size: 1.8rem;
   font-family: inherit;
-  color: var(--color-primary);
-  text-shadow: -1px -2px 2px var(--color-secondary);
-  letter-spacing: .2rem;
+  /* color: var(--clr-ff-brightwhite); */
+  color: var(--clr-ff-brightwhite);
+  text-shadow: 0 0 2px var(--clr-secondary);
+  padding: .3em 0;
+  letter-spacing: .1rem;
 
   cursor: pointer;
   width: 100%;
+  letter-spacing: 1;
+  transition: letter-spacing 200ms linear;
+}
+
+button:hover {
+  letter-spacing: 3;
 }
 
 button:focus  {
   outline: none;
-}
-
-h1 {
-  margin: 0;
-  margin-block-end: 0;
-  margin-block-start: 0;
-  letter-spacing: .5rem;
-  /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
-  font-family: inherit;
-  text-shadow: -1rem 0 1.5rem var(--color-primary);
-  font-size: 5rem;
-  background: linear-gradient(359deg, var(--color-primary) 10%, var(--color-secondary) 90%);
 }
 
 h2 {
@@ -74,13 +76,7 @@ h2 {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-li {
-  opacity: 90%;
-  text-shadow: -1px 0px 7px var(--color-primary);
-}
-
 a {
   position: relative;
-  top: 0;
-  z-index: 10;
+  display: inline-block;
 }
