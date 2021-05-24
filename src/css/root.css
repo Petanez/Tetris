@@ -1,5 +1,6 @@
 :root {
-  font-size: 16px;
+  font-size: calc(11px + 0.2vw);
+  /* font-size: 16px; */
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   --body-effect-delay: 0.7s;
   --clr-ff-brightwhite: black;
@@ -7,10 +8,11 @@
   --clr-primary: black;
   --clr-primary: rgba(0, 0, 0, 0.9);
   --clr-secondary: white;
-  --clr-tercery: rgb(255, 73, 73);
+  --clr-tercery: rgb(156, 2, 2);
   --clr-page-background: linear-gradient(90deg,white 0%, black 70%, black 100%);
-  --clr-page-background: linear-gradient(70deg, black 5%, white 25%, white 50%, black 70%);
-  --clr-canvas-background: white;
+  --clr-page-background: linear-gradient(90deg, black 0%, white 50%, black 50%, black 70%, black 90%, rgba(0, 0, 0, .9) 100%);
+  /* --clr-page-background: radial-gradient(ellipse at 50% 50%, transparent 59%, white 100%); */
+  --clr-canvas-background: linear-gradient(-180deg, transparent 40%, var(--clr-secondary) 90%);
   --clr-box-pre:  white;
   --bg-position: left;
   --clr-box-shadow: rgba(0, 0, 0, 1);
@@ -25,11 +27,11 @@
   --clr-secondary: black;
   --clr-ff-brightwhite: white;
   --bg-position: right;
+  --clr-canvas-background: linear-gradient(-180deg, transparent 40%, var(--clr-secondary) 80%);
   /* --clr-page-background: white; */
   --clr-box-pre:  black;
   /* --clr-box-shadow:  rgba(255, 255, 255, .8); */
   --clr-box-shadow:  white;
-  --clr-canvas-background: black;
   --controls-clr-bg: rgba(255, 255, 255, .1);
   --controls-ff-shadow: 0 0 1px white;
 }

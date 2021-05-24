@@ -203,7 +203,7 @@ function moveToNextLevel() {
   console.log(`Moving to level ${level}`)
   clearInterval(mainInterval)
   fps = calculateFps()
-  drawLevelText()
+  resetLevelText(level)
   mainInterval = setInterval(runLevel, fps)
 }
 

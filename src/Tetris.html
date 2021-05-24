@@ -19,19 +19,14 @@
   <div class="page-container">
     <!-- <div class="left-side"></div> -->
 
-    <a href="#" id="themeSwitch">
-      <div class="theme-switch-icon">
-        polarize
-      </div>
-    </a>
-    
+   
     <div class="tetris-container">
 
       <canvas id="myCanvas"></canvas>
 
       <div class="state-info">
         <div class="state-info__level">
-          <h1 id="lvl" style="opacity: 0;">
+          <h1 id="lvl">
             <!--
                           Update current level here
                       -->
@@ -56,15 +51,25 @@
     </div>
 
     <div class="game-info">
-      <h1 class="game-info__header">
-        TETRIS
+      <a href="#" id="themeSwitch">
+        <div class="theme-switch-icon">
+          
+          <span class="icon-text">polarize</span>
+        </div>
+      </a>
+      <div class="game-info__header">
+        <div class="game-info__cloud1"></div>
+        <div class="game-info__cloud2"></div>
+        <h1 class="game-info__header">
+          TETRIS
+        </h1>
         <h4 class="signature">
           By
           <em>
             Petteri Moilanen
           </em>
         </h4>
-      </h1>
+      </div>
 
       <div class="scoreboard">
         <h2>

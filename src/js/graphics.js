@@ -15,7 +15,7 @@ const gamePausedElement = document.getElementById("gamePaused")
 
 let isPolarized = document.body.classList.contains("polarized")
 let borderColor = "black"
-let squareBorderColor = "ghostwhite"
+let squareBorderColor = "black"
 let squareColor1 = "white"
 let squareColor2 = "black"
 
@@ -99,19 +99,14 @@ function drawGameOver() {
 }
 
 let levelOpacityInterval
-function drawLevelText() {
-  let opacity = 100
-  let leftMargin = 200
-  let intervalTime = 25
-  levelElement.setAttribute("style", "margin-left: 200px")
-  levelElement.innerHTML = "Level " + level
-  levelOpacityInterval = setInterval(function () {
-    levelElement.setAttribute("style", `opacity: ${opacity}%; margin-left: ${leftMargin}px`)
-    leftMargin -= 2.9
-    opacity--
-    if (opacity <= 30) 
-      window.clearInterval(levelOpacityInterval)
-  }, intervalTime)
+function resetLevelText(level) {
+  const container = document.querySelector(".state-info__level")
+  while(container.firstChild) 
+    container.firstChild.remove()
+  let lvlEl = document.createElement("h1")
+  lvlEl.innerText = `Level ${level}`
+  lvlEl.id = "lvl"
+  container.appendChild(lvlEl)
 }
 
 function displayFinalScore() {

@@ -1,3 +1,6 @@
+const stateInfo = document.querySelector(".state-info")
+const canvas = document.querySelector("#myCanvas")
+
 let level
 let board
 let piece
@@ -19,7 +22,7 @@ function playGame() {
   let currentLevel = level
   let fps = calculateFps()
   let secondaryIntervalTimer = 100
-  drawLevelText()
+  resetLevelText(level)
   createBoard()
   newPiece()
   //  use secondary interval to detect full rows and change main interval if level changes
@@ -42,4 +45,11 @@ function playGame() {
   mainInterval = setInterval(runLevel, fps)
 }
 
-window.onload = () => drawBorders()
+window.onload = () => {
+  drawBorders()
+  stateInfo.style.height = canvas.clientHeight
+}
+
+window.onresize = () => {
+  stateInfo.style.height = canvas.clientHeight
+}
