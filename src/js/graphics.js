@@ -1,3 +1,5 @@
+// import { p, board } from "./Logic"
+
 const c = document.getElementById("myCanvas")
 const ctx = c.getContext("2d")
 const blockSize = 35
@@ -59,8 +61,10 @@ function drawPiece(p) {
   }
 }
 
-function drawBoard(p) {
+function drawBoard(board) {
   drawBorders()
+  // console.log(`board length
+  //   ${board.length}`)
   for (let y = board.length - 1; y > 0; y--) {
     for (let x = 0; x < board[y].length; x++) {
       if (board[y][x].isOccupied) 
@@ -69,10 +73,12 @@ function drawBoard(p) {
   }
 }
 
-function drawEverything() {
+// function drawEverything() {
+  
+function drawEverything(board, p) {
   ctx.clearRect(0, 0, c.width, c.height)
-  drawBoard()
-  drawPiece(piece.PIECE)
+  drawBoard(board)
+  drawPiece(p)
 }
 
 let gameOverInterval
@@ -98,10 +104,9 @@ function drawGameOver() {
   return
 }
 
-let levelOpacityInterval
 function resetLevelText(level) {
   const container = document.querySelector(".state-info__level")
-  while(container.firstChild) 
+  while (container.firstChild) 
     container.firstChild.remove()
   let lvlEl = document.createElement("h1")
   lvlEl.innerText = `Level ${level}`
@@ -111,4 +116,22 @@ function resetLevelText(level) {
 
 function displayFinalScore() {
   finalScoreElement.innerHTML = "Your score: " + score
+}
+
+function resetUi(scoreElement, level) {
+  resetLevelText(level)
+  normButton.innerText = "RESTART"
+  scoreElement.innerText = 0
+  gameOverElement.setAttribute("style", "opacity: 0%")
+  gamePausedElement.innerText = ""
+  finalScoreElement.innerText = ""
+  levelElement.setAttribute("style", "letter-spacing: 0px background: none opacity: 100")
+}
+
+export default {
+  resetUi,
+  resetLevelText,
+  clearBoard,
+  drawBorders,
+  drawEverything
 }

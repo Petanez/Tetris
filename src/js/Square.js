@@ -1,4 +1,4 @@
-class Square {
+export default class Square {
   constructor(x, y, isOccupied = false) {
     this.x = x
     this.y = y

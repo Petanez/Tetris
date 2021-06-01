@@ -1,38 +1,52 @@
-const newPiece = () => {
-  return piece = isEz ? new oPiece() : randomPiece()
+import Square from "./Square"
+import { lPiece, lPieceIsomer, sPiece, sPieceIsomer, iPiece, tPiece, oPiece } from "./Pieces"
+import Graphics from "./Graphics"
+// import { keyPressHandler } from "./handlers"
+
+const { drawEverything } = Graphics
+
+const randomPiece = () => {
+  const randomNum = Math.floor(Math.random() * 7)
+  return (
+      randomNum === 0 ? new lPiece() : randomNum === 1 ? new oPiece() : randomNum === 2 ? new tPiece() :
+      randomNum === 3 ? new lPieceIsomer() : randomNum === 4 ? new sPiece() : randomNum === 5 ? new sPieceIsomer() : new iPiece()
+    ).PIECE
 }
 
-const lockPiece = (p) => {
+let board = createBoard()
+let p = randomPiece()
+let rowsToReplace = []
+let trackRowCount = 0
+
+const newPiece = () => {
+  return randomPiece()
+}
+
+const lockPiece = () => {
   p.every(function (val) {
     return board[val.y][val.x].isOccupied = true
   })
 }
 
-const randomPiece = () => {
-  const randomNum = Math.floor(Math.random() * 7)
-  return randomNum === 0 ? new lPiece() : randomNum === 1 ? new oPiece() : randomNum === 2 ? new tPiece() :
-    randomNum === 3 ? new lPieceIsomer() : randomNum === 4 ? new sPiece() : randomNum === 5 ? new sPieceIsomer() : new iPiece()
-}
-
-function lowerPieceIfNotBlocked(p) {
+function lowerPieceIfNotBlocked() {
   if (p.every(square => square.y < board.length - 1)) {
     for (let i = 0; i < p.length; i++) 
       p[i].y++
   } else {
-    lockPiece(p)
-    newPiece()
+    lockPiece()
+    p = newPiece()
     return
   }
   // if the new x, y has an occupied square return to previous x, y
   if (p.some(square => board[square.y][square.x].isOccupied)) {
     for (let i = 0; i < p.length; i++) 
       p[i].y--
-    lockPiece(p)
-    newPiece()
+    lockPiece()
+    p = newPiece()
   }
 }
 
-function movePiece(direction, p) {
+function movePiece(direction) {
   if (direction === "left") {
     // check for boards min width
     if (p.every(square => square.x > 0))
@@ -57,12 +71,13 @@ function movePiece(direction, p) {
     }
   }
   if (direction === "down") 
-    lowerPieceIfNotBlocked(piece.PIECE)
+    lowerPieceIfNotBlocked()
 
 }
 
 // function returns newCoordinates if none of the new coordinates are out of bounds or in a occupied square
-function rotatePiece(p) {
+function rotatePiece() {
+  console.log("Rotating")
   if (p.constructor.name === "oPiece") return
   const newCoordinates = calculateRotation(p)
   if (spaceIsOccupied(newCoordinates)) {
@@ -71,22 +86,22 @@ function rotatePiece(p) {
   } else {
     for (let i = 0; i < newCoordinates.length; i++) {
       if (i === 1) continue
-      p.PIECE[i].x = newCoordinates[i].x
-      p.PIECE[i].y = newCoordinates[i].y
+      p[i].x = newCoordinates[i].x
+      p[i].y = newCoordinates[i].y
     }
   }
 }
 
-function calculateRotation(p) {
+function calculateRotation() {
   const anchor = {
-    x: p.PIECE[1].x,
-    y: p.PIECE[1].y,
+    x: p[1].x,
+    y: p[1].y,
   }
   let newCoordinates = [{ x: 0, y: 0 }, { x: anchor.x, y: anchor.y }, { x: 0, y: 0 }, { x: 0, y: 0 }]
   for (let i = 0; i < p.PIECE.length; i++) {
     if (i === 1) continue
-    let xDiff = p.PIECE[i].x - anchor.x
-    let yDiff = p.PIECE[i].y - anchor.y
+    let xDiff = p[i].x - anchor.x
+    let yDiff = p[i].y - anchor.y
     let xIsNegative = Math.sign(xDiff) === -1
     let yIsNegative = Math.sign(yDiff) === -1
     if (xDiff === 0) {
@@ -116,6 +131,11 @@ function spaceIsOccupied(newCoordinates) {
   return newCoordinates.some(square => square.x < 0 || square.x > board[0].length - 1 || square.y > board.length - 1 || board[square.y][square.x].isOccupied)
 }
 
+function inspectRowConditions() {
+  checkFullRowsAndEndCondition()
+  replaceRowsAndAddToScore()
+}
+
 function checkFullRowsAndEndCondition() {
   for (let y = board.length - 1; y >= 0; y--) {
     let isFullRow = true
@@ -123,7 +143,7 @@ function checkFullRowsAndEndCondition() {
       if (!board[y][x].isOccupied) 
         isFullRow = false
       if (y === 0 && board[y][x].isOccupied) 
-        return gameOver = true
+        gameOverConditionReached()
     }
     if (isFullRow) 
       rowsToReplace.push(y)
@@ -149,12 +169,10 @@ function incrementLevelAfter10Clears() {
   }
 }
 
-// when trackRowCount >= 10, reset & increment level
-let rowsToReplace = []
-let trackRowCount = 0
-function replaceRowsAndAddToScore(rows) {
+function replaceRowsAndAddToScore() {
+  // when trackRowCount >= 10, reset & increment level
   // if rows to remove is not empty, execute
-  if (rows.length > 0) {
+  if (rowsToReplace.length > 0) {
     console.log(`Removing ${rows.length} row${rows.length > 1 ? "s" : ""}`)
     addScore(rows)
     scoreElement.innerHTML = score
@@ -166,45 +184,37 @@ function replaceRowsAndAddToScore(rows) {
     }
     trackRowCount += rows.length
   }
-  return rows = []
+  return rowsToReplace = []
 }
 
 function createBoard() {
-  board = Array.from({ length: 24 }, (v, _) => {
+  return Array.from({ length: 24 }, (v, _) => {
     return v = Array.from({ length: 10 }, (_, x) => {
       return new Square(x, 0)
     })
   })
 }
 
-function restartGame() {
-  normButton.innerText = "RESTART"
-  scoreElement.innerText = 0
-  gameOverElement.setAttribute("style", "opacity: 0%")
-  gamePausedElement.innerText = ""
-  finalScoreElement.innerText = ""
-  levelElement.setAttribute("style", "letter-spacing: 0px background: none opacity: 100")
-  // scoreBoardElement.setAttribute("style", "opacity:1")
-  isPaused = false
-  gameOver = false
-  trackRowCount = 0
-  isEz ? isEz = false : isEz
-  playGame()
-}
+// function restartGame() {
+//   resetUi()
+//   // scoreBoardElement.setAttribute("style", "opacity:1")
+//   isPaused = false
+//   gameOver = false
+//   trackRowCount = 0
+//   playGame()
+// }
 
 function runLevel() {
-  if (!downIsPressed && !isPaused) {
-    drawEverything()
-    lowerPieceIfNotBlocked(piece.PIECE)
-  }
+  drawEverything(board, p)
+  lowerPieceIfNotBlocked()
 }
 
-function moveToNextLevel() {
+function moveToNextLevel(interval, level) {
   console.log(`Moving to level ${level}`)
-  clearInterval(mainInterval)
-  fps = calculateFps()
+  clearInterval(interval)
+  let fps = calculateFps(level)
   resetLevelText(level)
-  mainInterval = setInterval(runLevel, fps)
+  return setInterval(runLevel, fps)
 }
 
 function gameOverConditionReached() {
@@ -219,6 +229,22 @@ function gameOverConditionReached() {
   }
 }
 
-function calculateFps() {
+function calculateFps(level) {
   return (1500 / (1.8 * level))
+}
+
+export default {
+  calculateFps,
+  createBoard,
+  newPiece,
+  checkFullRowsAndEndCondition,
+  replaceRowsAndAddToScore,
+  incrementLevelAfter10Clears,
+  moveToNextLevel,
+  movePiece,
+  runLevel,
+  rotatePiece,
+  inspectRowConditions,
+  p,
+  board
 }

@@ -1,55 +1,69 @@
-const stateInfo = document.querySelector(".state-info")
-const canvas = document.querySelector("#myCanvas")
+import Logic from "./Logic"
+import Graphics from "./Graphics"
+import { keyPressHandler } from "./handlers"
+console.log(Graphics)
 
-let level
-let board
-let piece
-let isPaused = false
-let downIsPressed = false
-let isEz = false
-let gameOver = false
-let score = 0
-const scoreElement = document.getElementById("score")
-scoreElement.innerHTML = score
+var Tetris = (function() {
+  let isPaused = false
+  let downIsPressed = false
+  let gameOver = false
+  let score = 0
+  const scoreElement = document.getElementById("score")
+  scoreElement.innerHTML = score
+  
+  let mainInterval
+  let secondaryInterval
+  function playGame() {
+    if (mainInterval != null) { clearInterval(mainInterval) }
+    if (secondaryInterval != null) { clearInterval(secondaryInterval) }
+    score = 0
+    let level = 1
+    gameOver = false
+    isPaused = false
+    let currentLevel = level
+    let secondaryIntervalTimer = 700
+    Graphics.resetUi(scoreElement, level)
+    Logic.createBoard()
 
-let mainInterval
-let secondaryInterval
-function playGame() {
-  if (mainInterval != null) { clearInterval(mainInterval) }
-  if (secondaryInterval != null) { clearInterval(secondaryInterval) }
-  score = 0
-  level = 1
-  let currentLevel = level
-  let fps = calculateFps()
-  let secondaryIntervalTimer = 100
-  resetLevelText(level)
-  createBoard()
-  newPiece()
-  //  use secondary interval to detect full rows and change main interval if level changes
-  secondaryInterval = setInterval(function () {
-    if (!isPaused) {
-      checkFullRowsAndEndCondition()
-      rowsToReplace = replaceRowsAndAddToScore(rowsToReplace)
-      incrementLevelAfter10Clears()
-      if (currentLevel != level) {
-        moveToNextLevel()
-        currentLevel = level
+    secondaryInterval = setInterval(function () {
+      if (!isPaused) {
+        Logic.inspectRowConditions()
+        Logic.incrementLevelAfter10Clears()
+        if (currentLevel != level) {
+          currentLevel = level
+          mainInterval = Logic.moveToNextLevel(mainInterval, level)
+        }
+        Logic.runLevel()
       }
-    }
-    if (gameOver) 
-      gameOverConditionReached()
-    downIsPressed = false
-  }, secondaryIntervalTimer)
+      downIsPressed = false
+    }, secondaryIntervalTimer)
+  }
 
-  // Main interval to lower pieces
-  mainInterval = setInterval(runLevel, fps)
-}
+  const normButton = document.getElementById("normButton")
+  normButton.onclick = function () {
+    // if (gameOverTextFinished) {
+    //   if (levelOpacityInterval != null) 
+    //     clearInterval(levelOpacityInterval) 
+    //   if (gameOverInterval != null) 
+    //     clearInterval(gameOverInterval)
+    //   }
+      Graphics.clearBoard()
+      playGame()
+  }
 
-window.onload = () => {
-  drawBorders()
-  stateInfo.style.height = canvas.clientHeight
-}
 
-window.onresize = () => {
-  stateInfo.style.height = canvas.clientHeight
-}
+  const stateInfo = document.querySelector(".state-info")
+  const canvas = document.querySelector("#myCanvas")
+  window.onload = () => {
+    Graphics.drawBorders()
+    stateInfo.style.height = canvas.clientHeight
+    document.addEventListener("keydown", e => keyPressHandler(e, isPaused))
+  }
+
+  window.onresize = () => {
+    console.log("resizing stateInfo")
+    stateInfo.style.height = canvas.clientHeight
+  }
+})()
+
+export default Tetris

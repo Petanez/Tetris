@@ -1,3 +1,5 @@
+import Square from "./Square"
+
 class lPiece {
   PIECE = [
     new Square(4, 0, true),
@@ -59,4 +61,14 @@ class oPiece {
     new Square(4, 1, true),
     new Square(5, 1, true)
   ]
+}
+
+export {
+  lPiece,
+  lPieceIsomer,
+  sPiece,
+  sPieceIsomer,
+  iPiece,
+  tPiece,
+  oPiece  
 }
