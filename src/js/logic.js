@@ -3,7 +3,6 @@ import { lPiece, lPieceIsomer, sPiece, sPieceIsomer, iPiece, tPiece, oPiece } fr
 import Graphics from "./Graphics"
 
 export default (function() {
- 
   const newPiece = () => {
     return randomPiece()
   }
@@ -19,8 +18,8 @@ export default (function() {
   }
   
   function randomPiece() {
-    const pieces = 7
-    const randomNum = Math.floor(Math.random() * pieces)
+    const nPieces = 7
+    const randomNum = Math.floor(Math.random() * nPieces)
     return (
         randomNum === 0 ? new lPiece() : randomNum === 1 ? new oPiece() : randomNum === 2 ? new tPiece() :
         randomNum === 3 ? new lPieceIsomer() : randomNum === 4 ? new sPiece() : randomNum === 5 ? new sPieceIsomer() : new iPiece()
@@ -33,8 +32,7 @@ export default (function() {
         p[i].y++
     } else {
       lockPiece(board, p)
-      let newP = newPiece()
-      return newP
+      return newPiece()
     }
     // if the new x, y has an occupied square return to previous x, y
     if (p.some(square => board[square.y][square.x].isOccupied)) {
@@ -46,7 +44,7 @@ export default (function() {
     return p
   }
   
-  function movePiece(board, p, direction) {
+  function movePiece(board, p, direction = "down") {
     if (direction === "left") {
       // check for boards min width
       if (p.every(square => square.x > 0))
@@ -74,21 +72,32 @@ export default (function() {
       p = rotatePiece(board, p)
     }
 
-    if (direction === "down") 
-      // p = lowerPieceIfNotBlocked(board, p)
+    if (direction === "down") {
       p = lowerPieceIfNotBlocked(board, p)
+    }
   
     return p
+  }
+
+  function isOPiece(p) {
+    let oPiece = (
+            p[0].x == p[2].x 
+         && p[1].x == p[3].x
+         && p[0].y == p[1].y
+         )
+
+    if (oPiece) console.log("Its an o piece")
+    return oPiece
   }
   
   // function returns newCoordinates if none of the new coordinates are out of bounds or in a occupied square
   function rotatePiece(board, p) {
+    if (isOPiece(p)) return p
     console.log("Rotating")
-    if (p.constructor.name === "oPiece") return
     const newCoordinates = calculateRotation(p)
     if (spaceIsOccupied(board, newCoordinates)) {
       console.log("can't rotate piece")
-      return
+      return p
     } else {
       for (let i = 0; i < newCoordinates.length; i++) {
         if (i === 1) continue
@@ -218,9 +227,10 @@ export default (function() {
     })
   }
   
-  function runLevel(board, piece) {
+  function runLevel(board, piece, direction) {
     Graphics.drawEverything(board, piece)
-    return lowerPieceIfNotBlocked(board, piece)
+    // return lowerPieceIfNotBlocked(board, piece)
+    return movePiece(board, piece, direction)
   }
   
   function moveToNextLevel(level) {
@@ -231,14 +241,8 @@ export default (function() {
   
   function gameOverConditionReached() {
     console.log("Game over")
-    drawGameOver()
-    displayFinalScore()
-    clearInterval(mainInterval)
-    clearInterval(secondaryInterval)
-    if (gameOverInterval != null && gameOverTextFinished) {
-      console.log("gameover interval not null, gameover text not finished")
-      clearInterval(gameOverInterval)
-    }
+    Graphics.drawGameOver()
+    Graphics.displayFinalScore()
   }
   
   function calculateFps(level) {
