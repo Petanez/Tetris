@@ -10,8 +10,8 @@ module.exports = {
     minimize: false
   },
   entry: [
-    path.resolve(__dirname, "src", "js", "index.js"),
-    path.resolve(__dirname, "src", "css", "index.css")
+    path.resolve(__dirname, "src", "assets","js", "index.js"),
+    path.resolve(__dirname, "src", "assets", "css", "index.css")
   ],
   output: {
     filename: "bundle.js",
@@ -25,6 +25,12 @@ module.exports = {
             MiniCssExtractPlugin.loader,
             "css-loader"
           ]
+      },
+      {
+        test: /\.png$/,
+        use: [
+          "file-loader"
+        ]
       }
     ]
   },
@@ -35,5 +41,8 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "style.css"
     })
-  ]
+  ],
+  experiments: {
+    asset: true
+  }
 }

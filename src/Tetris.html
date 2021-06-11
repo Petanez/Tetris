@@ -4,14 +4,20 @@
   <title>Tetris</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Mate+SC&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
 </head>
 
 <body>
   <div class="page-container">
-    <!-- <div class="left-side"></div> -->
-
-   
+    <div class="page-background">
+      <svg preserveAspectRatio="none" viewBox="0 0 1440 872" fill="var(--clr-primary)" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 865.5C859 928.5 522 466 1439 510.5V0.5H0V865.5Z" stroke="none" strokeWidth="0"/>
+      </svg>
+    </div>
+         
     <div class="tetris-container">
 
       <canvas id="myCanvas"></canvas>
@@ -31,7 +37,9 @@
         </h2>
         <div class="state-info__game-over">
           <h1 id="gOvr" class="game-over-text">
-            GAME OVER
+            <span class="game-over-text__game">GAME</span> 
+            <span class="game-over-text__over">OVER</span>
+            
           </h1>
           <h2 id="finalScore">
             <!--
@@ -45,24 +53,16 @@
     <div class="game-info">
       <div class="game-info__content">
         <a href="#" id="themeSwitch">
-          <div class="theme-switch-icon">
-            <div class="theme-switch__background"></div>
-        
-            <span class="icon-text">polarize</span>
-          </div>
+          <div class="theme-switch__background"></div>
+          <div class="theme-switch-icon"></div>
+          <span class="icon-text">polarize</span>
         </a>
         <div class="game-info__header">
           <div class="game-info__cloud1"></div>
           <div class="game-info__cloud2"></div>
-          <h1 class="game-info__header">
+          <h1 class=>
             TETRIS
           </h1>
-          <h4 class="signature">
-            By
-            <em>
-              Petteri Moilanen
-            </em>
-          </h4>
         </div>
         <div class="scoreboard">
           <h2>
@@ -71,24 +71,13 @@
           <h2 id="score">
           </h2>
         </div>
-        <!-- <a id="toggleControls" data-clicked="false">
-          <h2>
-            Controls
-            <div class="hide-controls__arrow">
-              &uarr;
-            </div>
-          </h2>
-        </a> -->
         <ul class="game-info__controls">
-          <li>
-            To <b>START</b> press the <b>START GAME</b> button
-          </li>
           <li>
             To <b>PAUSE</b> the game press <b>P</b>
           </li>
           <li>
-            To move the piece <b>PRESS</b> arrow:
-            <ul style="margin-left: 20%; padding-inline-start: 0;">
+            Press <b>ARROW:</b>
+            <ul>
               <li>
                 <b>DOWN</b> - Move piece down
               </li>
@@ -105,7 +94,7 @@
           </li>
         </ul>
         <div>
-          <button id="normButton" onkeypress="event.preventDefault()" </button>START GAME</button>
+          <button id="playButton" onkeypress="event.preventDefault()" </button>START GAME</button>
         </div>
       </div>
     </div>
@@ -118,6 +107,5 @@
         <div class="js-arrow-left">&#x2B05</div>
       </div>
     </div>
-    <!-- <div class="right-side"></div> -->
   </div>
 </body>

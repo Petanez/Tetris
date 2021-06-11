@@ -1,6 +1,7 @@
 import Square from "./Square"
 import { lPiece, lPieceIsomer, sPiece, sPieceIsomer, iPiece, tPiece, oPiece } from "./Pieces"
-import Graphics from "./Graphics"
+import Graphics from "../Graphics/Graphics"
+import config from "../../../config/prod"
 
 export default (function() {
   const newPiece = () => {
@@ -26,7 +27,7 @@ export default (function() {
       ).PIECE
   }
   
-  function lowerPieceIfNotBlocked(board, p) {
+  function tryLowerPiece(board, p) {
     if (p.every(square => square.y < board.length - 1)) {
       for (let i = 0; i < p.length; i++) 
         p[i].y++
@@ -73,27 +74,24 @@ export default (function() {
     }
 
     if (direction === "down") {
-      p = lowerPieceIfNotBlocked(board, p)
+      p = tryLowerPiece(board, p)
     }
   
     return p
   }
 
   function isOPiece(p) {
-    let oPiece = (
-            p[0].x == p[2].x 
-         && p[1].x == p[3].x
-         && p[0].y == p[1].y
-         )
-
-    if (oPiece) console.log("Its an o piece")
+    const oPiece = (
+         p[0].x == p[2].x 
+      && p[1].x == p[3].x
+      && p[0].y == p[1].y
+    )
     return oPiece
   }
   
   // function returns newCoordinates if none of the new coordinates are out of bounds or in a occupied square
   function rotatePiece(board, p) {
     if (isOPiece(p)) return p
-    console.log("Rotating")
     const newCoordinates = calculateRotation(p)
     if (spaceIsOccupied(board, newCoordinates)) {
       console.log("can't rotate piece")
@@ -155,15 +153,14 @@ export default (function() {
         if (!board[y][x].isOccupied) 
           isFullRow = false
         if (y === 0 && board[y][x].isOccupied) 
-          gameOverConditionReached()
+          return -1 // Return -1 to indicate game over
       }
       if (isFullRow) {
         rowsToReplace.push(y)
-        // scoreMultiplier = replaceRowAndGetScoreMultiplier(board, y, scoreMultiplier)      
       }
     }
-    let scoreMultiplier = replaceRowsAndGetScoreMultiplier(board, rowsToReplace)      
-    rowsToReplace = []
+    let scoreMultiplier = rowsToReplace.length
+    replaceRows(board, rowsToReplace)      
     return scoreMultiplier
   }
   
@@ -188,8 +185,7 @@ export default (function() {
     return { trackRowCount, level }
   }
   
-  function replaceRowsAndGetScoreMultiplier(board, rows) {
-
+  function replaceRows(board, rows) {
     if (rows.length) {
       let i = rows.length - 1
       while (i >= 0) {
@@ -198,25 +194,24 @@ export default (function() {
         i--
       }
     }
-    return rows.length
   }
   
   function createBoard() {
-    return Array.from({ length: 24 }, (v, _) => {
-      return v = Array.from({ length: 10 }, (_, x) => {
+    return Array.from({ length: config.board.height }, (v, _) => {
+      return v = Array.from({ length: config.board.width }, (_, x) => {
         return new Square(x, 0)
       })
     })
   }
 
   function createTestBoard() {
-    return Array.from({ length: 24 }, (v, _) => {
+    return Array.from({ length: config.board.height }, (v, _) => {
       if (_ < 20) {
-        return v = Array.from({ length: 10 }, (_, x) => {
+        return v = Array.from({ length: config.board.width }, (_, x) => {
           return new Square(x, 0)
         })
       } else {
-        return v = Array.from({ length: 10 }, (_, x) => {
+        return v = Array.from({ length: config.board.width }, (_, x) => {
           if (x < 9) {
             return new Square(x, 0, true)
           } else {
@@ -227,22 +222,10 @@ export default (function() {
     })
   }
   
-  function runLevel(board, piece, direction) {
-    Graphics.drawEverything(board, piece)
-    // return lowerPieceIfNotBlocked(board, piece)
-    return movePiece(board, piece, direction)
-  }
-  
   function moveToNextLevel(level) {
     console.log(`Moving to level ${level}`)
-    Graphics.resetLevelText(level)
+    Graphics.displayLevelText(level)
     return calculateFps(level)
-  }
-  
-  function gameOverConditionReached() {
-    console.log("Game over")
-    Graphics.drawGameOver()
-    Graphics.displayFinalScore()
   }
   
   function calculateFps(level) {
@@ -261,7 +244,6 @@ export default (function() {
     incrementLevelAfter10Clears,
     moveToNextLevel,
     movePiece,
-    runLevel,
     rotatePiece,
     addScore
   }
