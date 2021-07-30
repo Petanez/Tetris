@@ -1,9 +1,10 @@
-import Square from "./Square"
-import { lPiece, lPieceIsomer, sPiece, sPieceIsomer, iPiece, tPiece, oPiece } from "./Pieces"
-import Graphics from "../Graphics/Graphics"
-import config from "../../../config/prod"
+import Square from "./Square.js"
+import { lPiece, lPieceIsomer, sPiece, sPieceIsomer, iPiece, tPiece, oPiece } from "./Pieces.js"
+import Graphics from "../Graphics/Graphics.js"
+import config from "../../config/prod.js"
 
 export default (function() {
+  "use strict"
   const newPiece = () => {
     return randomPiece()
   }
@@ -17,6 +18,21 @@ export default (function() {
       return board[val.y][val.x].isOccupied = true
     })
   }
+
+  function PieceStack() {
+    let stack = Array.from({ length: 5 }, (_) => {
+      return newPiece()
+    })
+
+    this.getStack = function() {
+      return stack
+    }
+
+    this.getPiece = function() {
+      stack.push(newPiece())
+      return stack.shift()
+    }
+  }
   
   function randomPiece() {
     const nPieces = 7
@@ -24,7 +40,7 @@ export default (function() {
     return (
         randomNum === 0 ? new lPiece() : randomNum === 1 ? new oPiece() : randomNum === 2 ? new tPiece() :
         randomNum === 3 ? new lPieceIsomer() : randomNum === 4 ? new sPiece() : randomNum === 5 ? new sPieceIsomer() : new iPiece()
-      ).PIECE
+      )
   }
   
   function tryLowerPiece(board, p) {
@@ -33,19 +49,22 @@ export default (function() {
         p[i].y++
     } else {
       lockPiece(board, p)
-      return newPiece()
+      return -1
+      // return newPiece().PIECE
     }
     // if the new x, y has an occupied square return to previous x, y
     if (p.some(square => board[square.y][square.x].isOccupied)) {
       for (let i = 0; i < p.length; i++) 
         p[i].y--
       lockPiece(board, p)
-      return newPiece()
+      return -1
+      // return newPiece().PIECE
     }
     return p
   }
   
   function movePiece(board, p, direction = "down") {
+    if (!p.length) return
     if (direction === "left") {
       // check for boards min width
       if (p.every(square => square.x > 0))
@@ -92,16 +111,21 @@ export default (function() {
   // function returns newCoordinates if none of the new coordinates are out of bounds or in a occupied square
   function rotatePiece(board, p) {
     if (isOPiece(p)) return p
-    const newCoordinates = calculateRotation(p)
-    if (spaceIsOccupied(board, newCoordinates)) {
-      console.log("can't rotate piece")
-      return p
-    } else {
-      for (let i = 0; i < newCoordinates.length; i++) {
-        if (i === 1) continue
-        p[i].x = newCoordinates[i].x
-        p[i].y = newCoordinates[i].y
+    let newCoordinates
+    try {
+      newCoordinates = calculateRotation(p)
+      if (spaceIsOccupied(board, newCoordinates)) {
+        console.log("can't rotate piece")
+        return p
+      } else {
+        for (let i = 0; i < newCoordinates.length; i++) {
+          if (i === 1) continue
+          p[i].x = newCoordinates[i].x
+          p[i].y = newCoordinates[i].y
+        }
       }
+    } catch {
+      console.log("can't rotate piece")
     }
     return p
   }
@@ -142,7 +166,13 @@ export default (function() {
   }
   
   function spaceIsOccupied(board, newCoordinates) {
-    return newCoordinates.some(square => square.x < 0 || square.x > board[0].length - 1 || square.y > board.length - 1 || board[square.y][square.x].isOccupied)
+    return newCoordinates.some(
+         square => square.x < 0 
+      || square.y < board[0].y
+      || square.x > board[0].length - 1 
+      || square.y > board.length - 1 
+      || board[square.y][square.x].isOccupied
+    )
   }
   
   function checkFullRowsAndEndCondition(board) {
@@ -159,8 +189,8 @@ export default (function() {
         rowsToReplace.push(y)
       }
     }
-    let scoreMultiplier = rowsToReplace.length
     replaceRows(board, rowsToReplace)      
+    let scoreMultiplier = rowsToReplace.length
     return scoreMultiplier
   }
   
@@ -224,7 +254,6 @@ export default (function() {
   
   function moveToNextLevel(level) {
     console.log(`Moving to level ${level}`)
-    Graphics.displayLevelText(level)
     return calculateFps(level)
   }
   
@@ -245,7 +274,8 @@ export default (function() {
     moveToNextLevel,
     movePiece,
     rotatePiece,
-    addScore
+    addScore,
+    PieceStack
   }
 
   // return Tetris

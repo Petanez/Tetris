@@ -1,4 +1,5 @@
-import Square from "./Square"
+"use strict"
+import Square from "./Square.js"
 
 class lPiece {
   PIECE = [
@@ -70,5 +71,5 @@ export {
   sPieceIsomer,
   iPiece,
   tPiece,
-  oPiece  
+  oPiece
 }

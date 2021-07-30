@@ -1,0 +1,127 @@
+:root {
+  font-size: calc(11px + 0.2vw);
+  /* font-size: 16px; */
+  /* font-size: 16px; */
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  --ff-secondary: 'Courier New', Courier, monospace;
+  --clr-canvas-bg: rgba(0, 0, 0, 0.9);
+  --clr-canvas-bg: rgba(0, 0, 0, 1);
+  --body-effect-delay: 0.7s;
+  --clr-ff-brightwhite: black;
+  --clr-light-white: rgb(55, 55, 55);
+  --clr-arrows: rgba(0, 0, 0, .4);
+  --clr-primary: black;
+  --clr-secondary: white;
+  --clr-tercery: rgb(222, 59, 59);
+  --clr-page-background: linear-gradient(-20deg, transparent 70%, black 100%);
+  /* --clr-page-background2: linear-gradient(90deg, black 0%, transparent 50%, transparent 100%, rgba(255, 255, 255, .9) 100%); */
+  --clr-page-background2: linear-gradient(90deg, black 0%, white 40%, transparent 50%, rgba(255, 255, 255, .9) 50%, var(--clr-primary) 80%);
+  --clr-page-background2: linear-gradient(90deg, black 0%, white 20%, transparent 50%, rgba(255, 255, 255, .9) 50%, var(--clr-primary) 80%);
+  /* --clr-page-background2: linear-gradient(90deg, white 0%, black 40%, transparent 50%, rgba(255, 255, 255, .9) 50%, var(--clr-primary) 80%); */
+  /* --clr-page-background2: linear-gradient(0deg, black 0%, transparent 30%, rgba(255, 255, 255, 1) 70%); */
+  /* --clr-page-background2: linear-gradient(180deg, black 0%, transparent 30%, rgba(255, 255, 255, 1) 40%); */
+  --clr-box-pre:  white;
+  --bg-position: left;
+  --clr-box-shadow: rgba(0, 0, 0, 1);
+  --clr-theme-switch-bg: radial-gradient(circle at 52% 52%, transparent 0%, var(--clr-secondary) 10.5%, transparent 10.6%, var(--clr-secondary) 12%, transparent 13%, rgba(255, 255, 255, 0.2) 15%, rgba(255, 255, 255, 0.1) 33%, transparent 40%, rgba(255, 255, 255, 0.1) 43%, transparent 50%);
+  --clr-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.5) 0%, var(--clr-secondary) 10.5%, transparent 10.6%, var(--clr-secondary) 12%, transparent 13%, rgba(255, 255, 255, 0.2) 15%, rgba(255, 255, 255, 0.1) 33%, transparent 40%, rgba(255, 255, 255, 0.1) 43%, transparent 50%);
+
+  --clr-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.9) 0%, var(--clr-primary) 10.5%, transparent 10.6%, var(--clr-primary) 12%, transparent 13%, rgba(0, 0, 0, 0.5) 15%, rgba(0, 0, 0, 0.1) 33%, transparent 40%, rgba(0, 0, 0, 0.3) 43%, transparent 50%, rgba(0, 0, 0, 0.3) 53%, transparent 67%);
+  --clr-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.9) 0%, var(--clr-primary) 10.5%, transparent 11.5%, var(--clr-primary) 12%, rgba(0, 0, 0, .3) 13%, rgba(0, 0, 0, 0.5) 33%, transparent 40%, rgba(0, 0, 0, 0.3) 49%, transparent 50%, rgba(0, 0, 0, 0.3) 53%, transparent 67%);
+  /* --clr-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.5) 0%, var(--clr-primary) 10.5%, white 10.6%, var(--clr-primary) 12%, transparent 13%, rgba(255, 255, 255, .1) 21%, transparent 38%, rgba(255, 255, 255, 0.2) 36%, transparent 47%, rgba(0, 0, 0, 0.2) 55%, transparent 62%); */
+
+
+  --w-btn-small: 29%;
+  --animation-first-piece: first-piece-animation 1000ms ease infinite alternate-reverse;
+  
+  --controls-ff-shadow: 0 0 1px white;
+  --game-info-controls-clr-bg: rgba(14, 14, 14, .2);
+  /* --game-info-controls-clr-bg: rgba(0, 0, 0, 1); */
+  --ff-game-info-opacity: 1;
+  --clr-ff-game-info: rgba(0, 0, 0, var(--ff-game-info-opacity));
+  --clr-game-info-header: rgba(0, 0, 0, .3);
+  /* --clr-game-info-header: rgba(255, 255, 255, 1); */
+
+  /* --gradient-game-info-header-bg: linear-gradient(5deg, var(--clr-ff-brightwhite) 20%, var(--clr-secondary) 70%); */
+  --clr-test: rgb(58, 58, 58);
+
+  --gradient-game-info-header-bg: linear-gradient(20deg, var(--clr-ff-brightwhite) 7%, var(--clr-light-white) 20%, white 35%);
+
+  --clr-shadow-txt-tetris-header: rgb(40, 40, 50);
+  /* --gradient-game-info-header-bg: linear-gradient(-195deg, var(--clr-ff-brightwhite) 7%, var(--clr-light-white) 20%, var(--clr-secondary) 75%); */
+  --gradient-canvas-bg: linear-gradient(180deg, transparent 35%, var(--clr-canvas-bg) 82%);
+  --gradient-canvas-bg: linear-gradient(-120deg, transparent 69%, var(--clr-canvas-bg) 82%);
+  /* --gradient-canvas-bg: linear-gradient(195deg, transparent 30%, var(--clr-canvas-bg) 42%); */
+  /* --gradient-canvas-bg: linear-gradient(230deg, transparent 30%, var(--clr-canvas-bg) 62%); */
+}
+
+body {
+  margin: 0;
+}
+
+.polarized {
+  --clr-canvas-bg: rgba(255, 255, 255, .3);
+  --clr-primary: white;
+  --clr-light-white: rgb(227, 219, 219);
+  --clr-secondary: black;
+  --clr-ff-brightwhite: white;
+  --clr-arrows: rgba(255, 255, 255, .4);
+  --bg-position: right;
+  --clr-box-pre:  black;
+  --clr-box-shadow:  white;
+  --game-info-controls-clr-bg: rgba(255, 255, 255, .1);
+  --controls-ff-shadow: 0 0 1px black;
+  
+  --clr-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.5) 0%, var(--clr-primary) 10.5%, transparent 10.6%, var(--clr-primary) 12%, transparent 13%, rgba(255, 255, 255, 0.2) 21%, transparent 38%, rgba(255, 255, 255, 0.2) 36%, transparent 47%, rgba(0, 0, 0, 0.2) 55%, transparent 62%);
+  --clr-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.5) 0%, var(--clr-primary) 10.5%, transparent 10.6%, var(--clr-primary) 12%, transparent 13%, rgba(0, 0, 0, 0.5) 15%, rgba(0, 0, 0, 0.1) 33%, transparent 40%, rgba(0, 0, 0, 0.3) 43%, transparent 50%, rgba(0, 0, 0, 0.3) 53%, transparent 67%);
+
+  
+  /* --clr-page-background: linear-gradient(5deg, var(--clr-primary) 0%, transparent 20%);
+  --clr-page-background2: linear-gradient(180deg, black 0%, rgba(255, 255, 255, .1) 10%); */
+
+  --clr-ff-game-info: rgba(255, 255, 255, var(--ff-game-info-opacity));
+  --clr-game-info-header: rgba(255, 255, 255, 1);
+  /* --clr-game-info-header: rgba(0, 0, 0, .7); */
+
+  --clr-shadow-txt-tetris-header: rgb(215, 215, 205);
+  --gradient-game-info-header-bg: linear-gradient(20deg, var(--clr-ff-brightwhite) 7%, var(--clr-light-white) 20%, black 35%);
+
+
+
+  /* --gradient-game-info-header-bg: linear-gradient(5deg, var(--clr-ff-brightwhite) 40%, black 70%); */
+  /* --gradient-canvas-bg: linear-gradient(165deg, transparent 20%, rgba(255, 255, 255, .5) 30%, black,rgba(255, 255, 255, .5) 33%, transparent 44%, var(--clr-canvas-bg) 62%); */
+  --gradient-canvas-bg: linear-gradient(180deg, transparent 40%, var(--clr-canvas-bg) 62%);
+  --gradient-canvas-bg: linear-gradient(150deg, transparent 20%, var(--clr-canvas-bg) 62%);
+  --gradient-canvas-bg: linear-gradient(230deg, transparent 30%, var(--clr-canvas-bg) 62%);
+  --gradient-canvas-bg: linear-gradient(180deg, transparent 40%, var(--clr-canvas-bg) 82%);
+  --gradient-canvas-bg: linear-gradient(180deg, transparent 35%, var(--clr-canvas-bg) 72%, white 90%);
+  --gradient-canvas-bg: linear-gradient(-120deg, transparent 69%, var(--clr-canvas-bg) 72%, white 90%);
+
+
+}
+
+* {
+  user-select: none;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  /* margin: 0px !important;
+  padding: 0px !important;
+  margin-block-start: 0px !important;
+  margin-block-end: 0px !important; */
+  margin: 0;
+  padding: 0;
+}
+
+h2 {
+  margin: 0;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+a {
+  position: relative;
+  display: inline-block;
+}

@@ -1,20 +1,33 @@
-import Logic from "./Logic"
-import Graphics from "../Graphics/Graphics"
-import config from "../../../config/prod"
+import Logic from "./Logic.js"
+import config from "../../config/prod.js"
+import MobileControls from "../MobileControls/MobileControls.js"
+import GraphicsModule from "../Graphics/Graphics.js"
+import Highscores from "../Highscores/Highscore.js"
+
+const Graphics = GraphicsModule(document)
 
 function Tetris(document) {
+  "use strict"
   return (() => {
     let board
     let piece
     let score
     let level
-    let fps = Logic.calculateFps(level)
+    let fps
     let trackRowCount
     let isPaused
     let gameOver
-    let currentLevel = level
-    Graphics.resetUi(level)
+    let currentLevel
+    Graphics.resetUi(0)
     var timeOutID
+    let pieceStack
+    let firstStart = true
+
+    let IHighscore = Highscores()    
+    const highscoreEl = document.querySelector(".highscore-wrapper")
+    let highscores = IHighscore.getHighscores()
+    IHighscore.renderScores(highscoreEl, highscores)
+
 
     function initGame() {
       console.log("initializing")
@@ -22,8 +35,16 @@ function Tetris(document) {
         window.clearTimeout(timeOutID)
         timeOutID = null
       }
+
+      if (firstStart) {
+        document.querySelector(".scoreboard").style.transform = "translateY(0)";
+        firstStart = false
+      }
+
+      pieceStack = new Logic.PieceStack()
+      Graphics.displayPieceStack(pieceStack.getStack())
       board = Logic.createBoard()
-      piece = Logic.newPiece()
+      piece = pieceStack.getPiece().PIECE
       score = config.startingScore
       level = config.startingLevel
       fps = Logic.calculateFps(level)
@@ -31,7 +52,7 @@ function Tetris(document) {
       isPaused = false
       gameOver = false  
       currentLevel = level
-      Graphics.resetUi()
+      Graphics.resetUi(level)
       Graphics.drawEverything(board, piece)
     }
     
@@ -42,6 +63,7 @@ function Tetris(document) {
         if (currentLevel != level) {
           currentLevel = level
           fps = Logic.moveToNextLevel(level)
+          Graphics.displayLevelText(level)
         }
         timeOutID = schedule()
       } else {
@@ -52,9 +74,14 @@ function Tetris(document) {
 
     function frame(direction) {
       piece = Logic.movePiece(board, piece, direction)
+      if (piece == -1) {
+        piece = pieceStack.getPiece().PIECE
+        Graphics.displayPieceStack(pieceStack.getStack())
+      }
       let scoreMultiplier = Logic.checkFullRowsAndEndCondition(board)
       if (scoreMultiplier === -1) {
         console.log("Game over")
+        highscores = IHighscore.checkForHighscore(highscoreEl, IHighscore.getHighscores(), score)
         Graphics.displayGameOver()
         Graphics.displayFinalScore(score)
         playButton.innerText = "Play"
@@ -76,6 +103,15 @@ function Tetris(document) {
     }
 
     function togglePause() {
+      if (isPaused) { 
+        timeOutID = schedule()
+        Graphics.unPause()
+      }
+      else { 
+        window.clearTimeout(timeOutID)
+        Graphics.pause()
+        timeOutID = null
+      }
       return isPaused = !isPaused
     }
 
@@ -89,15 +125,6 @@ function Tetris(document) {
         return
       }
       if (e.code == config.keys.pause) {
-        if (isPaused) { 
-          timeOutID = schedule()
-          Graphics.unPause()
-        }
-        else { 
-          window.clearTimeout(timeOutID)
-          Graphics.pause()
-          timeOutID = null
-        }
         togglePause()
         return
       }
@@ -110,20 +137,25 @@ function Tetris(document) {
       playButton.innerText = "Restart"
     } 
 
+    const pauseButton = document.querySelector("#pauseButton")
+    pauseButton.onclick = togglePause
+
     const themeSwitchBtn = document.querySelector("#themeSwitch")
-    themeSwitchBtn.onclick = () => Graphics.polarizeHandler(document.body, board, piece)
+    themeSwitchBtn.onclick = () => Graphics.polarizeHandler(document.body, board, piece, pieceStack?.getStack())
 
     const stateInfo = document.querySelector(".state-info")
+    const tetrisContainer = document.querySelector(".tetris-container")
     const canvas = document.querySelector("#myCanvas")
     window.onload = () => {
+      // tetrisContainer.style.height = canvas.clientHeight
+      tetrisContainer.style.width = canvas.clientWidth + 7
       Graphics.drawBorders()
-      stateInfo.style.height = canvas.clientHeight
     }
-    
+
+    MobileControls(frame)
+
     window.onresize = () => {
-      stateInfo.style.height = canvas.clientHeight
-      stateInfo.style.width = canvas.clientWidth
-      console.log(canvas.clientWidth)
+      tetrisContainer.style.width = canvas.clientWidth + 7
     }
   })()
 }

@@ -1,4 +1,5 @@
 export default class Square {
+  "use strict"
   constructor(x, y, isOccupied = false) {
     this.x = x
     this.y = y

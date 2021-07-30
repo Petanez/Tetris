@@ -1,0 +1,61 @@
+.mobile-controls-wrapper {
+  position: absolute;
+  z-index: 1000;
+  display: none;
+  bottom: 0;
+}
+
+.mobile-controls {
+  position: inherit;
+  height: 14rem;
+  width: 21rem;
+  margin-top: -3rem;
+}
+
+.mobile-controls > div {
+  box-sizing: border-box;
+  position: absolute;
+  background: ghostwhite;
+  text-align: center;
+  line-height: 1.2;
+  font-size: 5rem;
+  height: 7rem;
+  width: 7rem;
+  border: 0.2rem solid black;
+  border-radius: 4rem;
+}
+
+.mobile-controls svg {
+  transform: translateY(25%);
+  width: 60%;
+}
+
+.js-rotate {
+  left: 20rem;
+}
+
+.js-arrow-left {
+  top: 6rem;
+  left: -.5rem;
+}
+
+.js-arrow-right {
+  top: 6rem;
+  right: -.5rem;
+}
+
+.js-arrow-down {
+  left: 7rem;
+  bottom: 0;
+}
+
+@media only screen and (max-width: 600px){
+  .mobile-controls-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 14rem;
+    width: 100%;
+    bottom: 0;
+  }
+}

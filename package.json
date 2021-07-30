@@ -1,5 +1,15 @@
 {
+  "type": "module",
   "name": "tetris",
+  "babel": {
+    "env": {
+      "test": {
+        "plugins": [
+          "@babel/plugin-transform-modules-commonjs"
+        ]
+      }
+    }
+  },
   "jest": {
     "verbose": true
   },
@@ -10,8 +20,9 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack --progress --config webpack.config.js"
+    "test": "jest",
+    "dev": "webpack --progress --config webpack.config.js",
+    "server": "node testServer.js"
   },
   "repository": {
     "type": "git",
@@ -27,13 +38,15 @@
   },
   "homepage": "https://github.com/Petanez/Tetris#readme",
   "devDependencies": {
-    "css-loader": "^5.2.6",
-    "dotenv": "^10.0.0",
-    "dotenv-webpack": "^7.0.3",
-    "html-webpack-plugin": "^5.3.1",
-    "mini-css-extract-plugin": "^1.6.0",
-    "process": "^0.11.10",
-    "webpack": "^5.38.1",
-    "webpack-cli": "^4.7.0"
+    "@babel/plugin-transform-modules-commonjs": "7.14.5",
+    "css-loader": "5.2.6",
+    "express": "4.17.1",
+    "html-webpack-plugin": "5.3.1",
+    "jest": "27.0.5",
+    "jsdom": "^16.6.0",
+    "mini-css-extract-plugin": "1.6.0",
+    "node-canvas": "^2.7.0",
+    "webpack": "5.38.1",
+    "webpack-cli": "4.7.0"
   }
 }

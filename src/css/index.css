@@ -1,0 +1,5 @@
+@import "./root.css";
+@import "./styles.css";
+@import "./responsive.css";
+@import "../js/MobileControls/style.css";
+@import "../js/Highscores/style.css";

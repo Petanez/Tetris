@@ -13,16 +13,47 @@
 <body>
   <div class="page-container">
     <div class="page-background">
-      <svg preserveAspectRatio="none" viewBox="0 0 1440 872" fill="var(--clr-primary)" xmlns="http://www.w3.org/2000/svg">
+      <!-- <svg preserveAspectRatio="none" viewBox="0 0 1440 872" fill="var(--clr-primary)" xmlns="http://www.w3.org/2000/svg">
         <path d="M0 865.5C859 928.5 522 466 1439 510.5V0.5H0V865.5Z" stroke="none" strokeWidth="0"/>
-      </svg>
+      </svg> -->
+      <svg class="page-bg-svg" height="250" viewBox="0 0 1438 250" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1437.5 251V0.500488C771.5 0.500181 1375.5 146.5 0 99.0004V251" stroke="none"/>
+      </svg>        
+      <!-- <svg class="page-bg-svg" preserveAspectRatio="none" viewBox="0 0 540 862" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 865.5C859 928.5 522 466 1439 510.5V0.5H0V865.5Z" stroke="none" strokeWidth="0"/>
+      </svg> -->
+      <!-- <svg class="page-bg-svg" preserveAspectRatio="none" viewBox="0 0 540 862" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 865.5C859 928.5 522 466 1439 510.5V0.5H0V865.5Z" stroke="none" strokeWidth="0"/>
+      </svg> -->
     </div>
          
     <div class="tetris-container">
 
+      <div class="tetris__header">
+        <a href="#" id="themeSwitch">
+          <div class="theme-switch__background"></div>
+          <div class="theme-switch-icon"></div>
+          <span class="icon-text">polarize</span>
+        </a>
+        <div class="game-info__cloud1"></div>
+        <div class="game-info__cloud2"></div>
+        <div class="game-info__cloud2"></div>
+        <h1>
+          TETRIS
+        </h1>
+      </div>
+
+      <div class="highscore-wrapper"></div>
+
       <canvas id="myCanvas"></canvas>
 
       <div class="state-info">
+
+
+
+
+        <!-- <div class="state-info__piece-stack"></div> -->
+
         <div class="state-info__level">
           <h1 id="lvl">
             <!--
@@ -48,64 +79,57 @@
           </h2>
         </div>
       </div>
-    </div>
 
-    <div class="game-info">
-      <div class="game-info__content">
-        <a href="#" id="themeSwitch">
-          <div class="theme-switch__background"></div>
-          <div class="theme-switch-icon"></div>
-          <span class="icon-text">polarize</span>
-        </a>
-        <div class="game-info__header">
-          <div class="game-info__cloud1"></div>
+      <div class="game-info">
+        <div class="game-info__content">
+          <!-- <div class="game-info__cloud1"></div>
           <div class="game-info__cloud2"></div>
-          <h1 class=>
-            TETRIS
-          </h1>
-        </div>
-        <div class="scoreboard">
-          <h2>
-            SCORE:
-          </h2>
-          <h2 id="score">
-          </h2>
-        </div>
-        <ul class="game-info__controls">
-          <li>
-            To <b>PAUSE</b> the game press <b>P</b>
-          </li>
-          <li>
-            Press <b>ARROW:</b>
-            <ul>
-              <li>
-                <b>DOWN</b> - Move piece down
-              </li>
-              <li>
-                <b>LEFT</b> - Move piece left
-              </li>
-              <li>
-                <b>RIGHT</b> - Move piece right
-              </li>
-              <li>
-                <b>UP</b> - Rotate piece
-              </li>
-            </ul>
-          </li>
-        </ul>
-        <div>
-          <button id="playButton" onkeypress="event.preventDefault()" </button>START GAME</button>
+          <a href="#" id="themeSwitch">
+            <div class="theme-switch__background"></div>
+            <div class="theme-switch-icon"></div>
+            <span class="icon-text">polarize</span>
+          </a>
+          <div class="tetris__header">
+            <h1>
+              TETRIS
+            </h1>
+          </div> -->
+          <div class="state-info__piece-stack"></div>
+
+          <div class="scoreboard">
+            <h2 class="scoreboard__score-text">
+              SCORE:
+            </h2>
+            <h2 id="score">
+            </h2>
+          </div>
+          <ul class="game-info__controls">
+            <li>
+              Press <b class="controls__control">P</b> to pause
+            </li>
+            <li>
+              <div class="controls__arrowkeys controls__control">
+                <div class="arrowkeys__left">
+                  <div class="arrow"></div>
+                </div>
+                <div class="arrowkeys__down">
+                  <div class="arrow"></div>
+                </div>
+                <div class="arrowkeys__right">
+                  <div class="arrow"></div>
+                </div>
+                <div class="arrowkeys__up">
+                  <div class="arrow"></div>
+                </div>
+              </div>
+            </li>
+          </ul>
+          <button id="playButton" onkeypress="event.preventDefault()"></button>
+          <button id="pauseButton" onkeypress="event.preventDefault()">Pause</button>
         </div>
       </div>
     </div>
 
-    <div class="mobile-controls-wrapper">
-      <div class="mobile-controls">
-        <div class="js-arrow-up">&#x2B06</div>
-        <div class="js-arrow-right">&#x27A1</div>
-        <div class="js-arrow-down">&#x2B07</div>
-        <div class="js-arrow-left">&#x2B05</div>
-      </div>
-    </div>
+
   </div>
 </body>
