@@ -127,14 +127,18 @@ export default function(document) {
       // ctx.fillStyle = sq
       
       /////////////////////////////// STYLE 2 ////////////////////////
-      let opacity = `${(y / config.board.height)}`
+      let opacity = `${(y / config.board.height) - (x / config.board.width)}`
       let rgbVal
       if (isPolarized)
        rgbVal = opacity * 255
       else
        rgbVal = 255 - (opacity * 255)
 
-      let sq = ctx.createLinearGradient(borderLineWidth + squareSize * x, borderLineWidth + squareSize * y, squareSize * x + squareSize, squareSize * y + squareSize)
+      let sq = ctx.createLinearGradient(
+        borderLineWidth + squareSize * x, 
+        borderLineWidth + squareSize * y, 
+        squareSize * x + squareSize, 
+        squareSize * y + squareSize)
       sq.addColorStop(.1, `rgb(${rgbVal}, ${rgbVal}, ${rgbVal})`)
       sq.addColorStop(.5, squareColor1)
       ctx.fillStyle = sq

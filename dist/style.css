@@ -1,3 +1,139 @@
+:root {
+  font-size: calc(11px + 0.2vw);
+  /* font-size: 16px; */
+  /* font-size: 16px; */
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  --ff-secondary: 'Courier New', Courier, monospace;
+  --clr-canvas-bg: rgba(0, 0, 0, 0.9);
+  --clr-canvas-bg: rgba(0, 0, 0, 1);
+  --body-effect-delay: 0.7s;
+  --clr-ff-brightwhite: black;
+  --clr-light-white: rgb(55, 55, 55);
+  --clr-arrows: rgba(0, 0, 0, .4);
+  --clr-primary: black;
+  --clr-secondary: white;
+  --clr-tercery: rgb(222, 59, 59);
+  --clr-page-background: linear-gradient(-20deg, transparent 70%, black 100%);
+  /* --clr-page-background2: linear-gradient(90deg, black 0%, transparent 50%, transparent 100%, rgba(255, 255, 255, .9) 100%); */
+  --clr-page-background2: linear-gradient(90deg, black 0%, white 40%, transparent 50%, rgba(255, 255, 255, .9) 50%, var(--clr-primary) 80%);
+  --clr-page-background2: linear-gradient(90deg, black 0%, white 20%, transparent 50%, rgba(255, 255, 255, .9) 50%, var(--clr-primary) 80%);
+  /* --clr-page-background2: linear-gradient(90deg, white 0%, black 40%, transparent 50%, rgba(255, 255, 255, .9) 50%, var(--clr-primary) 80%); */
+  /* --clr-page-background2: linear-gradient(0deg, black 0%, transparent 30%, rgba(255, 255, 255, 1) 70%); */
+  /* --clr-page-background2: linear-gradient(180deg, black 0%, transparent 30%, rgba(255, 255, 255, 1) 40%); */
+  --clr-box-pre:  white;
+  --bg-position: left;
+  --clr-box-shadow: rgba(0, 0, 0, 1);
+  --clr-theme-switch-bg: radial-gradient(circle at 52% 52%, transparent 0%, var(--clr-secondary) 10.5%, transparent 10.6%, var(--clr-secondary) 12%, transparent 13%, rgba(255, 255, 255, 0.2) 15%, rgba(255, 255, 255, 0.1) 33%, transparent 40%, rgba(255, 255, 255, 0.1) 43%, transparent 50%);
+  --clr-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.5) 0%, var(--clr-secondary) 10.5%, transparent 10.6%, var(--clr-secondary) 12%, transparent 13%, rgba(255, 255, 255, 0.2) 15%, rgba(255, 255, 255, 0.1) 33%, transparent 40%, rgba(255, 255, 255, 0.1) 43%, transparent 50%);
+
+  --clr-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.9) 0%, var(--clr-primary) 10.5%, transparent 10.6%, var(--clr-primary) 12%, transparent 13%, rgba(0, 0, 0, 0.5) 15%, rgba(0, 0, 0, 0.1) 33%, transparent 40%, rgba(0, 0, 0, 0.3) 43%, transparent 50%, rgba(0, 0, 0, 0.3) 53%, transparent 67%);
+  --clr-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.9) 0%, var(--clr-primary) 10.5%, transparent 11.5%, var(--clr-primary) 12%, rgba(0, 0, 0, .3) 13%, rgba(0, 0, 0, 0.5) 33%, transparent 40%, rgba(0, 0, 0, 0.3) 49%, transparent 50%, rgba(0, 0, 0, 0.3) 53%, transparent 67%);
+  /* --clr-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.5) 0%, var(--clr-primary) 10.5%, white 10.6%, var(--clr-primary) 12%, transparent 13%, rgba(255, 255, 255, .1) 21%, transparent 38%, rgba(255, 255, 255, 0.2) 36%, transparent 47%, rgba(0, 0, 0, 0.2) 55%, transparent 62%); */
+
+
+  --w-btn-small: 29%;
+  --animation-first-piece: first-piece-animation 1000ms ease infinite alternate-reverse;
+  
+  --controls-ff-shadow: 0 0 1px white;
+  --game-info-controls-clr-bg: rgba(14, 14, 14, .2);
+  /* --game-info-controls-clr-bg: rgba(0, 0, 0, 1); */
+  --ff-game-info-opacity: 1;
+  --clr-ff-game-info: rgba(0, 0, 0, var(--ff-game-info-opacity));
+  --clr-game-info-header: rgba(0, 0, 0, .3);
+  /* --clr-game-info-header: rgba(255, 255, 255, 1); */
+
+  /* --gradient-game-info-header-bg: linear-gradient(5deg, var(--clr-ff-brightwhite) 20%, var(--clr-secondary) 70%); */
+  --clr-test: rgb(58, 58, 58);
+
+  --gradient-game-info-header-bg: linear-gradient(20deg, var(--clr-ff-brightwhite) 7%, var(--clr-light-white) 20%, white 35%);
+
+  --clr-shadow-txt-tetris-header: rgb(40, 40, 50);
+  /* --gradient-game-info-header-bg: linear-gradient(-195deg, var(--clr-ff-brightwhite) 7%, var(--clr-light-white) 20%, var(--clr-secondary) 75%); */
+  --gradient-canvas-bg: linear-gradient(180deg, transparent 35%, var(--clr-canvas-bg) 82%);
+  --gradient-canvas-bg: linear-gradient(-120deg, transparent 69%, var(--clr-canvas-bg) 82%);
+  /* --gradient-canvas-bg: linear-gradient(195deg, transparent 30%, var(--clr-canvas-bg) 42%); */
+  /* --gradient-canvas-bg: linear-gradient(230deg, transparent 30%, var(--clr-canvas-bg) 62%); */
+
+  --gradient-canvas-bg: linear-gradient(-120deg, transparent 69%, var(--clr-canvas-bg) 70%, var(--clr-secondary) 74%);
+
+  --gradient-canvas-bg-2: linear-gradient(130deg, transparent 39%, var(--clr-primary) 79%);
+
+
+}
+
+body {
+  margin: 0;
+}
+
+.polarized {
+  --clr-canvas-bg: rgba(255, 255, 255, .3);
+  --clr-primary: white;
+  --clr-light-white: rgb(227, 219, 219);
+  --clr-secondary: black;
+  --clr-ff-brightwhite: white;
+  --clr-arrows: rgba(255, 255, 255, .4);
+  --bg-position: right;
+  --clr-box-pre:  black;
+  --clr-box-shadow:  white;
+  --game-info-controls-clr-bg: rgba(255, 255, 255, .1);
+  --controls-ff-shadow: 0 0 1px black;
+  
+  --clr-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.5) 0%, var(--clr-primary) 10.5%, transparent 10.6%, var(--clr-primary) 12%, transparent 13%, rgba(255, 255, 255, 0.2) 21%, transparent 38%, rgba(255, 255, 255, 0.2) 36%, transparent 47%, rgba(0, 0, 0, 0.2) 55%, transparent 62%);
+  --clr-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.5) 0%, var(--clr-primary) 10.5%, transparent 10.6%, var(--clr-primary) 12%, transparent 13%, rgba(0, 0, 0, 0.5) 15%, rgba(0, 0, 0, 0.1) 33%, transparent 40%, rgba(0, 0, 0, 0.3) 43%, transparent 50%, rgba(0, 0, 0, 0.3) 53%, transparent 67%);
+
+  
+  /* --clr-page-background: linear-gradient(5deg, var(--clr-primary) 0%, transparent 20%);
+  --clr-page-background2: linear-gradient(180deg, black 0%, rgba(255, 255, 255, .1) 10%); */
+
+  --clr-ff-game-info: rgba(255, 255, 255, var(--ff-game-info-opacity));
+  --clr-game-info-header: rgba(255, 255, 255, 1);
+  /* --clr-game-info-header: rgba(0, 0, 0, .7); */
+
+  --clr-shadow-txt-tetris-header: rgb(215, 215, 205);
+  --gradient-game-info-header-bg: linear-gradient(20deg, var(--clr-ff-brightwhite) 7%, var(--clr-light-white) 20%, black 35%);
+
+
+
+  /* --gradient-game-info-header-bg: linear-gradient(5deg, var(--clr-ff-brightwhite) 40%, black 70%); */
+  /* --gradient-canvas-bg: linear-gradient(165deg, transparent 20%, rgba(255, 255, 255, .5) 30%, black,rgba(255, 255, 255, .5) 33%, transparent 44%, var(--clr-canvas-bg) 62%); */
+  --gradient-canvas-bg: linear-gradient(180deg, transparent 40%, var(--clr-canvas-bg) 62%);
+  --gradient-canvas-bg: linear-gradient(150deg, transparent 20%, var(--clr-canvas-bg) 62%);
+  --gradient-canvas-bg: linear-gradient(230deg, transparent 30%, var(--clr-canvas-bg) 62%);
+  --gradient-canvas-bg: linear-gradient(180deg, transparent 40%, var(--clr-canvas-bg) 82%);
+  --gradient-canvas-bg: linear-gradient(180deg, transparent 35%, var(--clr-canvas-bg) 72%, white 90%);
+
+  --gradient-canvas-bg: linear-gradient(-120deg, transparent 69%, var(--clr-canvas-bg) 70%, var(--clr-secondary) 74%);
+
+  --gradient-canvas-bg-2: linear-gradient(130deg, transparent 39%, var(--clr-primary) 79%);
+
+
+}
+
+* {
+  user-select: none;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  /* margin: 0px !important;
+  padding: 0px !important;
+  margin-block-start: 0px !important;
+  margin-block-end: 0px !important; */
+  margin: 0;
+  padding: 0;
+}
+
+h2 {
+  margin: 0;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+a {
+  position: relative;
+  display: inline-block;
+}
 #myCanvas {
   height: 100%;
   overflow: visible;
@@ -771,3 +907,207 @@ div[class$="keys__left"] > div {
   top: -2.2ch;
   text-align: center;
 }
+/*Tablets [601px -> 1200px]*/
+@media only screen and (max-width: 1200px){
+
+}
+
+
+/*Big smartphones [426px -> 600px]*/
+@media only screen and (max-width: 600px){
+  body {
+    margin-left: 0;
+    margin-top: 0;
+  }
+
+  nav {
+    display: none;
+  }
+
+  aside {
+    display: none;
+  }
+
+  footer {
+    display: none;
+  }
+
+  .page-container {
+    padding: 0;
+    padding-top: 0rem;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .tetris-container {
+    top: -7%;
+    right: -5%;
+  }
+
+  .game-info {
+    position: absolute;
+    width: 100%;
+    left: -50%;
+  }
+
+  .state-info__piece-stack {
+    flex-direction: column;
+    width: 50px;
+    height: 250px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(500%);
+  }
+
+  .piece-stack__piece {
+    position: relative;
+    height: 20%;
+    width: 100%;
+  }
+
+  .game-info__controls {
+    display: none;
+  }
+
+
+
+  #pauseButton {
+    display: block;
+  }
+
+  #playButton {
+  }
+  
+  .page-container button {
+    margin-top: .8ch;
+    background: var(--clr-primary);
+    color: var(--clr-secondary);
+    width: var(--w-btn-small);
+    border: .4rem solid white;
+    border-right: none;
+    border-left: none;
+    border-bottom-right-radius: 0;
+    width: var(--w-btn-small);
+    font-size: 2.2rem;
+    margin: .4ch;
+  }
+
+  .scoreboard {
+    width: max(88px, 30%);
+    padding-left: 0;
+    margin-left: 0;
+    transform: translateY(0);
+  }
+
+  .scoreboard__score-text {
+    position: absolute;
+    top: -2ch;
+    color: var(--clr-secondary);
+  }
+
+  .game-info > .game-info__content > *:not(#playButton, #pauseButton, .scoreboard, .state-info__piece-stack) {
+    display: none;
+  }
+
+  .tetris-container {
+    height: 80%;
+  }
+
+  /* .canvas-wrapper {
+    height: 85%;
+  } */
+
+  /* .game-info > *:not(.scoreboard) {
+    display: none;
+  } */
+
+}
+
+/*Small smartphones [325px -> 425px]*/
+/* @media only screen and (max-width: 425px){
+
+} */
+.mobile-controls-wrapper {
+  position: absolute;
+  z-index: 1000;
+  display: none;
+  bottom: 0;
+}
+
+.mobile-controls {
+  position: inherit;
+  height: 14rem;
+  width: 21rem;
+  margin-top: -3rem;
+}
+
+.mobile-controls > div {
+  box-sizing: border-box;
+  position: absolute;
+  background: ghostwhite;
+  text-align: center;
+  line-height: 1.2;
+  font-size: 5rem;
+  height: 7rem;
+  width: 7rem;
+  border: 0.2rem solid black;
+  border-radius: 4rem;
+}
+
+.mobile-controls svg {
+  transform: translateY(25%);
+  width: 60%;
+}
+
+.js-rotate {
+  left: 20rem;
+}
+
+.js-arrow-left {
+  top: 6rem;
+  left: -.5rem;
+}
+
+.js-arrow-right {
+  top: 6rem;
+  right: -.5rem;
+}
+
+.js-arrow-down {
+  left: 7rem;
+  bottom: 0;
+}
+
+@media only screen and (max-width: 600px){
+  .mobile-controls-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 14rem;
+    width: 100%;
+    bottom: 0;
+  }
+}
+.highscores {
+  width: 100%;
+  height: 100%;
+  counter-reset: highscore;
+}
+
+.highscores__score {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  height: 10%;
+  text-align: center;
+}
+
+.highscores__score::before {
+  position: absolute;
+  left: 5%;
+  content: counter(highscore)".";
+  counter-increment: highscore;
+}
+

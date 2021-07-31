@@ -53,6 +53,12 @@
   --gradient-canvas-bg: linear-gradient(-120deg, transparent 69%, var(--clr-canvas-bg) 82%);
   /* --gradient-canvas-bg: linear-gradient(195deg, transparent 30%, var(--clr-canvas-bg) 42%); */
   /* --gradient-canvas-bg: linear-gradient(230deg, transparent 30%, var(--clr-canvas-bg) 62%); */
+
+  --gradient-canvas-bg: linear-gradient(-120deg, transparent 69%, var(--clr-canvas-bg) 70%, var(--clr-secondary) 74%);
+
+  --gradient-canvas-bg-2: linear-gradient(130deg, transparent 39%, var(--clr-primary) 79%);
+
+
 }
 
 body {
@@ -95,7 +101,10 @@ body {
   --gradient-canvas-bg: linear-gradient(230deg, transparent 30%, var(--clr-canvas-bg) 62%);
   --gradient-canvas-bg: linear-gradient(180deg, transparent 40%, var(--clr-canvas-bg) 82%);
   --gradient-canvas-bg: linear-gradient(180deg, transparent 35%, var(--clr-canvas-bg) 72%, white 90%);
-  --gradient-canvas-bg: linear-gradient(-120deg, transparent 69%, var(--clr-canvas-bg) 72%, white 90%);
+
+  --gradient-canvas-bg: linear-gradient(-120deg, transparent 69%, var(--clr-canvas-bg) 70%, var(--clr-secondary) 74%);
+
+  --gradient-canvas-bg-2: linear-gradient(130deg, transparent 39%, var(--clr-primary) 79%);
 
 
 }
