@@ -27,7 +27,7 @@ function Tetris(document) {
     const highscoreEl = document.querySelector(".highscore-wrapper")
     let highscores = IHighscore.getHighscores()
     IHighscore.renderScores(highscoreEl, highscores)
-
+    // IHighscore.checkForHighscore(highscoreEl, highscores, 3000)
 
     function initGame() {
       console.log("initializing")
@@ -42,7 +42,6 @@ function Tetris(document) {
       }
 
       pieceStack = new Logic.PieceStack()
-      Graphics.displayPieceStack(pieceStack.getStack())
       board = Logic.createBoard()
       piece = pieceStack.getPiece().PIECE
       score = config.startingScore
@@ -52,6 +51,7 @@ function Tetris(document) {
       isPaused = false
       gameOver = false  
       currentLevel = level
+      Graphics.displayPieceStack(pieceStack.getStack())
       Graphics.resetUi(level)
       Graphics.drawEverything(board, piece)
     }
@@ -81,7 +81,7 @@ function Tetris(document) {
       let scoreMultiplier = Logic.checkFullRowsAndEndCondition(board)
       if (scoreMultiplier === -1) {
         console.log("Game over")
-        highscores = IHighscore.checkForHighscore(highscoreEl, IHighscore.getHighscores(), score)
+        highscores = IHighscore.checkForHighscore(highscoreEl, highscores, score)
         Graphics.displayGameOver()
         Graphics.displayFinalScore(score)
         playButton.innerText = "Play"
@@ -117,7 +117,7 @@ function Tetris(document) {
 
     const arrowKeys = ["ArrowUp", "ArrowRight", "ArrowDown", "ArrowLeft"]
     document.addEventListener("keydown", e => {
-      if (gameOver) return
+      if (gameOver || firstStart) return
       if (arrowKeys.includes(e.code)) {
         if (isPaused) return
         const direction = e.code.slice(5).toLowerCase()
@@ -148,14 +148,14 @@ function Tetris(document) {
     const canvas = document.querySelector("#myCanvas")
     window.onload = () => {
       // tetrisContainer.style.height = canvas.clientHeight
-      tetrisContainer.style.width = canvas.clientWidth + 7
+      tetrisContainer.style.width = canvas.clientWidth + 6
       Graphics.drawBorders()
     }
 
     MobileControls(frame)
 
     window.onresize = () => {
-      tetrisContainer.style.width = canvas.clientWidth + 7
+      tetrisContainer.style.width = canvas.clientWidth + 6
     }
   })()
 }

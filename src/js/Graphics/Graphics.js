@@ -20,7 +20,6 @@ export default function(document) {
     const gameOverElement = document.getElementById("gOvr")
     const gamePausedElement = document.getElementById("gamePaused")
 
-    let isPolarized = document.body.classList.contains("polarized") || true
     
     let borderColor = config.border.color
     // let squareBorderColor = config.square.secondaryColor
@@ -28,23 +27,27 @@ export default function(document) {
     // let squareBorderColor = config.square.primaryColor
     let squareColor1 = config.square.primaryColor
     let squareColor2 = config.square.secondaryColor
+
+    let isPolarized
+    // polarizeHandler(document.body, [], [], [])
+
     
     function polarizeHandler(element, board, piece) {
+      console.log("handling polarization")
       const pageContainer = document.querySelector(".page-container")
       pageContainer.classList.toggle("right-aligned-background")
-      console.log(pageContainer.style)
       if (element.classList.contains("polarized")) {
         borderColor = config.border.color
-        squareBorderColor = config.square.secondaryColor
+        squareBorderColor = config.square.primaryColor
         squareColor1 = config.square.primaryColor
         squareColor2 = config.square.secondaryColor
-        isPolarized = true
+        isPolarized = false
       } else {
         borderColor = config.square.secondaryColor
-        squareBorderColor = config.square.primaryColor
+        squareBorderColor = config.square.secondaryColor
         squareColor1 = config.square.secondaryColor
         squareColor2 = config.square.primaryColor
-        isPolarized = false
+        isPolarized = true
       }
       element.classList.toggle("polarized")
       if (board == null) return drawEverything([], [])
@@ -75,12 +78,16 @@ export default function(document) {
     function drawBorders() {
       return
       // To line up drawed borders with actual ones
-      let borderLineAdjustment = 4
+      let borderLineAdjustment = 1
       ctx.beginPath()
       ctx.lineWidth = borderLineWidth
       ctx.strokeStyle = borderColor
-      ctx.strokeStyle = "rgba(0, 0, 0, .5)"
-      ctx.strokeStyle = "transparent"
+      let clr = "rgb(100, 100, 100)"
+      // if (!isPolarized) clr = "rgba(255, 255, 255, .5)"
+      // else clr = "rgba(0, 0, 0, 1)"
+      ctx.strokeStyle = clr
+
+      // ctx.strokeStyle = "transparent"
       ctx.moveTo(borderLineAdjustment, 0)
       ctx.lineTo(borderLineAdjustment, c.height - borderLineAdjustment)
       ctx.stroke()
@@ -103,6 +110,7 @@ export default function(document) {
       // sq.addColorStop(1, squareColor2)
       
       // MAIN
+      // let opacity = `${(y / config.board.height)}`
       // let sq = ctx.createLinearGradient(
       //   borderLineWidth + (squareSize * x) - squareSize / 3, 
       //   (squareSize * y), 
@@ -114,35 +122,69 @@ export default function(document) {
       // ctx.fillStyle = `rgba(0, 0, 0, ${opacity})`
 
       /////////////////////////////// STYLE 1 ////////////////////////
-      // let opacity = `${(y / config.board.height)}`
+      let opacity = `${(y / config.board.height)}`
+      let rgbVal
+      let modifiedVal
+      if (isPolarized) {
+        // rgbVal = 255 - (opacity * 255)
+        rgbVal = 255 - (opacity * 255) + y * 3
+        modifiedVal = y > 0 ? rgbVal - y * 5: rgbVal
+      } else {
+        // rgbVal = opacity * 255
+        rgbVal = (opacity * 255)
+        modifiedVal = y > 0 ? rgbVal - y * 5 : rgbVal
+      }
+
+      let sq = ctx.createLinearGradient(borderLineWidth + squareSize * x, borderLineWidth + squareSize * y, squareSize * x + squareSize, squareSize * y + squareSize)
+        
+      let color1 = `rgb(${rgbVal}, ${rgbVal}, ${rgbVal})`;
+      let color2 = `rgb(${modifiedVal}, ${modifiedVal}, ${modifiedVal})`;
+
+      let min = .3, max = .8;
+      let colorStop = opacity < min ? min : opacity > max ? max : opacity 
+      sq.addColorStop(.2, color1)
+      sq.addColorStop(colorStop, color2)
+
+      // sq.addColorStop(.1, squareColor2)
+      // sq.addColorStop(colorStop, `rgb(${rgbVal}, ${rgbVal}, ${rgbVal})`)
+
+      // sq.addColorStop(.1, `rgb(${rgbVal}, ${rgbVal}, ${rgbVal})`)
+      // sq.addColorStop(opacity, squareColor2)
+      ctx.fillStyle = sq
+      
+      /////////////////////////////// STYLE 2 ////////////////////////
+      // let opacity = `${(y / config.board.height) - (x / config.board.width)}`
       // let rgbVal
       // if (isPolarized)
       //  rgbVal = opacity * 255
       // else
       //  rgbVal = 255 - (opacity * 255)
 
-      // let sq = ctx.createLinearGradient(borderLineWidth + squareSize * x, borderLineWidth + squareSize * y, squareSize * x + squareSize, squareSize * y + squareSize)
+      // let sq = ctx.createLinearGradient(
+      //   borderLineWidth + squareSize * x, 
+      //   borderLineWidth + squareSize * y, 
+      //   squareSize * x + squareSize, 
+      //   squareSize * y + squareSize)
       // sq.addColorStop(.1, `rgb(${rgbVal}, ${rgbVal}, ${rgbVal})`)
-      // sq.addColorStop(1, squareColor2)
+      // sq.addColorStop(.5, squareColor1)
       // ctx.fillStyle = sq
-      
-      /////////////////////////////// STYLE 2 ////////////////////////
-      let opacity = `${(y / config.board.height) - (x / config.board.width)}`
-      let rgbVal
-      if (isPolarized)
-       rgbVal = opacity * 255
-      else
-       rgbVal = 255 - (opacity * 255)
 
-      let sq = ctx.createLinearGradient(
-        borderLineWidth + squareSize * x, 
-        borderLineWidth + squareSize * y, 
-        squareSize * x + squareSize, 
-        squareSize * y + squareSize)
-      sq.addColorStop(.1, `rgb(${rgbVal}, ${rgbVal}, ${rgbVal})`)
-      sq.addColorStop(.5, squareColor1)
-      ctx.fillStyle = sq
-      // n1
+      /////////////////////////////// STYLE 3 ////////////////////////
+      // let opacity = `${(y / config.board.height) - (x / config.board.width)}`
+      // let rgbVal
+      // if (isPolarized)
+      //  rgbVal = opacity * 255
+      // else
+      //  rgbVal = 255 - (opacity * 255)
+
+      // let sq = ctx.createLinearGradient(
+      //   borderLineWidth + squareSize * x, 
+      //   borderLineWidth + squareSize * y, 
+      //   squareSize * x + squareSize, 
+      //   squareSize * y + squareSize)
+      // sq.addColorStop(.1, `rgb(${rgbVal}, ${rgbVal}, ${rgbVal})`)
+      // sq.addColorStop(1, squareColor1)
+      // ctx.fillStyle = sq
 
       // ctx.fillStyle = `rgb(${rgbVal}, ${rgbVal}, ${rgbVal})`
       ctx.fillRect(squareSize * x, squareSize * y, squareSize, squareSize)

@@ -29,6 +29,16 @@ export default (function() {
     }
 
     this.getPiece = function() {
+      let firstPiece = document.querySelector(".piece-stack__piece:first-of-type")
+      if (firstPiece) {
+        let effectPiece = firstPiece.cloneNode(true)
+        effectPiece.className = "piece-stack__effect-piece"
+        const tetrisContainer = document.querySelector(".tetris-container")
+        tetrisContainer.appendChild(effectPiece)
+        setTimeout(() => {
+          effectPiece.remove()
+        }, 140)
+      }
       stack.push(newPiece())
       return stack.shift()
     }

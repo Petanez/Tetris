@@ -11,6 +11,7 @@ export default class Square {
   set isOccupied(value) {
     this.isOccupied = value
   }
+  // perkele
 
   get isOccupied() {
     return this.isOccupied

@@ -15,7 +15,7 @@
 .mobile-controls > div {
   box-sizing: border-box;
   position: absolute;
-  background: ghostwhite;
+  background: radial-gradient(circle at center, var(--clr-primary) 40%, var(--clr-secondary) 80%);
   text-align: center;
   line-height: 1.2;
   font-size: 5rem;
@@ -23,6 +23,7 @@
   width: 7rem;
   border: 0.2rem solid black;
   border-radius: 4rem;
+  color: var(--clr-secondary);
 }
 
 .mobile-controls svg {
@@ -30,6 +31,7 @@
   width: 60%;
 }
 
+.js-rotate > svg { margin-top: .1ch; }
 .js-rotate {
   left: 20rem;
 }

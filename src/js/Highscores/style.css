@@ -1,3 +1,7 @@
+:root {
+  --highscore-form-border-radius: 1rem;
+}
+
 .highscores {
   width: 100%;
   height: 100%;
@@ -9,12 +13,109 @@
   box-sizing: border-box;
   width: 100%;
   height: 10%;
-  text-align: center;
+  padding-inline: .2em;
+  white-space: nowrap;
+  margin: auto 0;
+}
+
+.highscores__score > span {
+  display: inline-block;
+  width: 50%;
+}
+
+.highscores__score > span:first-of-type {
+  color: var(--clr-tercery);
+  text-transform: uppercase;
 }
 
 .highscores__score::before {
   position: absolute;
-  left: 5%;
+  color: currentColor;
+  left: -2.4ch;
   content: counter(highscore)".";
   counter-increment: highscore;
+}
+
+.js-name-form {
+  position: absolute;
+  z-index: 10000;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, .7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+}
+
+.js-name-form::before {
+  content: "New Highscore!";
+  position: absolute;
+  line-height: 1;
+  width: 100%;
+  height: 100%;
+  top: 20%;
+  font-size: 5rem;
+  color: var(--clr-tercery);
+  text-align: center;
+}
+
+.js-name-form > input {
+  height: 10%;
+  font-size: 1em;
+}
+
+.js-name-form > input:first-of-type {
+  position: relative;
+  width: min(100%, 500px);
+  left: 0;
+  top: 0;
+  text-align: center;
+
+  font-size: .7em;
+  border-top-left-radius: var(--highscore-form-border-radius);
+  border-bottom-left-radius: var(--highscore-form-border-radius);
+}
+
+.js-name-form > input:last-of-type {
+  position: relative;
+  padding: 0 1em;
+  left: 0;
+  top: 0;
+
+  border-top-right-radius: var(--highscore-form-border-radius);
+  border-bottom-right-radius: var(--highscore-form-border-radius); 
+}
+
+#highscoreFormBtn {
+  width: 100%;
+  height: 50%;
+  background: white;
+  position: absolute;
+  z-index: 10001;
+}
+/* .js-name-form::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: var(--border-thickness) solid var(--cls-primary);
+} */
+
+@media only screen and (max-width: 600px){
+  .js-name-form {
+    flex-direction: column;
+  }
+
+  .js-name-form > input:first-of-type {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .js-name-form > input:last-of-type {
+    border-top-left-radius: var(--highscore-form-border-radius);
+    border-bottom-left-radius: var(--highscore-form-border-radius);
+  }
 }

@@ -1,24 +1,6 @@
-/*
- * ATTENTION: The "eval" devtool has been used (maybe by default in mode: "development").
- * This devtool is neither made for production nor for readable output files.
- * It uses "eval()" calls to create a separate source file in the browser devtools.
- * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
- * or disable the default devtool with "devtool: false".
- * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
- */
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
-
-/***/ "./src/css/index.css":
-/*!***************************!*\
-  !*** ./src/css/index.css ***!
-  \***************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack://tetris/./src/css/index.css?");
-
-/***/ }),
 
 /***/ "./src/config/prod.js":
 /*!****************************!*\
@@ -26,7 +8,33 @@ eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extr
   \****************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({\r\n  startingScore: 0,\r\n  startingLevel: 1,\r\n  border: {\r\n    width: 10,\r\n    color: \"white\"\r\n  },\r\n  square: {\r\n    size: 35,\r\n    primaryColor: \"white\",\r\n    secondaryColor: \"black\"\r\n  },\r\n  board: {\r\n    height: 24,\r\n    width: 10\r\n  },\r\n  keys: {\r\n    pause: \"KeyP\"\r\n  },\r\n  errorMsgs: {\r\n    highscoreNotFound: \"Highscore not found\"\r\n  }\r\n});\n\n//# sourceURL=webpack://tetris/./src/config/prod.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  startingScore: 0,
+  startingLevel: 1,
+  border: {
+    width: 2,
+    color: "white"
+  },
+  square: {
+    size: 35,
+    primaryColor: "white",
+    secondaryColor: "black"
+  },
+  board: {
+    height: 24,
+    width: 10
+  },
+  keys: {
+    pause: "KeyP"
+  },
+  errorMsgs: {
+    highscoreNotFound: "Highscore not found"
+  }
+});
 
 /***/ }),
 
@@ -36,7 +44,296 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*************************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _config_prod_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../config/prod.js */ \"./src/config/prod.js\");\n\r\n\r\n/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(document) {\r\n  return (function() {\r\n    \"use strict\"\r\n\r\n    const c = document?.querySelector(\"#myCanvas\")\r\n    const squareSize = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.square.size\r\n    const borderLineWidth = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.border.width\r\n    const gridHeight = squareSize * _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.board.height\r\n    const gridWidth = squareSize * _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.board.width\r\n\r\n    const ctx = c.getContext(\"2d\")\r\n    c.height = gridHeight\r\n    c.width = gridWidth\r\n          \r\n    const scoreElement = document.getElementById(\"score\")\r\n    const finalScoreElement = document.getElementById(\"finalScore\")\r\n    const levelElement = document.getElementById(\"lvl\")\r\n    const gameOverElement = document.getElementById(\"gOvr\")\r\n    const gamePausedElement = document.getElementById(\"gamePaused\")\r\n\r\n    let isPolarized = document.body.classList.contains(\"polarized\") || true\r\n    \r\n    let borderColor = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.border.color\r\n    // let squareBorderColor = config.square.secondaryColor\r\n    let squareBorderColor = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.square.secondaryColor\r\n    // let squareBorderColor = config.square.primaryColor\r\n    let squareColor1 = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.square.primaryColor\r\n    let squareColor2 = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.square.secondaryColor\r\n    \r\n    function polarizeHandler(element, board, piece) {\r\n      const pageContainer = document.querySelector(\".page-container\")\r\n      pageContainer.classList.toggle(\"right-aligned-background\")\r\n      console.log(pageContainer.style)\r\n      if (element.classList.contains(\"polarized\")) {\r\n        borderColor = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.border.color\r\n        squareBorderColor = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.square.secondaryColor\r\n        squareColor1 = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.square.primaryColor\r\n        squareColor2 = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.square.secondaryColor\r\n        isPolarized = true\r\n      } else {\r\n        borderColor = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.square.secondaryColor\r\n        squareBorderColor = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.square.primaryColor\r\n        squareColor1 = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.square.secondaryColor\r\n        squareColor2 = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.square.primaryColor\r\n        isPolarized = false\r\n      }\r\n      element.classList.toggle(\"polarized\")\r\n      if (board == null) return drawEverything([], [])\r\n      drawEverything(board, piece)\r\n    }\r\n\r\n    function displayPieceStack(stack) {\r\n      const pieceStackEl = document.querySelector(\".state-info__piece-stack\")\r\n      pieceStackEl.style.opacity = \"1\"\r\n      while (pieceStackEl.firstChild) pieceStackEl.firstChild.remove()\r\n      for (let i = 0; i < stack.length; i++) {\r\n        let pieceEl = pieceStackEl.appendChild(document.createElement(\"div\"))\r\n        pieceEl.classList = `${stack[i].constructor.name} piece-stack__piece`\r\n        for (let square of stack[i].PIECE) {\r\n          let sq = document.createElement(\"div\")\r\n          let width = 20 - (i * 2)       \r\n          sq.className = \"piece-stack__square\"\r\n          sq.style.cssText = `left: ${(square.x - 4)*width}%; top: ${square.y * width}%; width: ${width}%; height: ${width}%; opacity: ${100 - 20 * i}%;`   \r\n          pieceEl.appendChild(sq)\r\n        }\r\n      }\r\n    }\r\n\r\n    function clearBoard() {\r\n      ctx.clearRect(0 + borderLineWidth, 0 + borderLineWidth, c.width - borderLineWidth * 2, c.height - borderLineWidth * 2)\r\n    }\r\n    \r\n    function drawBorders() {\r\n      return\r\n      // To line up drawed borders with actual ones\r\n      let borderLineAdjustment = 4\r\n      ctx.beginPath()\r\n      ctx.lineWidth = borderLineWidth\r\n      ctx.strokeStyle = borderColor\r\n      ctx.strokeStyle = \"rgba(0, 0, 0, .5)\"\r\n      ctx.strokeStyle = \"transparent\"\r\n      ctx.moveTo(borderLineAdjustment, 0)\r\n      ctx.lineTo(borderLineAdjustment, c.height - borderLineAdjustment)\r\n      ctx.stroke()\r\n      // ctx.strokeStyle = borderColor\r\n      ctx.lineTo(c.width - borderLineAdjustment, c.height - borderLineAdjustment)\r\n      ctx.lineTo(c.width - borderLineAdjustment, 0)\r\n      ctx.stroke()\r\n    }\r\n    \r\n    function drawSquare(x, y) {\r\n      let sLineWidth = .2\r\n      // let sLineWidth = 1\r\n      ctx.beginPath()\r\n      ctx.lineWidth = sLineWidth\r\n      ctx.strokeStyle = squareColor2\r\n      // ctx.strokeStyle = squareBorderColor\r\n      //  Linear gradience\r\n      // let sq = ctx.createLinearGradient(borderLineWidth + squareSize * x, borderLineWidth + squareSize * y, squareSize * x + squareSize, squareSize * y + squareSize)\r\n      // sq.addColorStop(.1, squareColor1)\r\n      // sq.addColorStop(1, squareColor2)\r\n      \r\n      // MAIN\r\n      // let sq = ctx.createLinearGradient(\r\n      //   borderLineWidth + (squareSize * x) - squareSize / 3, \r\n      //   (squareSize * y), \r\n      //   borderLineWidth + (squareSize * x) - squareSize / 4, \r\n      //   (squareSize * y) + squareSize * 2)\r\n      // sq.addColorStop(.3, squareColor1)\r\n      // sq.addColorStop(.7, squareColor2)\r\n      // ctx.fillStyle = sq\r\n      // ctx.fillStyle = `rgba(0, 0, 0, ${opacity})`\r\n\r\n      /////////////////////////////// STYLE 1 ////////////////////////\r\n      // let opacity = `${(y / config.board.height)}`\r\n      // let rgbVal\r\n      // if (isPolarized)\r\n      //  rgbVal = opacity * 255\r\n      // else\r\n      //  rgbVal = 255 - (opacity * 255)\r\n\r\n      // let sq = ctx.createLinearGradient(borderLineWidth + squareSize * x, borderLineWidth + squareSize * y, squareSize * x + squareSize, squareSize * y + squareSize)\r\n      // sq.addColorStop(.1, `rgb(${rgbVal}, ${rgbVal}, ${rgbVal})`)\r\n      // sq.addColorStop(1, squareColor2)\r\n      // ctx.fillStyle = sq\r\n      \r\n      /////////////////////////////// STYLE 2 ////////////////////////\r\n      let opacity = `${(y / _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.board.height) - (x / _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.board.width)}`\r\n      let rgbVal\r\n      if (isPolarized)\r\n       rgbVal = opacity * 255\r\n      else\r\n       rgbVal = 255 - (opacity * 255)\r\n\r\n      let sq = ctx.createLinearGradient(\r\n        borderLineWidth + squareSize * x, \r\n        borderLineWidth + squareSize * y, \r\n        squareSize * x + squareSize, \r\n        squareSize * y + squareSize)\r\n      sq.addColorStop(.1, `rgb(${rgbVal}, ${rgbVal}, ${rgbVal})`)\r\n      sq.addColorStop(.5, squareColor1)\r\n      ctx.fillStyle = sq\r\n      // n1\r\n\r\n      // ctx.fillStyle = `rgb(${rgbVal}, ${rgbVal}, ${rgbVal})`\r\n      ctx.fillRect(squareSize * x, squareSize * y, squareSize, squareSize)\r\n      \r\n      //  draw square lines\r\n      ctx.strokeStyle = squareBorderColor\r\n      ctx.strokeRect(sLineWidth + (squareSize * x), sLineWidth + (squareSize * y), squareSize - (sLineWidth * 2), squareSize - (sLineWidth * 2))\r\n    }\r\n    \r\n    function drawPiece(p) {\r\n      for (let i = p.length - 1; i >= 0; i--) {\r\n        if (p[i].isOccupied) \r\n          drawSquare(p[i].x, p[i].y)\r\n      }\r\n    }\r\n    \r\n    function drawBoard(board) {\r\n      drawBorders()\r\n      for (let y = board.length - 1; y > 0; y--) {\r\n        for (let x = 0; x < board[y].length; x++) {\r\n          if (board[y][x].isOccupied) \r\n            drawSquare(x, y)\r\n        }\r\n      }\r\n    }\r\n    \r\n    function drawEverything(board, piece) {\r\n      ctx.clearRect(0, 0, c.width, c.height)\r\n      drawBoard(board)\r\n      drawPiece(piece)\r\n    }\r\n    \r\n    function displayGameOver() {\r\n      gameOverElement.style.opacity = 1\r\n    }\r\n\r\n    function displayLevelText(level) {\r\n      const container = document.querySelector(\".state-info__level\")\r\n      container.style.display = \"block\"\r\n      while (container.firstChild) \r\n        container.firstChild.remove()\r\n      let lvlEl = document.createElement(\"h1\")\r\n      lvlEl.innerText = level === 0 ? \"\" : `Level ${level}`\r\n      lvlEl.id = \"lvl\"\r\n      container.appendChild(lvlEl)\r\n    }\r\n    \r\n    function displayFinalScore(score) {\r\n      finalScoreElement.innerText = \"Your score: \\n\" + score\r\n    }\r\n\r\n    function updateScore(score) {\r\n      scoreElement.innerText = score\r\n    }\r\n\r\n    function pause() {\r\n      const stackFirstPiece = document.querySelector(\".state-info__piece-stack > *:first-child\")\r\n      \r\n      gamePausedElement.innerText = \"PAUSED\"\r\n      stackFirstPiece.style.animation = \"none\"\r\n    }\r\n    \r\n    function unPause() {\r\n      const stackFirstPiece = document.querySelector(\".state-info__piece-stack > *:first-child\")\r\n\r\n      gamePausedElement.innerText = \"\"\r\n      stackFirstPiece.style.animation = \"var(--animation-first-piece)\"\r\n    }\r\n    \r\n    function resetUi(level) {\r\n      displayLevelText(level)\r\n      playButton.innerText = \"Play\"\r\n      scoreElement.innerText = 0\r\n      gameOverElement.setAttribute(\"style\", \"opacity: 0%\")\r\n      gamePausedElement.innerText = \"\"\r\n      finalScoreElement.innerText = \"\"\r\n      levelElement.setAttribute(\"style\", \"letter-spacing: 0px background: none opacity: 100\")\r\n    }\r\n\r\n    return {\r\n      resetUi,\r\n      clearBoard,\r\n      drawBorders,\r\n      drawBoard,\r\n      drawEverything,\r\n      displayGameOver,\r\n      displayFinalScore,\r\n      updateScore,\r\n      pause,\r\n      unPause,\r\n      displayLevelText,\r\n      polarizeHandler,\r\n      displayPieceStack\r\n    }\r\n  })()\r\n}\r\n\r\n\n\n//# sourceURL=webpack://tetris/./src/js/Graphics/Graphics.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _config_prod_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../config/prod.js */ "./src/config/prod.js");
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(document) {
+  return (function() {
+    "use strict"
+
+    const c = document?.querySelector("#myCanvas")
+    const squareSize = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.square.size
+    const borderLineWidth = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.border.width
+    const gridHeight = squareSize * _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.board.height
+    const gridWidth = squareSize * _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.board.width
+
+    const ctx = c.getContext("2d")
+    c.height = gridHeight
+    c.width = gridWidth
+          
+    const scoreElement = document.getElementById("score")
+    const finalScoreElement = document.getElementById("finalScore")
+    const levelElement = document.getElementById("lvl")
+    const gameOverElement = document.getElementById("gOvr")
+    const gamePausedElement = document.getElementById("gamePaused")
+
+    
+    let borderColor = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.border.color
+    // let squareBorderColor = config.square.secondaryColor
+    let squareBorderColor = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.square.secondaryColor
+    // let squareBorderColor = config.square.primaryColor
+    let squareColor1 = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.square.primaryColor
+    let squareColor2 = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.square.secondaryColor
+
+    let isPolarized
+    // polarizeHandler(document.body, [], [], [])
+
+    
+    function polarizeHandler(element, board, piece) {
+      console.log("handling polarization")
+      const pageContainer = document.querySelector(".page-container")
+      pageContainer.classList.toggle("right-aligned-background")
+      if (element.classList.contains("polarized")) {
+        borderColor = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.border.color
+        squareBorderColor = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.square.primaryColor
+        squareColor1 = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.square.primaryColor
+        squareColor2 = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.square.secondaryColor
+        isPolarized = false
+      } else {
+        borderColor = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.square.secondaryColor
+        squareBorderColor = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.square.secondaryColor
+        squareColor1 = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.square.secondaryColor
+        squareColor2 = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.square.primaryColor
+        isPolarized = true
+      }
+      element.classList.toggle("polarized")
+      if (board == null) return drawEverything([], [])
+      drawEverything(board, piece)
+    }
+
+    function displayPieceStack(stack) {
+      const pieceStackEl = document.querySelector(".state-info__piece-stack")
+      pieceStackEl.style.opacity = "1"
+      while (pieceStackEl.firstChild) pieceStackEl.firstChild.remove()
+      for (let i = 0; i < stack.length; i++) {
+        let pieceEl = pieceStackEl.appendChild(document.createElement("div"))
+        pieceEl.classList = `${stack[i].constructor.name} piece-stack__piece`
+        for (let square of stack[i].PIECE) {
+          let sq = document.createElement("div")
+          let width = 20 - (i * 2)       
+          sq.className = "piece-stack__square"
+          sq.style.cssText = `left: ${(square.x - 4)*width}%; top: ${square.y * width}%; width: ${width}%; height: ${width}%; opacity: ${100 - 20 * i}%;`   
+          pieceEl.appendChild(sq)
+        }
+      }
+    }
+
+    function clearBoard() {
+      ctx.clearRect(0 + borderLineWidth, 0 + borderLineWidth, c.width - borderLineWidth * 2, c.height - borderLineWidth * 2)
+    }
+    
+    function drawBorders() {
+      return
+      // To line up drawed borders with actual ones
+      let borderLineAdjustment = 1
+      ctx.beginPath()
+      ctx.lineWidth = borderLineWidth
+      ctx.strokeStyle = borderColor
+      let clr = "rgb(100, 100, 100)"
+      // if (!isPolarized) clr = "rgba(255, 255, 255, .5)"
+      // else clr = "rgba(0, 0, 0, 1)"
+      ctx.strokeStyle = clr
+
+      // ctx.strokeStyle = "transparent"
+      ctx.moveTo(borderLineAdjustment, 0)
+      ctx.lineTo(borderLineAdjustment, c.height - borderLineAdjustment)
+      ctx.stroke()
+      // ctx.strokeStyle = borderColor
+      ctx.lineTo(c.width - borderLineAdjustment, c.height - borderLineAdjustment)
+      ctx.lineTo(c.width - borderLineAdjustment, 0)
+      ctx.stroke()
+    }
+    
+    function drawSquare(x, y) {
+      let sLineWidth = .2
+      // let sLineWidth = 1
+      ctx.beginPath()
+      ctx.lineWidth = sLineWidth
+      ctx.strokeStyle = squareColor2
+      // ctx.strokeStyle = squareBorderColor
+      //  Linear gradience
+      // let sq = ctx.createLinearGradient(borderLineWidth + squareSize * x, borderLineWidth + squareSize * y, squareSize * x + squareSize, squareSize * y + squareSize)
+      // sq.addColorStop(.1, squareColor1)
+      // sq.addColorStop(1, squareColor2)
+      
+      // MAIN
+      // let opacity = `${(y / config.board.height)}`
+      // let sq = ctx.createLinearGradient(
+      //   borderLineWidth + (squareSize * x) - squareSize / 3, 
+      //   (squareSize * y), 
+      //   borderLineWidth + (squareSize * x) - squareSize / 4, 
+      //   (squareSize * y) + squareSize * 2)
+      // sq.addColorStop(.3, squareColor1)
+      // sq.addColorStop(.7, squareColor2)
+      // ctx.fillStyle = sq
+      // ctx.fillStyle = `rgba(0, 0, 0, ${opacity})`
+
+      /////////////////////////////// STYLE 1 ////////////////////////
+      let opacity = `${(y / _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.board.height)}`
+      let rgbVal
+      let modifiedVal
+      if (isPolarized) {
+        // rgbVal = 255 - (opacity * 255)
+        rgbVal = 255 - (opacity * 255) + y * 3
+        modifiedVal = y > 0 ? rgbVal - y * 5: rgbVal
+      } else {
+        // rgbVal = opacity * 255
+        rgbVal = (opacity * 255)
+        modifiedVal = y > 0 ? rgbVal - y * 5 : rgbVal
+      }
+
+      let sq = ctx.createLinearGradient(borderLineWidth + squareSize * x, borderLineWidth + squareSize * y, squareSize * x + squareSize, squareSize * y + squareSize)
+        
+      let color1 = `rgb(${rgbVal}, ${rgbVal}, ${rgbVal})`;
+      let color2 = `rgb(${modifiedVal}, ${modifiedVal}, ${modifiedVal})`;
+
+      let min = .3, max = .8;
+      let colorStop = opacity < min ? min : opacity > max ? max : opacity 
+      sq.addColorStop(.2, color1)
+      sq.addColorStop(colorStop, color2)
+
+      // sq.addColorStop(.1, squareColor2)
+      // sq.addColorStop(colorStop, `rgb(${rgbVal}, ${rgbVal}, ${rgbVal})`)
+
+      // sq.addColorStop(.1, `rgb(${rgbVal}, ${rgbVal}, ${rgbVal})`)
+      // sq.addColorStop(opacity, squareColor2)
+      ctx.fillStyle = sq
+      
+      /////////////////////////////// STYLE 2 ////////////////////////
+      // let opacity = `${(y / config.board.height) - (x / config.board.width)}`
+      // let rgbVal
+      // if (isPolarized)
+      //  rgbVal = opacity * 255
+      // else
+      //  rgbVal = 255 - (opacity * 255)
+
+      // let sq = ctx.createLinearGradient(
+      //   borderLineWidth + squareSize * x, 
+      //   borderLineWidth + squareSize * y, 
+      //   squareSize * x + squareSize, 
+      //   squareSize * y + squareSize)
+      // sq.addColorStop(.1, `rgb(${rgbVal}, ${rgbVal}, ${rgbVal})`)
+      // sq.addColorStop(.5, squareColor1)
+      // ctx.fillStyle = sq
+
+      /////////////////////////////// STYLE 3 ////////////////////////
+      // let opacity = `${(y / config.board.height) - (x / config.board.width)}`
+      // let rgbVal
+      // if (isPolarized)
+      //  rgbVal = opacity * 255
+      // else
+      //  rgbVal = 255 - (opacity * 255)
+
+      // let sq = ctx.createLinearGradient(
+      //   borderLineWidth + squareSize * x, 
+      //   borderLineWidth + squareSize * y, 
+      //   squareSize * x + squareSize, 
+      //   squareSize * y + squareSize)
+      // sq.addColorStop(.1, `rgb(${rgbVal}, ${rgbVal}, ${rgbVal})`)
+      // sq.addColorStop(1, squareColor1)
+      // ctx.fillStyle = sq
+
+      // ctx.fillStyle = `rgb(${rgbVal}, ${rgbVal}, ${rgbVal})`
+      ctx.fillRect(squareSize * x, squareSize * y, squareSize, squareSize)
+      
+      //  draw square lines
+      ctx.strokeStyle = squareBorderColor
+      ctx.strokeRect(sLineWidth + (squareSize * x), sLineWidth + (squareSize * y), squareSize - (sLineWidth * 2), squareSize - (sLineWidth * 2))
+    }
+    
+    function drawPiece(p) {
+      for (let i = p.length - 1; i >= 0; i--) {
+        if (p[i].isOccupied) 
+          drawSquare(p[i].x, p[i].y)
+      }
+    }
+    
+    function drawBoard(board) {
+      drawBorders()
+      for (let y = board.length - 1; y > 0; y--) {
+        for (let x = 0; x < board[y].length; x++) {
+          if (board[y][x].isOccupied) 
+            drawSquare(x, y)
+        }
+      }
+    }
+    
+    function drawEverything(board, piece) {
+      ctx.clearRect(0, 0, c.width, c.height)
+      drawBoard(board)
+      drawPiece(piece)
+    }
+    
+    function displayGameOver() {
+      gameOverElement.style.opacity = 1
+    }
+
+    function displayLevelText(level) {
+      const container = document.querySelector(".state-info__level")
+      container.style.display = "block"
+      while (container.firstChild) 
+        container.firstChild.remove()
+      let lvlEl = document.createElement("h1")
+      lvlEl.innerText = level === 0 ? "" : `Level ${level}`
+      lvlEl.id = "lvl"
+      container.appendChild(lvlEl)
+    }
+    
+    function displayFinalScore(score) {
+      finalScoreElement.innerText = "Your score: \n" + score
+    }
+
+    function updateScore(score) {
+      scoreElement.innerText = score
+    }
+
+    function pause() {
+      const stackFirstPiece = document.querySelector(".state-info__piece-stack > *:first-child")
+      
+      gamePausedElement.innerText = "PAUSED"
+      stackFirstPiece.style.animation = "none"
+    }
+    
+    function unPause() {
+      const stackFirstPiece = document.querySelector(".state-info__piece-stack > *:first-child")
+
+      gamePausedElement.innerText = ""
+      stackFirstPiece.style.animation = "var(--animation-first-piece)"
+    }
+    
+    function resetUi(level) {
+      displayLevelText(level)
+      playButton.innerText = "Play"
+      scoreElement.innerText = 0
+      gameOverElement.setAttribute("style", "opacity: 0%")
+      gamePausedElement.innerText = ""
+      finalScoreElement.innerText = ""
+      levelElement.setAttribute("style", "letter-spacing: 0px background: none opacity: 100")
+    }
+
+    return {
+      resetUi,
+      clearBoard,
+      drawBorders,
+      drawBoard,
+      drawEverything,
+      displayGameOver,
+      displayFinalScore,
+      updateScore,
+      pause,
+      unPause,
+      displayLevelText,
+      polarizeHandler,
+      displayPieceStack
+    }
+  })()
+}
+
+
 
 /***/ }),
 
@@ -46,7 +343,168 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \****************************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _key_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./key.js */ \"./src/js/Highscores/key.js\");\n/* harmony import */ var _config_prod_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../config/prod.js */ \"./src/config/prod.js\");\n\r\n\r\n\r\nclass HighscoreNotFoundError extends Error {}\r\n\r\nfunction getHighscores(dbUrl) {\r\n  let highscores\r\n  if (dbUrl) {\r\n    // Get highscores from a db\r\n  } else {\r\n    try {\r\n      highscores = getHighscoresFromLocalStorage()\r\n    } catch (e) {\r\n      console.log(e)\r\n      highscores = Array.from({ length: 10 }, () => 0)\r\n    } \r\n  }\r\n  return highscores\r\n}\r\n\r\nfunction getHighscoresFromLocalStorage() {\r\n  let highscores\r\n  let key \r\n  for (let i = 0; key = window.localStorage.key(i); i++) {\r\n    if (key == _key_js__WEBPACK_IMPORTED_MODULE_0__.default)\r\n      highscores = JSON.parse(window.localStorage.getItem(key))\r\n  }\r\n  if (!highscores) throw new HighscoreNotFoundError(_config_prod_js__WEBPACK_IMPORTED_MODULE_1__.default.errorMsgs.highscoreNotFound)\r\n  else return highscores\r\n}\r\n\r\nfunction renderScores(element, scores) {\r\n  while (element.firstChild) element.firstChild.remove()\r\n  let highscoresEl = document.createElement(\"div\")\r\n  highscoresEl.className = \"highscores\"\r\n  for (let score of scores) {\r\n    highscoresEl.appendChild(createScoreElement(score))\r\n  }\r\n  element.appendChild(highscoresEl)\r\n}\r\n\r\nfunction createScoreElement(score) {\r\n  let el = document.createElement(\"div\")\r\n  el.innerText = score || \"\"\r\n  el.className = \"highscores__score\"\r\n  return el\r\n}\r\n\r\nfunction updateStorage(key, scores) {\r\n  window.localStorage.setItem(key, JSON.stringify(scores))\r\n}\r\n\r\nfunction updateScore(element, highscores, score, i) {\r\n  let newHead = highscores.slice(0, i)\r\n  let newTail = [score, ...highscores.slice(i, -1)]\r\n  console.log(`highscores before update ${highscores}\\ni ${i}\\nnew head ${newHead}\\nnew tail ${newTail}`)\r\n  const newScores = [...newHead, ...newTail]\r\n  renderScores(element, newScores)\r\n  updateStorage(_key_js__WEBPACK_IMPORTED_MODULE_0__.default, newScores)\r\n  return newScores\r\n}\r\n\r\nfunction checkForHighscore(element, highscores, score) {\r\n  let i = highscores.findIndex(highscore => highscore <= score)\r\n  if (i != -1) {\r\n    console.log(\"New highscore\")\r\n    return updateScore(element, highscores, score, i)\r\n  } \r\n  return highscores\r\n}\r\n\r\n/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__() {\r\n  return (function() {   \r\n    return {\r\n      updateScore,\r\n      checkForHighscore,\r\n      getHighscores,\r\n      renderScores\r\n    }\r\n  })()\r\n}\n\n//# sourceURL=webpack://tetris/./src/js/Highscores/Highscore.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _key_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./key.js */ "./src/js/Highscores/key.js");
+/* harmony import */ var _config_prod_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../config/prod.js */ "./src/config/prod.js");
+
+
+
+class HighscoreNotFoundError extends Error {}
+
+function getHighscores(dbUrl) {
+  let highscores
+  if (dbUrl) {
+    // Get highscores from a db
+  } else {
+    try {
+      highscores = getHighscoresFromLocalStorage()
+    } catch (e) {
+      console.log(e)
+      highscores = Array.from({ length: 10 }, () => {
+        return {
+          name: "",
+          score: 0
+        }
+      })
+    } 
+  }
+  return highscores
+}
+
+function getHighscoresFromLocalStorage() {
+  let highscores
+  let key 
+  for (let i = 0; key = window.localStorage.key(i); i++) {
+    if (key == _key_js__WEBPACK_IMPORTED_MODULE_0__.default)
+      highscores = JSON.parse(window.localStorage.getItem(key))
+  }
+  if (!highscores) throw new HighscoreNotFoundError(_config_prod_js__WEBPACK_IMPORTED_MODULE_1__.default.errorMsgs.highscoreNotFound)
+  else return highscores
+}
+
+function renderScores(element, scores) {
+  while (element.firstChild) element.firstChild.remove()
+  let highscoresEl = document.createElement("div")
+  highscoresEl.className = "highscores"
+  for (let highscore of scores) {
+    highscoresEl.appendChild(createScoreElement(highscore.name, highscore.score))
+  }
+  element.appendChild(highscoresEl)
+}
+
+function createScoreElement(name, score) {
+  let el = document.createElement("div")
+  el.className = "highscores__score"
+  
+  let nameEl = document.createElement("span")
+  nameEl.innerText = name
+
+  let scoreEl = document.createElement("span")
+  scoreEl.innerText = score || ""
+
+  el.appendChild(nameEl)
+  el.appendChild(scoreEl)
+  return el
+}
+
+function updateStorage(key, scores) {
+  window.localStorage.setItem(key, JSON.stringify(scores))
+}
+
+function updateScore(element, highscores, highscore, i) {
+  let newHead = highscores.slice(0, i)
+  let newTail = [
+    {
+      name: highscore.name,
+      score: highscore.score
+    }, 
+    ...highscores.slice(i, -1)
+  ]
+  const newScores = [...newHead, ...newTail]
+  console.log(newScores)
+  renderScores(element, newScores)
+  updateStorage(_key_js__WEBPACK_IMPORTED_MODULE_0__.default, newScores)
+  return newScores
+}
+
+async function checkForHighscore(element, highscores, score) {
+  console.log(highscores)
+  let i = highscores.findIndex(highscore => highscore.score < score)
+  if (i != -1) {
+    console.log("New highscore")
+    const playerName = await renderForm()
+    const highscore = { 
+      name: playerName,
+      score
+    }
+    return updateScore(element, highscores, highscore, i)
+  } 
+  return highscores
+}
+
+function createInput(attributes = []) {
+  const input = document.createElement("input"); //input element, text
+  for (let att of attributes) 
+    input.setAttribute(att.name, att.value)
+  return input
+}
+
+async function renderForm() {
+  return new Promise((res, rej) => {
+    const nameForm = document.createElement("form")
+
+    const input = createInput([
+      { name: "type", value: "text"},
+      { name: "name", value: "name"},
+      { name: "maxLength", value: "5"},
+      { name: "placeholder", value: "Enter name (max 5 letter A-B)"}
+    ])
+    nameForm.appendChild(input)
+    nameForm.id = "highscoreForm"
+    nameForm.className = "js-name-form" 
+    
+    const submit = document.createElement("input")
+    submit.setAttribute("type", "submit")
+    submit.setAttribute("value", "Submit")
+    nameForm.appendChild(submit)
+    
+    const pageWrapper = document.querySelector(".page-container")
+    pageWrapper.appendChild(nameForm)
+    
+    nameForm.addEventListener("submit", (e) => {
+      e.preventDefault()
+      let name = e.target.name.value 
+      console.log("name in function: " + name)
+      if (!isValidInput(name)) {
+        e.target.remove()
+        renderForm()
+      }
+      e.target.remove()
+      res(name)
+    })
+  })
+}
+
+function isValidInput(str) {
+  const regEx = /^[a-zA-z]+$/gi
+  if (str.length > 5) return false
+  if (!(regEx.test(str))) return false
+  return true
+}
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__() {
+  return (function() {   
+    return {
+      updateScore,
+      checkForHighscore,
+      getHighscores,
+      renderScores
+    }
+  })()
+}
 
 /***/ }),
 
@@ -56,7 +514,11 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \**********************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (\"tetris.highscores\");\n\n//# sourceURL=webpack://tetris/./src/js/Highscores/key.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("tetris.highscores");
 
 /***/ }),
 
@@ -66,7 +528,306 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*******************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _Square_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Square.js */ \"./src/js/Logic/Square.js\");\n/* harmony import */ var _Pieces_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Pieces.js */ \"./src/js/Logic/Pieces.js\");\n/* harmony import */ var _Graphics_Graphics_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Graphics/Graphics.js */ \"./src/js/Graphics/Graphics.js\");\n/* harmony import */ var _config_prod_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../config/prod.js */ \"./src/config/prod.js\");\n\r\n\r\n\r\n\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((function() {\r\n  \"use strict\"\r\n  const newPiece = () => {\r\n    return randomPiece()\r\n  }\r\n\r\n  const newTestPiece = () => {\r\n    return new _Pieces_js__WEBPACK_IMPORTED_MODULE_1__.iPiece().PIECE\r\n  }\r\n  \r\n  const lockPiece = (board, p) => {\r\n    p.every(function (val) {\r\n      return board[val.y][val.x].isOccupied = true\r\n    })\r\n  }\r\n\r\n  function PieceStack() {\r\n    let stack = Array.from({ length: 5 }, (_) => {\r\n      return newPiece()\r\n    })\r\n\r\n    this.getStack = function() {\r\n      return stack\r\n    }\r\n\r\n    this.getPiece = function() {\r\n      stack.push(newPiece())\r\n      return stack.shift()\r\n    }\r\n  }\r\n  \r\n  function randomPiece() {\r\n    const nPieces = 7\r\n    const randomNum = Math.floor(Math.random() * nPieces)\r\n    return (\r\n        randomNum === 0 ? new _Pieces_js__WEBPACK_IMPORTED_MODULE_1__.lPiece() : randomNum === 1 ? new _Pieces_js__WEBPACK_IMPORTED_MODULE_1__.oPiece() : randomNum === 2 ? new _Pieces_js__WEBPACK_IMPORTED_MODULE_1__.tPiece() :\r\n        randomNum === 3 ? new _Pieces_js__WEBPACK_IMPORTED_MODULE_1__.lPieceIsomer() : randomNum === 4 ? new _Pieces_js__WEBPACK_IMPORTED_MODULE_1__.sPiece() : randomNum === 5 ? new _Pieces_js__WEBPACK_IMPORTED_MODULE_1__.sPieceIsomer() : new _Pieces_js__WEBPACK_IMPORTED_MODULE_1__.iPiece()\r\n      )\r\n  }\r\n  \r\n  function tryLowerPiece(board, p) {\r\n    if (p.every(square => square.y < board.length - 1)) {\r\n      for (let i = 0; i < p.length; i++) \r\n        p[i].y++\r\n    } else {\r\n      lockPiece(board, p)\r\n      return -1\r\n      // return newPiece().PIECE\r\n    }\r\n    // if the new x, y has an occupied square return to previous x, y\r\n    if (p.some(square => board[square.y][square.x].isOccupied)) {\r\n      for (let i = 0; i < p.length; i++) \r\n        p[i].y--\r\n      lockPiece(board, p)\r\n      return -1\r\n      // return newPiece().PIECE\r\n    }\r\n    return p\r\n  }\r\n  \r\n  function movePiece(board, p, direction = \"down\") {\r\n    if (!p.length) return\r\n    if (direction === \"left\") {\r\n      // check for boards min width\r\n      if (p.every(square => square.x > 0))\r\n        for (let i = 0; i < p.length; i++) \r\n          p[i].x--\r\n      if (p.some(square => board[square.y][square.x].isOccupied)) {\r\n        console.log(\"cant move there\")\r\n        for (let i = 0; i < p.length; i++) \r\n          p[i].x++\r\n      }\r\n    }\r\n    if (direction === \"right\") {\r\n      // check for boards max width\r\n      if (p.every(square => square.x < board[0].length - 1)) {\r\n        for (let i = 0; i < p.length; i++) \r\n          p[i].x++\r\n      }\r\n      if (p.some(square => board[square.y][square.x].isOccupied)) {\r\n        console.log(\"cant move there\")\r\n        for (let i = 0; i < p.length; i++) \r\n          p[i].x--\r\n      }\r\n    }\r\n    if (direction == \"up\") {\r\n      p = rotatePiece(board, p)\r\n    }\r\n\r\n    if (direction === \"down\") {\r\n      p = tryLowerPiece(board, p)\r\n    }\r\n  \r\n    return p\r\n  }\r\n\r\n  function isOPiece(p) {\r\n    const oPiece = (\r\n         p[0].x == p[2].x \r\n      && p[1].x == p[3].x\r\n      && p[0].y == p[1].y\r\n    )\r\n    return oPiece\r\n  }\r\n  \r\n  // function returns newCoordinates if none of the new coordinates are out of bounds or in a occupied square\r\n  function rotatePiece(board, p) {\r\n    if (isOPiece(p)) return p\r\n    let newCoordinates\r\n    try {\r\n      newCoordinates = calculateRotation(p)\r\n      if (spaceIsOccupied(board, newCoordinates)) {\r\n        console.log(\"can't rotate piece\")\r\n        return p\r\n      } else {\r\n        for (let i = 0; i < newCoordinates.length; i++) {\r\n          if (i === 1) continue\r\n          p[i].x = newCoordinates[i].x\r\n          p[i].y = newCoordinates[i].y\r\n        }\r\n      }\r\n    } catch {\r\n      console.log(\"can't rotate piece\")\r\n    }\r\n    return p\r\n  }\r\n  \r\n  function calculateRotation(p) {\r\n    const anchor = {\r\n      x: p[1].x,\r\n      y: p[1].y,\r\n    }\r\n    let newCoordinates = [{ x: 0, y: 0 }, { x: anchor.x, y: anchor.y }, { x: 0, y: 0 }, { x: 0, y: 0 }]\r\n    for (let i = 0; i < p.length; i++) {\r\n      if (i === 1) continue\r\n      let xDiff = p[i].x - anchor.x\r\n      let yDiff = p[i].y - anchor.y\r\n      let xIsNegative = Math.sign(xDiff) === -1\r\n      let yIsNegative = Math.sign(yDiff) === -1\r\n      if (xDiff === 0) {\r\n        newCoordinates[i].x = yIsNegative ? anchor.x + Math.abs(yDiff) : anchor.x - Math.abs(yDiff)\r\n        newCoordinates[i].y = anchor.y\r\n      } else if (yDiff === 0) {\r\n        newCoordinates[i].x = anchor.x\r\n        newCoordinates[i].y = xIsNegative ? anchor.y - Math.abs(xDiff) : anchor.y + Math.abs(xDiff)\r\n      } else if (xIsNegative && yIsNegative) {\r\n        newCoordinates[i].x = anchor.x + Math.abs(yDiff)\r\n        newCoordinates[i].y = anchor.y - Math.abs(xDiff)\r\n      } else if (!xIsNegative && !yIsNegative) {\r\n        newCoordinates[i].x = anchor.x - Math.abs(yDiff)\r\n        newCoordinates[i].y = anchor.y + Math.abs(xDiff)\r\n      } else if (xIsNegative && !yIsNegative) {\r\n        newCoordinates[i].x = anchor.x - Math.abs(yDiff)\r\n        newCoordinates[i].y = anchor.y - Math.abs(xDiff)\r\n      } else if (!xIsNegative && yIsNegative) {\r\n        newCoordinates[i].x = anchor.x + Math.abs(yDiff)\r\n        newCoordinates[i].y = anchor.y + Math.abs(xDiff)\r\n      }\r\n    }\r\n    return newCoordinates\r\n  }\r\n  \r\n  function spaceIsOccupied(board, newCoordinates) {\r\n    return newCoordinates.some(\r\n         square => square.x < 0 \r\n      || square.y < board[0].y\r\n      || square.x > board[0].length - 1 \r\n      || square.y > board.length - 1 \r\n      || board[square.y][square.x].isOccupied\r\n    )\r\n  }\r\n  \r\n  function checkFullRowsAndEndCondition(board) {\r\n    let rowsToReplace = [];\r\n    for (let y = board.length - 1; y >= 0; y--) {\r\n      let isFullRow = true\r\n      for (let x = 0; x < board[y].length; x++) {\r\n        if (!board[y][x].isOccupied) \r\n          isFullRow = false\r\n        if (y === 0 && board[y][x].isOccupied) \r\n          return -1 // Return -1 to indicate game over\r\n      }\r\n      if (isFullRow) {\r\n        rowsToReplace.push(y)\r\n      }\r\n    }\r\n    replaceRows(board, rowsToReplace)      \r\n    let scoreMultiplier = rowsToReplace.length\r\n    return scoreMultiplier\r\n  }\r\n  \r\n  function addFullRow(board) {\r\n    const row = Array.from({ length: 10 }, (_, i) => new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(i, 0))\r\n    return board.unshift(row)\r\n  }\r\n  \r\n  function addScore(multiplier, level, score) {\r\n    return score += multiplier === 1 ? 40 * level\r\n      : multiplier === 2 ? 100 * level\r\n      : multiplier === 3 ? 300 * level \r\n      : multiplier === 4 ? 1200 * level\r\n      : 0\r\n  }\r\n  \r\n  function incrementLevelAfter10Clears(trackRowCount, level) {\r\n    if (trackRowCount >= 10) {\r\n      trackRowCount = trackRowCount - 10\r\n      level++\r\n    }\r\n    return { trackRowCount, level }\r\n  }\r\n  \r\n  function replaceRows(board, rows) {\r\n    if (rows.length) {\r\n      let i = rows.length - 1\r\n      while (i >= 0) {\r\n        board.splice(rows[i], 1)\r\n        addFullRow(board)\r\n        i--\r\n      }\r\n    }\r\n  }\r\n  \r\n  function createBoard() {\r\n    return Array.from({ length: _config_prod_js__WEBPACK_IMPORTED_MODULE_3__.default.board.height }, (v, _) => {\r\n      return v = Array.from({ length: _config_prod_js__WEBPACK_IMPORTED_MODULE_3__.default.board.width }, (_, x) => {\r\n        return new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(x, 0)\r\n      })\r\n    })\r\n  }\r\n\r\n  function createTestBoard() {\r\n    return Array.from({ length: _config_prod_js__WEBPACK_IMPORTED_MODULE_3__.default.board.height }, (v, _) => {\r\n      if (_ < 20) {\r\n        return v = Array.from({ length: _config_prod_js__WEBPACK_IMPORTED_MODULE_3__.default.board.width }, (_, x) => {\r\n          return new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(x, 0)\r\n        })\r\n      } else {\r\n        return v = Array.from({ length: _config_prod_js__WEBPACK_IMPORTED_MODULE_3__.default.board.width }, (_, x) => {\r\n          if (x < 9) {\r\n            return new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(x, 0, true)\r\n          } else {\r\n            return new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(x, 0)\r\n          }\r\n        })\r\n      }\r\n    })\r\n  }\r\n  \r\n  function moveToNextLevel(level) {\r\n    console.log(`Moving to level ${level}`)\r\n    return calculateFps(level)\r\n  }\r\n  \r\n  function calculateFps(level) {\r\n    return (1500 / (1.8 * level))\r\n  }\r\n\r\n\r\n  \r\n  return {\r\n    calculateFps,\r\n    createBoard,\r\n    createTestBoard,\r\n    newPiece,\r\n    newTestPiece,\r\n    checkFullRowsAndEndCondition,\r\n    incrementLevelAfter10Clears,\r\n    moveToNextLevel,\r\n    movePiece,\r\n    rotatePiece,\r\n    addScore,\r\n    PieceStack\r\n  }\r\n\r\n  // return Tetris\r\n})());\n\n//# sourceURL=webpack://tetris/./src/js/Logic/Logic.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Square_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Square.js */ "./src/js/Logic/Square.js");
+/* harmony import */ var _Pieces_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Pieces.js */ "./src/js/Logic/Pieces.js");
+/* harmony import */ var _Graphics_Graphics_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Graphics/Graphics.js */ "./src/js/Graphics/Graphics.js");
+/* harmony import */ var _config_prod_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../config/prod.js */ "./src/config/prod.js");
+
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((function() {
+  "use strict"
+  const newPiece = () => {
+    return randomPiece()
+  }
+
+  const newTestPiece = () => {
+    return new _Pieces_js__WEBPACK_IMPORTED_MODULE_1__.iPiece().PIECE
+  }
+  
+  const lockPiece = (board, p) => {
+    p.every(function (val) {
+      return board[val.y][val.x].isOccupied = true
+    })
+  }
+
+  function PieceStack() {
+    let stack = Array.from({ length: 5 }, (_) => {
+      return newPiece()
+    })
+
+    this.getStack = function() {
+      return stack
+    }
+
+    this.getPiece = function() {
+      let firstPiece = document.querySelector(".piece-stack__piece:first-of-type")
+      if (firstPiece) {
+        let effectPiece = firstPiece.cloneNode(true)
+        effectPiece.className = "piece-stack__effect-piece"
+        const tetrisContainer = document.querySelector(".tetris-container")
+        tetrisContainer.appendChild(effectPiece)
+        setTimeout(() => {
+          effectPiece.remove()
+        }, 140)
+      }
+      stack.push(newPiece())
+      return stack.shift()
+    }
+  }
+  
+  function randomPiece() {
+    const nPieces = 7
+    const randomNum = Math.floor(Math.random() * nPieces)
+    return (
+        randomNum === 0 ? new _Pieces_js__WEBPACK_IMPORTED_MODULE_1__.lPiece() : randomNum === 1 ? new _Pieces_js__WEBPACK_IMPORTED_MODULE_1__.oPiece() : randomNum === 2 ? new _Pieces_js__WEBPACK_IMPORTED_MODULE_1__.tPiece() :
+        randomNum === 3 ? new _Pieces_js__WEBPACK_IMPORTED_MODULE_1__.lPieceIsomer() : randomNum === 4 ? new _Pieces_js__WEBPACK_IMPORTED_MODULE_1__.sPiece() : randomNum === 5 ? new _Pieces_js__WEBPACK_IMPORTED_MODULE_1__.sPieceIsomer() : new _Pieces_js__WEBPACK_IMPORTED_MODULE_1__.iPiece()
+      )
+  }
+  
+  function tryLowerPiece(board, p) {
+    if (p.every(square => square.y < board.length - 1)) {
+      for (let i = 0; i < p.length; i++) 
+        p[i].y++
+    } else {
+      lockPiece(board, p)
+      return -1
+      // return newPiece().PIECE
+    }
+    // if the new x, y has an occupied square return to previous x, y
+    if (p.some(square => board[square.y][square.x].isOccupied)) {
+      for (let i = 0; i < p.length; i++) 
+        p[i].y--
+      lockPiece(board, p)
+      return -1
+      // return newPiece().PIECE
+    }
+    return p
+  }
+  
+  function movePiece(board, p, direction = "down") {
+    if (!p.length) return
+    if (direction === "left") {
+      // check for boards min width
+      if (p.every(square => square.x > 0))
+        for (let i = 0; i < p.length; i++) 
+          p[i].x--
+      if (p.some(square => board[square.y][square.x].isOccupied)) {
+        console.log("cant move there")
+        for (let i = 0; i < p.length; i++) 
+          p[i].x++
+      }
+    }
+    if (direction === "right") {
+      // check for boards max width
+      if (p.every(square => square.x < board[0].length - 1)) {
+        for (let i = 0; i < p.length; i++) 
+          p[i].x++
+      }
+      if (p.some(square => board[square.y][square.x].isOccupied)) {
+        console.log("cant move there")
+        for (let i = 0; i < p.length; i++) 
+          p[i].x--
+      }
+    }
+    if (direction == "up") {
+      p = rotatePiece(board, p)
+    }
+
+    if (direction === "down") {
+      p = tryLowerPiece(board, p)
+    }
+  
+    return p
+  }
+
+  function isOPiece(p) {
+    const oPiece = (
+         p[0].x == p[2].x 
+      && p[1].x == p[3].x
+      && p[0].y == p[1].y
+    )
+    return oPiece
+  }
+  
+  // function returns newCoordinates if none of the new coordinates are out of bounds or in a occupied square
+  function rotatePiece(board, p) {
+    if (isOPiece(p)) return p
+    let newCoordinates
+    try {
+      newCoordinates = calculateRotation(p)
+      if (spaceIsOccupied(board, newCoordinates)) {
+        console.log("can't rotate piece")
+        return p
+      } else {
+        for (let i = 0; i < newCoordinates.length; i++) {
+          if (i === 1) continue
+          p[i].x = newCoordinates[i].x
+          p[i].y = newCoordinates[i].y
+        }
+      }
+    } catch {
+      console.log("can't rotate piece")
+    }
+    return p
+  }
+  
+  function calculateRotation(p) {
+    const anchor = {
+      x: p[1].x,
+      y: p[1].y,
+    }
+    let newCoordinates = [{ x: 0, y: 0 }, { x: anchor.x, y: anchor.y }, { x: 0, y: 0 }, { x: 0, y: 0 }]
+    for (let i = 0; i < p.length; i++) {
+      if (i === 1) continue
+      let xDiff = p[i].x - anchor.x
+      let yDiff = p[i].y - anchor.y
+      let xIsNegative = Math.sign(xDiff) === -1
+      let yIsNegative = Math.sign(yDiff) === -1
+      if (xDiff === 0) {
+        newCoordinates[i].x = yIsNegative ? anchor.x + Math.abs(yDiff) : anchor.x - Math.abs(yDiff)
+        newCoordinates[i].y = anchor.y
+      } else if (yDiff === 0) {
+        newCoordinates[i].x = anchor.x
+        newCoordinates[i].y = xIsNegative ? anchor.y - Math.abs(xDiff) : anchor.y + Math.abs(xDiff)
+      } else if (xIsNegative && yIsNegative) {
+        newCoordinates[i].x = anchor.x + Math.abs(yDiff)
+        newCoordinates[i].y = anchor.y - Math.abs(xDiff)
+      } else if (!xIsNegative && !yIsNegative) {
+        newCoordinates[i].x = anchor.x - Math.abs(yDiff)
+        newCoordinates[i].y = anchor.y + Math.abs(xDiff)
+      } else if (xIsNegative && !yIsNegative) {
+        newCoordinates[i].x = anchor.x - Math.abs(yDiff)
+        newCoordinates[i].y = anchor.y - Math.abs(xDiff)
+      } else if (!xIsNegative && yIsNegative) {
+        newCoordinates[i].x = anchor.x + Math.abs(yDiff)
+        newCoordinates[i].y = anchor.y + Math.abs(xDiff)
+      }
+    }
+    return newCoordinates
+  }
+  
+  function spaceIsOccupied(board, newCoordinates) {
+    return newCoordinates.some(
+         square => square.x < 0 
+      || square.y < board[0].y
+      || square.x > board[0].length - 1 
+      || square.y > board.length - 1 
+      || board[square.y][square.x].isOccupied
+    )
+  }
+  
+  function checkFullRowsAndEndCondition(board) {
+    let rowsToReplace = [];
+    for (let y = board.length - 1; y >= 0; y--) {
+      let isFullRow = true
+      for (let x = 0; x < board[y].length; x++) {
+        if (!board[y][x].isOccupied) 
+          isFullRow = false
+        if (y === 0 && board[y][x].isOccupied) 
+          return -1 // Return -1 to indicate game over
+      }
+      if (isFullRow) {
+        rowsToReplace.push(y)
+      }
+    }
+    replaceRows(board, rowsToReplace)      
+    let scoreMultiplier = rowsToReplace.length
+    return scoreMultiplier
+  }
+  
+  function addFullRow(board) {
+    const row = Array.from({ length: 10 }, (_, i) => new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(i, 0))
+    return board.unshift(row)
+  }
+  
+  function addScore(multiplier, level, score) {
+    return score += multiplier === 1 ? 40 * level
+      : multiplier === 2 ? 100 * level
+      : multiplier === 3 ? 300 * level 
+      : multiplier === 4 ? 1200 * level
+      : 0
+  }
+  
+  function incrementLevelAfter10Clears(trackRowCount, level) {
+    if (trackRowCount >= 10) {
+      trackRowCount = trackRowCount - 10
+      level++
+    }
+    return { trackRowCount, level }
+  }
+  
+  function replaceRows(board, rows) {
+    if (rows.length) {
+      let i = rows.length - 1
+      while (i >= 0) {
+        board.splice(rows[i], 1)
+        addFullRow(board)
+        i--
+      }
+    }
+  }
+  
+  function createBoard() {
+    return Array.from({ length: _config_prod_js__WEBPACK_IMPORTED_MODULE_3__.default.board.height }, (v, _) => {
+      return v = Array.from({ length: _config_prod_js__WEBPACK_IMPORTED_MODULE_3__.default.board.width }, (_, x) => {
+        return new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(x, 0)
+      })
+    })
+  }
+
+  function createTestBoard() {
+    return Array.from({ length: _config_prod_js__WEBPACK_IMPORTED_MODULE_3__.default.board.height }, (v, _) => {
+      if (_ < 20) {
+        return v = Array.from({ length: _config_prod_js__WEBPACK_IMPORTED_MODULE_3__.default.board.width }, (_, x) => {
+          return new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(x, 0)
+        })
+      } else {
+        return v = Array.from({ length: _config_prod_js__WEBPACK_IMPORTED_MODULE_3__.default.board.width }, (_, x) => {
+          if (x < 9) {
+            return new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(x, 0, true)
+          } else {
+            return new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(x, 0)
+          }
+        })
+      }
+    })
+  }
+  
+  function moveToNextLevel(level) {
+    console.log(`Moving to level ${level}`)
+    return calculateFps(level)
+  }
+  
+  function calculateFps(level) {
+    return (1500 / (1.8 * level))
+  }
+
+
+  
+  return {
+    calculateFps,
+    createBoard,
+    createTestBoard,
+    newPiece,
+    newTestPiece,
+    checkFullRowsAndEndCondition,
+    incrementLevelAfter10Clears,
+    moveToNextLevel,
+    movePiece,
+    rotatePiece,
+    addScore,
+    PieceStack
+  }
+
+  // return Tetris
+})());
 
 /***/ }),
 
@@ -76,7 +837,84 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \********************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"lPiece\": () => (/* binding */ lPiece),\n/* harmony export */   \"lPieceIsomer\": () => (/* binding */ lPieceIsomer),\n/* harmony export */   \"sPiece\": () => (/* binding */ sPiece),\n/* harmony export */   \"sPieceIsomer\": () => (/* binding */ sPieceIsomer),\n/* harmony export */   \"iPiece\": () => (/* binding */ iPiece),\n/* harmony export */   \"tPiece\": () => (/* binding */ tPiece),\n/* harmony export */   \"oPiece\": () => (/* binding */ oPiece)\n/* harmony export */ });\n/* harmony import */ var _Square_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Square.js */ \"./src/js/Logic/Square.js\");\n\r\n;\r\n\r\nclass lPiece {\r\n  PIECE = [\r\n    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(4, 0, true),\r\n    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(4, 1, true),\r\n    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(4, 2, true),\r\n    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(5, 2, true)\r\n  ]\r\n}\r\n\r\nclass lPieceIsomer {\r\n  PIECE = [\r\n    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(4, 0, true),\r\n    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(4, 1, true),\r\n    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(4, 2, true),\r\n    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(3, 2, true)\r\n  ]\r\n}\r\n\r\nclass sPiece {\r\n  PIECE = [\r\n    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(4, 0, true),\r\n    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(4, 1, true),\r\n    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(5, 1, true),\r\n    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(5, 2, true)\r\n  ]\r\n}\r\n\r\nclass sPieceIsomer {\r\n  PIECE = [\r\n    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(5, 0, true),\r\n    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(5, 1, true),\r\n    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(4, 1, true),\r\n    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(4, 2, true)\r\n  ]\r\n}\r\n\r\nclass iPiece {\r\n  PIECE = [\r\n    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(4, 0, true),\r\n    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(4, 1, true),\r\n    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(4, 2, true),\r\n    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(4, 3, true)\r\n  ]\r\n}\r\n\r\nclass tPiece {\r\n  PIECE = [\r\n    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(3, 0, true),\r\n    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(4, 0, true),\r\n    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(5, 0, true),\r\n    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(4, 1, true)\r\n  ]\r\n}\r\n\r\nclass oPiece {\r\n  PIECE = [\r\n    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(4, 0, true),\r\n    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(5, 0, true),\r\n    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(4, 1, true),\r\n    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(5, 1, true)\r\n  ]\r\n}\r\n\r\n\n\n//# sourceURL=webpack://tetris/./src/js/Logic/Pieces.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "lPiece": () => (/* binding */ lPiece),
+/* harmony export */   "lPieceIsomer": () => (/* binding */ lPieceIsomer),
+/* harmony export */   "sPiece": () => (/* binding */ sPiece),
+/* harmony export */   "sPieceIsomer": () => (/* binding */ sPieceIsomer),
+/* harmony export */   "iPiece": () => (/* binding */ iPiece),
+/* harmony export */   "tPiece": () => (/* binding */ tPiece),
+/* harmony export */   "oPiece": () => (/* binding */ oPiece)
+/* harmony export */ });
+/* harmony import */ var _Square_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Square.js */ "./src/js/Logic/Square.js");
+
+;
+
+class lPiece {
+  PIECE = [
+    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(4, 0, true),
+    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(4, 1, true),
+    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(4, 2, true),
+    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(5, 2, true)
+  ]
+}
+
+class lPieceIsomer {
+  PIECE = [
+    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(4, 0, true),
+    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(4, 1, true),
+    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(4, 2, true),
+    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(3, 2, true)
+  ]
+}
+
+class sPiece {
+  PIECE = [
+    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(4, 0, true),
+    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(4, 1, true),
+    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(5, 1, true),
+    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(5, 2, true)
+  ]
+}
+
+class sPieceIsomer {
+  PIECE = [
+    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(5, 0, true),
+    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(5, 1, true),
+    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(4, 1, true),
+    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(4, 2, true)
+  ]
+}
+
+class iPiece {
+  PIECE = [
+    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(4, 0, true),
+    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(4, 1, true),
+    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(4, 2, true),
+    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(4, 3, true)
+  ]
+}
+
+class tPiece {
+  PIECE = [
+    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(3, 0, true),
+    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(4, 0, true),
+    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(5, 0, true),
+    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(4, 1, true)
+  ]
+}
+
+class oPiece {
+  PIECE = [
+    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(4, 0, true),
+    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(5, 0, true),
+    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(4, 1, true),
+    new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(5, 1, true)
+  ]
+}
+
+
 
 /***/ }),
 
@@ -86,7 +924,29 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \********************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ Square)\n/* harmony export */ });\nclass Square {\r\n  \"use strict\"\r\n  constructor(x, y, isOccupied = false) {\r\n    this.x = x\r\n    this.y = y\r\n    this.isOccupied = isOccupied\r\n  }\r\n\r\n  isOccupied\r\n\r\n  set isOccupied(value) {\r\n    this.isOccupied = value\r\n  }\r\n\r\n  get isOccupied() {\r\n    return this.isOccupied\r\n  }\r\n}\n\n//# sourceURL=webpack://tetris/./src/js/Logic/Square.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Square)
+/* harmony export */ });
+class Square {
+  "use strict"
+  constructor(x, y, isOccupied = false) {
+    this.x = x
+    this.y = y
+    this.isOccupied = isOccupied
+  }
+
+  isOccupied
+
+  set isOccupied(value) {
+    this.isOccupied = value
+  }
+  // perkele
+
+  get isOccupied() {
+    return this.isOccupied
+  }
+}
 
 /***/ }),
 
@@ -96,7 +956,178 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \********************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _Logic_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Logic.js */ \"./src/js/Logic/Logic.js\");\n/* harmony import */ var _config_prod_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../config/prod.js */ \"./src/config/prod.js\");\n/* harmony import */ var _MobileControls_MobileControls_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../MobileControls/MobileControls.js */ \"./src/js/MobileControls/MobileControls.js\");\n/* harmony import */ var _Graphics_Graphics_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Graphics/Graphics.js */ \"./src/js/Graphics/Graphics.js\");\n/* harmony import */ var _Highscores_Highscore_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Highscores/Highscore.js */ \"./src/js/Highscores/Highscore.js\");\n\r\n\r\n\r\n\r\n\r\n\r\nconst Graphics = (0,_Graphics_Graphics_js__WEBPACK_IMPORTED_MODULE_3__.default)(document)\r\n\r\nfunction Tetris(document) {\r\n  \"use strict\"\r\n  return (() => {\r\n    let board\r\n    let piece\r\n    let score\r\n    let level\r\n    let fps\r\n    let trackRowCount\r\n    let isPaused\r\n    let gameOver\r\n    let currentLevel\r\n    Graphics.resetUi(0)\r\n    var timeOutID\r\n    let pieceStack\r\n    let firstStart = true\r\n\r\n    let IHighscore = (0,_Highscores_Highscore_js__WEBPACK_IMPORTED_MODULE_4__.default)()    \r\n    const highscoreEl = document.querySelector(\".highscore-wrapper\")\r\n    let highscores = IHighscore.getHighscores()\r\n    IHighscore.renderScores(highscoreEl, highscores)\r\n\r\n\r\n    function initGame() {\r\n      console.log(\"initializing\")\r\n      if (timeOutID != null) {\r\n        window.clearTimeout(timeOutID)\r\n        timeOutID = null\r\n      }\r\n\r\n      if (firstStart) {\r\n        document.querySelector(\".scoreboard\").style.transform = \"translateY(0)\";\r\n        firstStart = false\r\n      }\r\n\r\n      pieceStack = new _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.PieceStack()\r\n      Graphics.displayPieceStack(pieceStack.getStack())\r\n      board = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.createBoard()\r\n      piece = pieceStack.getPiece().PIECE\r\n      score = _config_prod_js__WEBPACK_IMPORTED_MODULE_1__.default.startingScore\r\n      level = _config_prod_js__WEBPACK_IMPORTED_MODULE_1__.default.startingLevel\r\n      fps = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.calculateFps(level)\r\n      trackRowCount = 0\r\n      isPaused = false\r\n      gameOver = false  \r\n      currentLevel = level\r\n      Graphics.resetUi(level)\r\n      Graphics.drawEverything(board, piece)\r\n    }\r\n    \r\n    function tick(direction) {\r\n      if (!isPaused && !gameOver) {\r\n        frame(direction);\r\n        ({ trackRowCount, level } = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.incrementLevelAfter10Clears(trackRowCount, level));\r\n        if (currentLevel != level) {\r\n          currentLevel = level\r\n          fps = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.moveToNextLevel(level)\r\n          Graphics.displayLevelText(level)\r\n        }\r\n        timeOutID = schedule()\r\n      } else {\r\n        window.clearTimeout(timeOutID)\r\n        timeOutID = null\r\n      }\r\n    }\r\n\r\n    function frame(direction) {\r\n      piece = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.movePiece(board, piece, direction)\r\n      if (piece == -1) {\r\n        piece = pieceStack.getPiece().PIECE\r\n        Graphics.displayPieceStack(pieceStack.getStack())\r\n      }\r\n      let scoreMultiplier = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.checkFullRowsAndEndCondition(board)\r\n      if (scoreMultiplier === -1) {\r\n        console.log(\"Game over\")\r\n        highscores = IHighscore.checkForHighscore(highscoreEl, IHighscore.getHighscores(), score)\r\n        Graphics.displayGameOver()\r\n        Graphics.displayFinalScore(score)\r\n        playButton.innerText = \"Play\"\r\n        return gameOver = true\r\n      }\r\n      trackRowCount += scoreMultiplier\r\n      score = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.addScore(scoreMultiplier, level, score);\r\n      Graphics.drawEverything(board, piece)\r\n      Graphics.updateScore(score);\r\n    }\r\n    \r\n    function schedule() {\r\n      return window.setTimeout(tick, fps)\r\n    }\r\n\r\n    function playGame() {\r\n      console.log(\"Game started\")\r\n      return timeOutID = schedule()\r\n    }\r\n\r\n    function togglePause() {\r\n      if (isPaused) { \r\n        timeOutID = schedule()\r\n        Graphics.unPause()\r\n      }\r\n      else { \r\n        window.clearTimeout(timeOutID)\r\n        Graphics.pause()\r\n        timeOutID = null\r\n      }\r\n      return isPaused = !isPaused\r\n    }\r\n\r\n    const arrowKeys = [\"ArrowUp\", \"ArrowRight\", \"ArrowDown\", \"ArrowLeft\"]\r\n    document.addEventListener(\"keydown\", e => {\r\n      if (gameOver) return\r\n      if (arrowKeys.includes(e.code)) {\r\n        if (isPaused) return\r\n        const direction = e.code.slice(5).toLowerCase()\r\n        frame(direction)\r\n        return\r\n      }\r\n      if (e.code == _config_prod_js__WEBPACK_IMPORTED_MODULE_1__.default.keys.pause) {\r\n        togglePause()\r\n        return\r\n      }\r\n    })\r\n\r\n    const playButton = document.getElementById(\"playButton\")\r\n    playButton.onclick = () => {\r\n      initGame()\r\n      playGame()\r\n      playButton.innerText = \"Restart\"\r\n    } \r\n\r\n    const pauseButton = document.querySelector(\"#pauseButton\")\r\n    pauseButton.onclick = togglePause\r\n\r\n    const themeSwitchBtn = document.querySelector(\"#themeSwitch\")\r\n    themeSwitchBtn.onclick = () => Graphics.polarizeHandler(document.body, board, piece, pieceStack?.getStack())\r\n\r\n    const stateInfo = document.querySelector(\".state-info\")\r\n    const tetrisContainer = document.querySelector(\".tetris-container\")\r\n    const canvas = document.querySelector(\"#myCanvas\")\r\n    window.onload = () => {\r\n      // tetrisContainer.style.height = canvas.clientHeight\r\n      tetrisContainer.style.width = canvas.clientWidth + 7\r\n      Graphics.drawBorders()\r\n    }\r\n\r\n    ;(0,_MobileControls_MobileControls_js__WEBPACK_IMPORTED_MODULE_2__.default)(frame)\r\n\r\n    window.onresize = () => {\r\n      tetrisContainer.style.width = canvas.clientWidth + 7\r\n    }\r\n  })()\r\n}\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Tetris);\n\n//# sourceURL=webpack://tetris/./src/js/Logic/Tetris.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Logic_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Logic.js */ "./src/js/Logic/Logic.js");
+/* harmony import */ var _config_prod_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../config/prod.js */ "./src/config/prod.js");
+/* harmony import */ var _MobileControls_MobileControls_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../MobileControls/MobileControls.js */ "./src/js/MobileControls/MobileControls.js");
+/* harmony import */ var _Graphics_Graphics_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Graphics/Graphics.js */ "./src/js/Graphics/Graphics.js");
+/* harmony import */ var _Highscores_Highscore_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Highscores/Highscore.js */ "./src/js/Highscores/Highscore.js");
+
+
+
+
+
+
+const Graphics = (0,_Graphics_Graphics_js__WEBPACK_IMPORTED_MODULE_3__.default)(document)
+
+function Tetris(document) {
+  "use strict"
+  return (() => {
+    let board
+    let piece
+    let score
+    let level
+    let fps
+    let trackRowCount
+    let isPaused
+    let gameOver
+    let currentLevel
+    Graphics.resetUi(0)
+    var timeOutID
+    let pieceStack
+    let firstStart = true
+
+    let IHighscore = (0,_Highscores_Highscore_js__WEBPACK_IMPORTED_MODULE_4__.default)()    
+    const highscoreEl = document.querySelector(".highscore-wrapper")
+    let highscores = IHighscore.getHighscores()
+    IHighscore.renderScores(highscoreEl, highscores)
+    // IHighscore.checkForHighscore(highscoreEl, highscores, 3000)
+
+    function initGame() {
+      console.log("initializing")
+      if (timeOutID != null) {
+        window.clearTimeout(timeOutID)
+        timeOutID = null
+      }
+
+      if (firstStart) {
+        document.querySelector(".scoreboard").style.transform = "translateY(0)";
+        firstStart = false
+      }
+
+      pieceStack = new _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.PieceStack()
+      board = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.createBoard()
+      piece = pieceStack.getPiece().PIECE
+      score = _config_prod_js__WEBPACK_IMPORTED_MODULE_1__.default.startingScore
+      level = _config_prod_js__WEBPACK_IMPORTED_MODULE_1__.default.startingLevel
+      fps = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.calculateFps(level)
+      trackRowCount = 0
+      isPaused = false
+      gameOver = false  
+      currentLevel = level
+      Graphics.displayPieceStack(pieceStack.getStack())
+      Graphics.resetUi(level)
+      Graphics.drawEverything(board, piece)
+    }
+    
+    function tick(direction) {
+      if (!isPaused && !gameOver) {
+        frame(direction);
+        ({ trackRowCount, level } = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.incrementLevelAfter10Clears(trackRowCount, level));
+        if (currentLevel != level) {
+          currentLevel = level
+          fps = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.moveToNextLevel(level)
+          Graphics.displayLevelText(level)
+        }
+        timeOutID = schedule()
+      } else {
+        window.clearTimeout(timeOutID)
+        timeOutID = null
+      }
+    }
+
+    function frame(direction) {
+      piece = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.movePiece(board, piece, direction)
+      if (piece == -1) {
+        piece = pieceStack.getPiece().PIECE
+        Graphics.displayPieceStack(pieceStack.getStack())
+      }
+      let scoreMultiplier = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.checkFullRowsAndEndCondition(board)
+      if (scoreMultiplier === -1) {
+        console.log("Game over")
+        highscores = IHighscore.checkForHighscore(highscoreEl, highscores, score)
+        Graphics.displayGameOver()
+        Graphics.displayFinalScore(score)
+        playButton.innerText = "Play"
+        return gameOver = true
+      }
+      trackRowCount += scoreMultiplier
+      score = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.addScore(scoreMultiplier, level, score);
+      Graphics.drawEverything(board, piece)
+      Graphics.updateScore(score);
+    }
+    
+    function schedule() {
+      return window.setTimeout(tick, fps)
+    }
+
+    function playGame() {
+      console.log("Game started")
+      return timeOutID = schedule()
+    }
+
+    function togglePause() {
+      if (isPaused) { 
+        timeOutID = schedule()
+        Graphics.unPause()
+      }
+      else { 
+        window.clearTimeout(timeOutID)
+        Graphics.pause()
+        timeOutID = null
+      }
+      return isPaused = !isPaused
+    }
+
+    const arrowKeys = ["ArrowUp", "ArrowRight", "ArrowDown", "ArrowLeft"]
+    document.addEventListener("keydown", e => {
+      if (gameOver || firstStart) return
+      if (arrowKeys.includes(e.code)) {
+        if (isPaused) return
+        const direction = e.code.slice(5).toLowerCase()
+        frame(direction)
+        return
+      }
+      if (e.code == _config_prod_js__WEBPACK_IMPORTED_MODULE_1__.default.keys.pause) {
+        togglePause()
+        return
+      }
+    })
+
+    const playButton = document.getElementById("playButton")
+    playButton.onclick = () => {
+      initGame()
+      playGame()
+      playButton.innerText = "Restart"
+    } 
+
+    const pauseButton = document.querySelector("#pauseButton")
+    pauseButton.onclick = togglePause
+
+    const themeSwitchBtn = document.querySelector("#themeSwitch")
+    themeSwitchBtn.onclick = () => Graphics.polarizeHandler(document.body, board, piece, pieceStack?.getStack())
+
+    const stateInfo = document.querySelector(".state-info")
+    const tetrisContainer = document.querySelector(".tetris-container")
+    const canvas = document.querySelector("#myCanvas")
+    window.onload = () => {
+      // tetrisContainer.style.height = canvas.clientHeight
+      tetrisContainer.style.width = canvas.clientWidth + 6
+      Graphics.drawBorders()
+    }
+
+    ;(0,_MobileControls_MobileControls_js__WEBPACK_IMPORTED_MODULE_2__.default)(frame)
+
+    window.onresize = () => {
+      tetrisContainer.style.width = canvas.clientWidth + 6
+    }
+  })()
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Tetris);
 
 /***/ }),
 
@@ -106,17 +1137,44 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*************************************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(handler) {\r\n  \"use strict\"\r\n  console.log(\"Injecting mobile controls\")\r\n  let controls = document.createElement(\"div\")\r\n  controls.className = \"mobile-controls-wrapper\"\r\n  controls.innerHTML = `\r\n    <div class=\"mobile-controls\">\r\n      <div class=\"js-rotate\">\r\n        <svg aria-hidden=\"true\" focusable=\"false\" data-prefix=\"fas\" data-icon=\"sync\" class=\"svg-inline--fa fa-sync fa-w-16\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\"><path fill=\"currentColor\" d=\"M440.65 12.57l4 82.77A247.16 247.16 0 0 0 255.83 8C134.73 8 33.91 94.92 12.29 209.82A12 12 0 0 0 24.09 224h49.05a12 12 0 0 0 11.67-9.26 175.91 175.91 0 0 1 317-56.94l-101.46-4.86a12 12 0 0 0-12.57 12v47.41a12 12 0 0 0 12 12H500a12 12 0 0 0 12-12V12a12 12 0 0 0-12-12h-47.37a12 12 0 0 0-11.98 12.57zM255.83 432a175.61 175.61 0 0 1-146-77.8l101.8 4.87a12 12 0 0 0 12.57-12v-47.4a12 12 0 0 0-12-12H12a12 12 0 0 0-12 12V500a12 12 0 0 0 12 12h47.35a12 12 0 0 0 12-12.6l-4.15-82.57A247.17 247.17 0 0 0 255.83 504c121.11 0 221.93-86.92 243.55-201.82a12 12 0 0 0-11.8-14.18h-49.05a12 12 0 0 0-11.67 9.26A175.86 175.86 0 0 1 255.83 432z\"></path></svg>\r\n      </div>\r\n      <div class=\"js-arrow-right\">\r\n        <svg aria-hidden=\"true\" focusable=\"false\" data-prefix=\"fas\" data-icon=\"arrow-right\" class=\"svg-inline--fa fa-arrow-right fa-w-14\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 448 512\"><path fill=\"currentColor\" d=\"M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z\"></path></svg>\r\n      </div>\r\n      <div class=\"js-arrow-down\">\r\n        <svg aria-hidden=\"true\" focusable=\"false\" data-prefix=\"fas\" data-icon=\"arrow-down\" class=\"svg-inline--fa fa-arrow-down fa-w-14\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 448 512\"><path fill=\"currentColor\" d=\"M413.1 222.5l22.2 22.2c9.4 9.4 9.4 24.6 0 33.9L241 473c-9.4 9.4-24.6 9.4-33.9 0L12.7 278.6c-9.4-9.4-9.4-24.6 0-33.9l22.2-22.2c9.5-9.5 25-9.3 34.3.4L184 343.4V56c0-13.3 10.7-24 24-24h32c13.3 0 24 10.7 24 24v287.4l114.8-120.5c9.3-9.8 24.8-10 34.3-.4z\"></path></svg>\r\n      </div>\r\n      <div class=\"js-arrow-left\">\r\n      <svg aria-hidden=\"true\" focusable=\"false\" data-prefix=\"fas\" data-icon=\"arrow-left\" class=\"svg-inline--fa fa-arrow-left fa-w-14\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 448 512\"><path fill=\"currentColor\" d=\"M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z\"></path></svg>\r\n      </div>\r\n    </div>\r\n  `\r\n\r\n  document.body.appendChild(controls)\r\n\r\n  const rotate = document.querySelector(\".js-rotate\")\r\n  const arrowRight = document.querySelector(\".js-arrow-right\")\r\n  const arrowDown = document.querySelector(\".js-arrow-down\")\r\n  const arrowLeft = document.querySelector(\".js-arrow-left\")\r\n  \r\n  rotate.onclick = () => handler(\"up\")\r\n  arrowRight.onclick = () => handler(\"right\")\r\n  arrowDown.onclick = () => handler(\"down\")\r\n  arrowLeft.onclick = () => handler(\"left\")\r\n}\n\n//# sourceURL=webpack://tetris/./src/js/MobileControls/MobileControls.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(handler) {
+  "use strict"
+  console.log("Injecting mobile controls")
+  let controls = document.createElement("div")
+  controls.className = "mobile-controls-wrapper"
+  controls.innerHTML = `
+    <div class="mobile-controls">
+      <div class="js-rotate">
+        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="sync" class="svg-inline--fa fa-sync fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M440.65 12.57l4 82.77A247.16 247.16 0 0 0 255.83 8C134.73 8 33.91 94.92 12.29 209.82A12 12 0 0 0 24.09 224h49.05a12 12 0 0 0 11.67-9.26 175.91 175.91 0 0 1 317-56.94l-101.46-4.86a12 12 0 0 0-12.57 12v47.41a12 12 0 0 0 12 12H500a12 12 0 0 0 12-12V12a12 12 0 0 0-12-12h-47.37a12 12 0 0 0-11.98 12.57zM255.83 432a175.61 175.61 0 0 1-146-77.8l101.8 4.87a12 12 0 0 0 12.57-12v-47.4a12 12 0 0 0-12-12H12a12 12 0 0 0-12 12V500a12 12 0 0 0 12 12h47.35a12 12 0 0 0 12-12.6l-4.15-82.57A247.17 247.17 0 0 0 255.83 504c121.11 0 221.93-86.92 243.55-201.82a12 12 0 0 0-11.8-14.18h-49.05a12 12 0 0 0-11.67 9.26A175.86 175.86 0 0 1 255.83 432z"></path></svg>
+      </div>
+      <div class="js-arrow-right">
+        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-right" class="svg-inline--fa fa-arrow-right fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"></path></svg>
+      </div>
+      <div class="js-arrow-down">
+        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-down" class="svg-inline--fa fa-arrow-down fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M413.1 222.5l22.2 22.2c9.4 9.4 9.4 24.6 0 33.9L241 473c-9.4 9.4-24.6 9.4-33.9 0L12.7 278.6c-9.4-9.4-9.4-24.6 0-33.9l22.2-22.2c9.5-9.5 25-9.3 34.3.4L184 343.4V56c0-13.3 10.7-24 24-24h32c13.3 0 24 10.7 24 24v287.4l114.8-120.5c9.3-9.8 24.8-10 34.3-.4z"></path></svg>
+      </div>
+      <div class="js-arrow-left">
+      <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-left" class="svg-inline--fa fa-arrow-left fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z"></path></svg>
+      </div>
+    </div>
+  `
 
-/***/ }),
+  document.body.appendChild(controls)
 
-/***/ "./src/js/index.js":
-/*!*************************!*\
-  !*** ./src/js/index.js ***!
-  \*************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _Logic_Tetris_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Logic/Tetris.js */ \"./src/js/Logic/Tetris.js\");\n\r\n\r\n(0,_Logic_Tetris_js__WEBPACK_IMPORTED_MODULE_0__.default)(document) \n\n//# sourceURL=webpack://tetris/./src/js/index.js?");
+  const rotate = document.querySelector(".js-rotate")
+  const arrowRight = document.querySelector(".js-arrow-right")
+  const arrowDown = document.querySelector(".js-arrow-down")
+  const arrowLeft = document.querySelector(".js-arrow-left")
+  
+  rotate.onclick = () => handler("up")
+  arrowRight.onclick = () => handler("right")
+  arrowDown.onclick = () => handler("down")
+  arrowLeft.onclick = () => handler("left")
+}
 
 /***/ })
 
@@ -176,12 +1234,29 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _Log
 /******/ 	})();
 /******/ 	
 /************************************************************************/
-/******/ 	
-/******/ 	// startup
-/******/ 	// Load entry module and return exports
-/******/ 	// This entry module can't be inlined because the eval devtool is used.
-/******/ 	__webpack_require__("./src/js/index.js");
-/******/ 	var __webpack_exports__ = __webpack_require__("./src/css/index.css");
-/******/ 	
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other entry modules.
+(() => {
+var __webpack_exports__ = {};
+/*!*************************!*\
+  !*** ./src/js/index.js ***!
+  \*************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Logic_Tetris_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Logic/Tetris.js */ "./src/js/Logic/Tetris.js");
+
+
+(0,_Logic_Tetris_js__WEBPACK_IMPORTED_MODULE_0__.default)(document) 
+})();
+
+// This entry need to be wrapped in an IIFE because it need to be isolated against other entry modules.
+(() => {
+/*!***************************!*\
+  !*** ./src/css/index.css ***!
+  \***************************/
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+})();
+
 /******/ })()
 ;

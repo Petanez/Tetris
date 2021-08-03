@@ -7,10 +7,10 @@ import webpack from "webpack"
 // module.exports = {
 export default {
   watch: true,
-  // mode: "development",
-  mode: "production",
+  mode: "development",
+  // mode: "production",
   optimization: {
-    minimize: true
+    minimize: false
   },
   devtool: false,
   entry: [

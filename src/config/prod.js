@@ -2,7 +2,7 @@ export default {
   startingScore: 0,
   startingLevel: 1,
   border: {
-    width: 10,
+    width: 2,
     color: "white"
   },
   square: {
