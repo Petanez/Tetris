@@ -23,11 +23,11 @@ function Tetris(document) {
     let pieceStack
     let firstStart = true
 
-    let IHighscore = Highscores()    
+    const highscoreWrapper = document.querySelector(".highscore-wrapper")
     const highscoreEl = document.querySelector(".highscore-wrapper")
+    let IHighscore = Highscores()    
     let highscores = IHighscore.getHighscores()
     IHighscore.renderScores(highscoreEl, highscores)
-    // IHighscore.checkForHighscore(highscoreEl, highscores, 3000)
 
     function initGame() {
       console.log("initializing")
@@ -51,6 +51,8 @@ function Tetris(document) {
       isPaused = false
       gameOver = false  
       currentLevel = level
+      if ([...highscoreWrapper.classList].includes("game-over"))
+        highscoreWrapper.classList.remove("game-over")
       Graphics.displayPieceStack(pieceStack.getStack())
       Graphics.resetUi(level)
       Graphics.drawEverything(board, piece)
@@ -72,7 +74,7 @@ function Tetris(document) {
       }
     }
 
-    function frame(direction) {
+    async function frame(direction) {
       piece = Logic.movePiece(board, piece, direction)
       if (piece == -1) {
         piece = pieceStack.getPiece().PIECE
@@ -81,11 +83,14 @@ function Tetris(document) {
       let scoreMultiplier = Logic.checkFullRowsAndEndCondition(board)
       if (scoreMultiplier === -1) {
         console.log("Game over")
-        highscores = IHighscore.checkForHighscore(highscoreEl, highscores, score)
+        gameOver = true
+        highscoreWrapper.classList.add("game-over")
         Graphics.displayGameOver()
         Graphics.displayFinalScore(score)
+        Graphics.removePieceStack()
         playButton.innerText = "Play"
-        return gameOver = true
+        highscores = await IHighscore.checkForHighscore(highscoreEl, highscores, score)
+        return
       }
       trackRowCount += scoreMultiplier
       score = Logic.addScore(scoreMultiplier, level, score);
@@ -143,19 +148,16 @@ function Tetris(document) {
     const themeSwitchBtn = document.querySelector("#themeSwitch")
     themeSwitchBtn.onclick = () => Graphics.polarizeHandler(document.body, board, piece, pieceStack?.getStack())
 
-    const stateInfo = document.querySelector(".state-info")
+    MobileControls(document, frame)
+    
     const tetrisContainer = document.querySelector(".tetris-container")
     const canvas = document.querySelector("#myCanvas")
     window.onload = () => {
-      // tetrisContainer.style.height = canvas.clientHeight
-      tetrisContainer.style.width = canvas.clientWidth + 6
-      Graphics.drawBorders()
+      tetrisContainer.style.width = `${canvas.clientWidth + 6}px`
     }
-
-    MobileControls(frame)
-
+  
     window.onresize = () => {
-      tetrisContainer.style.width = canvas.clientWidth + 6
+      tetrisContainer.style.width = `${canvas.clientWidth + 6}px`
     }
   })()
 }

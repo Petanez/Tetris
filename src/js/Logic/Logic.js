@@ -1,6 +1,5 @@
 import Square from "./Square.js"
-import { lPiece, lPieceIsomer, sPiece, sPieceIsomer, iPiece, tPiece, oPiece } from "./Pieces.js"
-import Graphics from "../Graphics/Graphics.js"
+import * as Pieces from "./Pieces.js"
 import config from "../../config/prod.js"
 
 export default (function() {
@@ -10,7 +9,7 @@ export default (function() {
   }
 
   const newTestPiece = () => {
-    return new iPiece().PIECE
+    return new Pieces.iPiece().PIECE
   }
   
   const lockPiece = (board, p) => {
@@ -48,8 +47,8 @@ export default (function() {
     const nPieces = 7
     const randomNum = Math.floor(Math.random() * nPieces)
     return (
-        randomNum === 0 ? new lPiece() : randomNum === 1 ? new oPiece() : randomNum === 2 ? new tPiece() :
-        randomNum === 3 ? new lPieceIsomer() : randomNum === 4 ? new sPiece() : randomNum === 5 ? new sPieceIsomer() : new iPiece()
+        randomNum === 0 ? new Pieces.lPiece() : randomNum === 1 ? new Pieces.oPiece() : randomNum === 2 ? new Pieces.tPiece() :
+        randomNum === 3 ? new Pieces.lPieceIsomer() : randomNum === 4 ? new Pieces.sPiece() : randomNum === 5 ? new Pieces.sPieceIsomer() : new Pieces.iPiece()
       )
   }
   

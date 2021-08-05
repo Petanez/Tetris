@@ -4,16 +4,18 @@ import HtmlWebpackPlugin from "html-webpack-plugin"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
 
 export default {
-  mode: "production",
+  watch: true,
+  mode: "development",
   optimization: {
-    minimize: true
+    minimize: false
   },
+  devtool: false,
   entry: [
     path.resolve(__dirname, "src", "js", "index.js"),
     path.resolve(__dirname, "src", "css", "index.css")
   ],
   output: {
-    filename: "bundle.min.js",
+    filename: "bundle.js",
     path: path.resolve(__dirname, "dist")
   },
   module: {

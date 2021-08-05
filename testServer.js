@@ -1,11 +1,13 @@
-const PORT = 8080
+import express from "express"
+import dotenv from "dotenv"
+dotenv.config()
 
-const express = require("express")
+const PORT = process.env.PORT
+const ip = process.env.TEST_SERVER_IP 
+
 const app = express()
-
 app.use(express.static("./dist"))
-
-app.listen(PORT, "192.168.1.33", () => {
+app.listen(PORT, ip, () => {
   console.log("Server listening on port " + PORT)
 })
 

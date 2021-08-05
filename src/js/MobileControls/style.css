@@ -27,13 +27,15 @@
 }
 
 .mobile-controls svg {
+  pointer-events: none;
   transform: translateY(25%);
   width: 60%;
 }
 
 .js-rotate > svg { margin-top: .1ch; }
 .js-rotate {
-  left: 20rem;
+  left: 21rem;
+  top: 4.5rem;
 }
 
 .js-arrow-left {

@@ -1,4 +1,4 @@
-export default function(handler) {
+export default function(document, handler) {
   "use strict"
   console.log("Injecting mobile controls")
   let controls = document.createElement("div")
@@ -19,16 +19,41 @@ export default function(handler) {
       </div>
     </div>
   `
-
   document.body.appendChild(controls)
 
-  const rotate = document.querySelector(".js-rotate")
-  const arrowRight = document.querySelector(".js-arrow-right")
-  const arrowDown = document.querySelector(".js-arrow-down")
-  const arrowLeft = document.querySelector(".js-arrow-left")
+  const ROTATE_BTN = "js-rotate"
+  const KEY_RIGHT = "js-arrow-right"
+  const KEY_DOWN = "js-arrow-down"
+  const KEY_LEFT = "js-arrow-left"
+  const rotate = document.querySelector(`.${ROTATE_BTN}`)
+  const arrowRight = document.querySelector(`.${KEY_RIGHT}`)
+  const arrowDown = document.querySelector(`.${KEY_DOWN}`)
+  const arrowLeft = document.querySelector(`.${KEY_LEFT}`)
+
+  rotate.addEventListener("touchstart", () => touchstart("up", 400))
+  arrowRight.addEventListener("touchstart", () => touchstart("right", 200))
+  arrowDown.addEventListener("touchstart", () => touchstart("down", 100))
+  arrowLeft.addEventListener("touchstart", () => touchstart("left", 400))
+
+  rotate.addEventListener("touchend", touchend)
+  arrowRight.addEventListener("touchend", touchend)
+  arrowDown.addEventListener("touchend", touchend)
+  arrowLeft.addEventListener("touchend", touchend)
   
-  rotate.onclick = () => handler("up")
-  arrowRight.onclick = () => handler("right")
-  arrowDown.onclick = () => handler("down")
-  arrowLeft.onclick = () => handler("left")
+  var timer
+  function onlongtouch(direction, duration) {
+    touchstart(direction, duration)
+  }
+
+  function touchstart(direction, duration = 100) {
+    handler(direction)
+    timer = setTimeout(() => { 
+      onlongtouch(direction, duration)
+    }, duration) 
+  }
+
+  function touchend() {
+    if (timer)
+      clearTimeout(timer); // clearTimeout, not cleartimeout..
+  }
 }

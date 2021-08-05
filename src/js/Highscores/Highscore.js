@@ -3,6 +3,12 @@ import config from "../../config/prod.js"
 
 class HighscoreNotFoundError extends Error {}
 
+const HIGHSCORES_LENGTH = 10
+const HIGHSCORE_EMPTY = {
+  name: "",
+  score: 0
+}
+
 function getHighscores(dbUrl) {
   let highscores
   if (dbUrl) {
@@ -12,12 +18,7 @@ function getHighscores(dbUrl) {
       highscores = getHighscoresFromLocalStorage()
     } catch (e) {
       console.log(e)
-      highscores = Array.from({ length: 10 }, () => {
-        return {
-          name: "",
-          score: 0
-        }
-      })
+      highscores = Array.from({ length: HIGHSCORES_LENGTH }, () => { return { ...HIGHSCORE_EMPTY } } )
     } 
   }
   return highscores
@@ -73,14 +74,12 @@ function updateScore(element, highscores, highscore, i) {
     ...highscores.slice(i, -1)
   ]
   const newScores = [...newHead, ...newTail]
-  console.log(newScores)
   renderScores(element, newScores)
   updateStorage(STORAGE_KEY, newScores)
   return newScores
 }
 
 async function checkForHighscore(element, highscores, score) {
-  console.log(highscores)
   let i = highscores.findIndex(highscore => highscore.score < score)
   if (i != -1) {
     console.log("New highscore")
@@ -95,7 +94,7 @@ async function checkForHighscore(element, highscores, score) {
 }
 
 function createInput(attributes = []) {
-  const input = document.createElement("input"); //input element, text
+  const input = document.createElement("input")
   for (let att of attributes) 
     input.setAttribute(att.name, att.value)
   return input
@@ -104,16 +103,16 @@ function createInput(attributes = []) {
 async function renderForm() {
   return new Promise((res, rej) => {
     const nameForm = document.createElement("form")
-
+    nameForm.id = "highscoreForm"
+    nameForm.className = "js-name-form" 
+    
     const input = createInput([
       { name: "type", value: "text"},
       { name: "name", value: "name"},
-      { name: "maxLength", value: "5"},
-      { name: "placeholder", value: "Enter name (max 5 letter A-B)"}
+      { name: "maxLength", value: "8"},
+      { name: "placeholder", value: "Enter name (max 8 letter A-B)"}
     ])
     nameForm.appendChild(input)
-    nameForm.id = "highscoreForm"
-    nameForm.className = "js-name-form" 
     
     const submit = document.createElement("input")
     submit.setAttribute("type", "submit")
@@ -126,7 +125,6 @@ async function renderForm() {
     nameForm.addEventListener("submit", (e) => {
       e.preventDefault()
       let name = e.target.name.value 
-      console.log("name in function: " + name)
       if (!isValidInput(name)) {
         e.target.remove()
         renderForm()
@@ -139,7 +137,7 @@ async function renderForm() {
 
 function isValidInput(str) {
   const regEx = /^[a-zA-z]+$/gi
-  if (str.length > 5) return false
+  if (str.length > 8) return false
   if (!(regEx.test(str))) return false
   return true
 }
@@ -147,7 +145,6 @@ function isValidInput(str) {
 export default function() {
   return (function() {   
     return {
-      updateScore,
       checkForHighscore,
       getHighscores,
       renderScores

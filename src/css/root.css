@@ -1,142 +1,70 @@
 :root {
   font-size: calc(11px + 0.2vw);
-  /* font-size: 16px; */
-  /* font-size: 16px; */
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  /* font-family: Impact, "Courier New", 'Arial Narrow Bold', sans-serif; */
+  font-family: Impact, 'Times New Roman', Times, serif;
   --ff-secondary: 'Courier New', Courier, monospace;
-  --clr-canvas-bg: rgba(0, 0, 0, 0.9);
-  --clr-canvas-bg: rgba(0, 0, 0, 1);
-  --body-effect-delay: 0.7s;
-  --clr-ff-brightwhite: black;
-  --clr-light-white: rgb(55, 55, 55);
+  --ff-tercery: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+  --time-bg-transition: 300ms;
+  --time-game-over-transition: 500ms;
+
   --clr-arrows: rgba(0, 0, 0, .4);
   --clr-primary: black;
   --clr-secondary: white;
   --clr-tercery: rgb(222, 59, 59);
-  /* --clr-page-background2: linear-gradient(90deg, black 20%, white 30%, white 50%, black 50%, rgba(0, 0, 0, .6) 53%, white 58%, var(--clr-primary) 80%); */
-  --clr-page-background2: linear-gradient(170deg, black 0%, rgba(0, 0, 0, .9) 20%, rgba(255, 255, 255, .1) 40%, rgba(255, 255, 255, .4) 60%, transparent 61%, black 70%);
-  --clr-page-background2: linear-gradient(177deg, black 0%, rgba(0, 0, 0, .9) 20%, rgba(255, 255, 255, .1) 40%, rgba(255, 255, 255, .8) 60%, black 62%, black 70%);
-  /* --clr-page-background2: none; */
-  --clr-page-background: linear-gradient(-17deg, transparent 56%, white 90%);
-  /* --clr-page-background: none; */
 
-  /* NOW TESTING */
-  --clr-page-background: linear-gradient(-21deg, transparent 66%, white 90%);
-  --clr-page-background: linear-gradient(-11deg, transparent 77%, white 80%);
+  --gradient-game-info-header-bg: linear-gradient(20deg, var(--clr-ff-brightwhite) 7%, var(--clr-light-white) 20%, white 35%);
+  --gradient-canvas-bg: linear-gradient(-180deg, transparent 1%, var(--clr-secondary) 10%);
+  --gradient-page-bg: linear-gradient(180deg, black 3%, white 12%, white 46%, white 53%, black 62%, black 70%);
+  --gradient-page-bg: linear-gradient(180deg, black 6%, white 15%, white 36%, white 44%, black 46%, black 50%, white 50%, white 56%, black 65%, black 94%, white 96%);
 
-  --clr-page-background: linear-gradient(14deg, transparent 64%, white 65%);
-  --clr-page-background: linear-gradient(14deg, transparent 64%, white 65%);
+  --gradient-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.5) 0%, var(--clr-primary) 10.5%, transparent 10.6%, var(--clr-primary) 12%, transparent 13%, rgba(255, 255, 255, 0.5) 15%, rgba(255, 255, 255, 0.9) 33%, transparent 40%, rgba(255, 255, 255, 0.3) 42%, transparent 45%, rgba(0, 0, 0, .9) 46%, transparent 67%);
+  --gradient-tetris-header-bg: linear-gradient(176deg, var(--clr-primary) 30%, var(--clr-secondary) 70%);
+  --gradient-tetris-header-bg: linear-gradient(160deg, var(--clr-secondary) 20%, var(--clr-primary) 50%);
 
-  /* TEsting  */
-  --deg: calc(14 * 1deg);
-  /* --deg: calc(14 * 1deg); */
+  --gradient-tetris-header-bg-shadow: linear-gradient(0deg, white 70%, var(--clr-primary) 100%);
+  
+  --position-page-bg: top;
 
-  --clr-page-background: linear-gradient(var(--deg), transparent 64%, white 65%);
+  --w-btn-small: 25%;
 
-  --clr-page-background3: linear-gradient(76deg, white 24.5%, transparent 26%);
-  --clr-tetris-header-shadow: rgba(0, 0, 0, .3);
-
-
-  --clr-box-pre:  white;
-  --bg-position: left;
-  --clr-box-shadow: rgba(0, 0, 0, 1);
-  --clr-theme-switch-bg: radial-gradient(circle at 52% 52%, transparent 0%, var(--clr-secondary) 10.5%, transparent 10.6%, var(--clr-secondary) 12%, transparent 13%, rgba(255, 255, 255, 0.2) 15%, rgba(255, 255, 255, 0.1) 33%, transparent 40%, rgba(255, 255, 255, 0.1) 43%, transparent 50%);
-  --clr-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.5) 0%, var(--clr-secondary) 10.5%, transparent 10.6%, var(--clr-secondary) 12%, transparent 13%, rgba(255, 255, 255, 0.2) 15%, rgba(255, 255, 255, 0.1) 33%, transparent 40%, rgba(255, 255, 255, 0.1) 43%, transparent 50%);
-
-  --clr-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.9) 0%, var(--clr-primary) 10.5%, transparent 10.6%, var(--clr-primary) 12%, transparent 13%, rgba(0, 0, 0, 0.5) 15%, rgba(0, 0, 0, 0.1) 33%, transparent 40%, rgba(0, 0, 0, 0.3) 43%, transparent 50%, rgba(0, 0, 0, 0.3) 53%, transparent 67%);
-  --clr-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.9) 0%, var(--clr-primary) 10.5%, transparent 11.5%, var(--clr-primary) 12%, rgba(255, 255, 255, .6) 13%, rgba(0, 0, 0, 0.5) 33%, transparent 40%, rgba(0, 0, 0, 0.3) 49%, transparent 50%, rgba(0, 0, 0, 0.3) 53%, transparent 67%);
-  /* --clr-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.5) 0%, var(--clr-primary) 10.5%, white 10.6%, var(--clr-primary) 12%, transparent 13%, rgba(255, 255, 255, .1) 21%, transparent 38%, rgba(255, 255, 255, 0.2) 36%, transparent 47%, rgba(0, 0, 0, 0.2) 55%, transparent 62%); */
-  --clr-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.5) 0%, var(--clr-primary) 10.5%, transparent 10.6%, var(--clr-primary) 12%, transparent 13%, rgba(255, 255, 255, 0.5) 15%, rgba(255, 255, 255, 0.9) 33%, transparent 40%, rgba(255, 255, 255, 0.3) 42%, transparent 45%, rgba(0, 0, 0, .9) 46%, transparent 67%);
-
-
-
-  --w-btn-small: 39%;
   --animation-first-piece: first-piece-animation 1000ms ease infinite alternate-reverse;
   --animation-piece-effect: first-piece-effect 140ms ease-out;
   
-  --controls-ff-shadow: 0 0 1px white;
-  --game-info-controls-clr-bg: rgba(14, 14, 14, .2);
-  /* --game-info-controls-clr-bg: rgba(0, 0, 0, 1); */
-  --ff-game-info-opacity: 1;
-  --clr-ff-game-info: rgba(0, 0, 0, var(--ff-game-info-opacity));
-  --clr-game-info-header: rgba(0, 0, 0, .3);
-  /* --clr-game-info-header: rgba(255, 255, 255, 1); */
-
-  /* --gradient-game-info-header-bg: linear-gradient(5deg, var(--clr-ff-brightwhite) 20%, var(--clr-secondary) 70%); */
-  --clr-test: rgb(58, 58, 58);
-
-  --gradient-game-info-header-bg: linear-gradient(20deg, var(--clr-ff-brightwhite) 7%, var(--clr-light-white) 20%, white 35%);
-
-  --clr-shadow-txt-tetris-header: rgb(40, 40, 50);
-
-  --gradient-canvas-bg: linear-gradient(-180deg, transparent 6%, rgba(0, 0, 0, .4) 7%, rgba(255, 255, 255, .5) 20%, white 30%, transparent 80%);
-
-
+  --shadow-tetris-header: .02em .03em 0em rgba(255, 255, 255, .4);
 }
 
 body {
   margin: 0;
+  width: 100vw;
+  height: 100vh;
+  user-select: none;
 }
 
 .polarized {
-  --clr-canvas-bg: rgba(255, 255, 255, .3);
   --clr-primary: white;
-  --clr-light-white: rgb(227, 219, 219);
   --clr-secondary: black;
-  --clr-ff-brightwhite: white;
   --clr-arrows: rgba(255, 255, 255, .4);
-  --bg-position: right;
-  --clr-box-pre:  black;
-  --clr-box-shadow:  white;
-  --game-info-controls-clr-bg: rgba(255, 255, 255, .1);
-  --controls-ff-shadow: 0 0 1px black;
-  
-  --clr-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.5) 0%, var(--clr-primary) 10.5%, transparent 10.6%, var(--clr-primary) 12%, transparent 13%, rgba(255, 255, 255, 0.2) 21%, transparent 38%, rgba(255, 255, 255, 0.2) 36%, transparent 47%, rgba(0, 0, 0, 0.2) 55%, transparent 62%);
-  --clr-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.5) 0%, var(--clr-primary) 10.5%, transparent 10.6%, var(--clr-primary) 12%, transparent 13%, rgba(0, 0, 0, 0.5) 15%, rgba(0, 0, 0, 0.1) 33%, transparent 40%, rgba(0, 0, 0, 0.3) 43%, transparent 50%, rgba(0, 0, 0, 0.3) 53%, transparent 67%);
-  --clr-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.5) 0%, var(--clr-primary) 10.5%, transparent 10.6%, var(--clr-primary) 12%, transparent 13%, rgba(0, 0, 0, 0.5) 15%, rgba(0, 0, 0, 0.9) 33%, transparent 40%, rgba(0, 0, 0, 0.3) 42%, transparent 45%, rgba(255, 255, 255, .4) 46%, transparent 67%);
 
-  
-  --clr-page-background: linear-gradient(-11deg, transparent 77%, black 80%);
-  --clr-page-background: linear-gradient(16deg, transparent 57%, black 59%);
-  --clr-page-background: linear-gradient(var(--deg), transparent 64%, black 65%);
-  --clr-page-background3: linear-gradient(76deg, black 24.5%, transparent 26%);
-
-  /* --clr-page-background: linear-gradient(5deg, var(--clr-primary) 0%, transparent 20%); */
-  /* --clr-page-background2: linear-gradient(180deg, black 0%, rgba(255, 255, 255, .1) 10%); */
-
-  --clr-ff-game-info: rgba(255, 255, 255, var(--ff-game-info-opacity));
-  --clr-game-info-header: rgba(255, 255, 255, 1);
-  --clr-shadow-txt-tetris-header: rgb(215, 215, 205);
+  --gradient-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.5) 0%, var(--clr-primary) 10.5%, transparent 10.6%, var(--clr-primary) 12%, transparent 13%, rgba(0, 0, 0, 0.5) 15%, rgba(0, 0, 0, 0.9) 33%, transparent 40%, rgba(0, 0, 0, 0.3) 42%, transparent 45%, rgba(255, 255, 255, .4) 46%, transparent 67%);
+  --gradient-tetris-header-bg: linear-gradient(160deg, var(--clr-secondary) 20%, var(--clr-primary) 50%);
+  --gradient-tetris-header-bg-shadow: linear-gradient(0deg, black 70%, var(--clr-primary) 100%);
   --gradient-game-info-header-bg: linear-gradient(20deg, var(--clr-ff-brightwhite) 7%, var(--clr-light-white) 20%, black 35%);
+  --gradient-canvas-bg: linear-gradient(-180deg, transparent 3%, var(--clr-secondary) 10%);
 
-  --polarized-canvas-color-1: rgba(255, 255, 255, .1);
-  --gradient-canvas-bg: linear-gradient(-170deg, transparent 6%, rgba(255, 255, 255, .2) 7%, var(--polarized-canvas-color-1) 8%, rgba(0, 0, 0, .9) 30%, black 50%);
-  --clr-tetris-header-shadow: rgba(255, 255, 255, .1);
-
-}
-
-* {
-  user-select: none;
+  --position-page-bg: bottom;
+  
+  --shadow-tetris-header: .02em .03em 0em rgba(0, 0, 0, .4);
 }
 
 h1,
 h2,
 h3,
 h4 {
-  /* margin: 0px !important;
-  padding: 0px !important;
-  margin-block-start: 0px !important;
-  margin-block-end: 0px !important; */
   margin: 0;
   padding: 0;
 }
 
 h2 {
-  margin: 0;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
-
-a {
-  position: relative;
-  display: inline-block;
+  font-family: var(--ff-tercery);
 }
