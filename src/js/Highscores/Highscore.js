@@ -31,12 +31,15 @@ function getHighscoresFromLocalStorage() {
     if (key == STORAGE_KEY)
       highscores = JSON.parse(window.localStorage.getItem(key))
   }
-  if (!highscores) throw new HighscoreNotFoundError(config.errorMsgs.highscoreNotFound)
-  else return highscores
+  if (!highscores) 
+    throw new HighscoreNotFoundError(config.errorMsgs.highscoreNotFound)
+  else 
+    return highscores
 }
 
 function renderScores(element, scores) {
-  while (element.firstChild) element.firstChild.remove()
+  while (element.firstChild) 
+    element.firstChild.remove()
   let highscoresEl = document.createElement("div")
   highscoresEl.className = "highscores"
   for (let highscore of scores) {
@@ -114,9 +117,10 @@ async function renderForm() {
     ])
     nameForm.appendChild(input)
     
-    const submit = document.createElement("input")
-    submit.setAttribute("type", "submit")
-    submit.setAttribute("value", "Submit")
+    const submit = createInput([
+      { name: "type", value: "submit" },
+      { name: "value", value: "Submit" }
+    ])
     nameForm.appendChild(submit)
     
     const pageWrapper = document.querySelector(".page-container")

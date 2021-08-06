@@ -18,10 +18,10 @@ function Tetris(document) {
     let isPaused
     let gameOver
     let currentLevel
-    Graphics.resetUi(0)
     var timeOutID
     let pieceStack
     let firstStart = true
+    Graphics.resetUi(0)
 
     const highscoreWrapper = document.querySelector(".highscore-wrapper")
     const highscoreEl = document.querySelector(".highscore-wrapper")

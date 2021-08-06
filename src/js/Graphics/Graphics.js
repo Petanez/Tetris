@@ -19,7 +19,7 @@ export default function(document) {
     const levelElement = document.getElementById("lvl")
     const gameOverElement = document.getElementById("gOvr")
     const gamePausedElement = document.getElementById("gamePaused")
-
+    const pieceStackEl = document.querySelector(".state-info__piece-stack")
     
     let borderColor = config.border.color
     let squareBorderColor = config.square.secondaryColor
@@ -44,14 +44,14 @@ export default function(document) {
         isPolarized = true
       }
       element.classList.toggle("polarized")
-      if (board == null) return drawEverything([], [])
+      if (board == null) 
+        return drawEverything([], [])
       drawEverything(board, piece)
     }
 
-    const pieceStackEl = document.querySelector(".state-info__piece-stack")
     function displayPieceStack(stack) {
       pieceStackEl.style.opacity = "1"
-      while (pieceStackEl.firstChild) pieceStackEl.firstChild.remove()
+      removePieceStack()
       for (let i = 0; i < stack.length; i++) {
         let pieceEl = pieceStackEl.appendChild(document.createElement("div"))
         pieceEl.classList = `${stack[i].constructor.name} piece-stack__piece`
@@ -90,13 +90,11 @@ export default function(document) {
         modifiedVal = y > 0 ? rgbVal - y * 5 : rgbVal
       }
 
-      
+      let min = .3, max = .8;
+      let colorStop = opacity < min ? min : opacity > max ? max : opacity 
       let sq = ctx.createLinearGradient(borderLineWidth + squareSize * x, borderLineWidth + squareSize * y, squareSize * x + squareSize, squareSize * y + squareSize)
       let color1 = `rgb(${rgbVal}, ${rgbVal}, ${rgbVal})`;
       let color2 = `rgb(${modifiedVal}, ${modifiedVal}, ${modifiedVal})`;
-
-      let min = .3, max = .8;
-      let colorStop = opacity < min ? min : opacity > max ? max : opacity 
       sq.addColorStop(.2, color1)
       sq.addColorStop(colorStop, color2)
       ctx.fillStyle = sq
