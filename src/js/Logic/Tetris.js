@@ -101,7 +101,7 @@ function Tetris(document) {
       return timeOutID = schedule()
     }
     
-    async function handleGameOver() {
+    async function handleGameOver(error = "") {
       console.log("Game over")
       gameOver = true
       highscoreWrapper.classList.add("game-over")
@@ -109,7 +109,12 @@ function Tetris(document) {
       Graphics.displayFinalScore(score)
       Graphics.removePieceStack()
       playButton.innerText = "Play"
-      highscores = await IHighscore.checkForHighscore(highscoreEl, highscores, score)
+      highscores = await IHighscore.checkForHighscore(highscoreEl, highscores, score, error)
+        .catch((e) => {
+          console.log(e)
+          highscores = IHighscore.getHighscores()
+          handleGameOver(e)
+        })
     }
 
     function togglePause() {

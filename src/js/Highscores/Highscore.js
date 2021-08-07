@@ -83,11 +83,11 @@ function updateScore(element, highscores, highscore, i) {
   return newScores
 }
 
-async function checkForHighscore(element, highscores, score) {
+async function checkForHighscore(element, highscores, score, error) {
   let i = highscores.findIndex(highscore => highscore.score < score)
   if (i != -1) {
     console.log("New highscore")
-    const playerName = await renderForm()
+    const playerName = await renderForm(error)
     const highscore = { 
       name: playerName,
       score
@@ -104,8 +104,7 @@ function createInput(attributes = []) {
   return input
 }
 
-async function renderForm() {
-  // Get player name, re-render on incorrect input
+async function renderForm(error) {
   return new Promise((res, rej) => {
     const nameForm = document.createElement("form")
     nameForm.id = "highscoreForm"
@@ -115,7 +114,7 @@ async function renderForm() {
       { name: "type", value: "text"},
       { name: "name", value: "name"},
       { name: "maxLength", value: HIGHSCORE_INPUT_MAX_LENGTH },
-      { name: "placeholder", value: `Enter name (max ${HIGHSCORE_INPUT_MAX_LENGTH} letter A-B)`}
+      { name: "placeholder", value: error ? error : `Enter name (max ${HIGHSCORE_INPUT_MAX_LENGTH} letter A-B)`}
     ])
     nameForm.appendChild(input)
     
@@ -128,12 +127,12 @@ async function renderForm() {
     const pageWrapper = document.querySelector(".page-container")
     pageWrapper.appendChild(nameForm)
     
-    nameForm.addEventListener("submit", (e) => {
+    nameForm.addEventListener("submit", async (e) => {
       e.preventDefault()
       let name = e.target.name.value 
       if (!isValidInput(name)) {
         e.target.remove()
-        renderForm()
+        rej(new Error("No numbers allowed!"))
       }
       e.target.remove()
       res(name)
