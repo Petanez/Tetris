@@ -54,7 +54,7 @@ function createScoreElement(name, score) {
   el.className = "highscores__score"
   
   let nameEl = document.createElement("span")
-  nameEl.innerText = name
+  nameEl.innerText = name || ""
 
   let scoreEl = document.createElement("span")
   scoreEl.innerText = score || ""
