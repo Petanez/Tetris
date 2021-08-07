@@ -1,3 +1,4 @@
+"use strict"
 import Logic from "./Logic.js"
 import config from "../../config/prod.js"
 import MobileControls from "../MobileControls/MobileControls.js"
@@ -7,7 +8,6 @@ import Highscores from "../Highscores/Highscore.js"
 const Graphics = GraphicsModule(document)
 
 function Tetris(document) {
-  "use strict"
   return (() => {
     let board
     let piece
@@ -23,6 +23,7 @@ function Tetris(document) {
     let firstStart = true
     Graphics.resetUi(0)
 
+    MobileControls(document, frame)
     const highscoreWrapper = document.querySelector(".highscore-wrapper")
     const highscoreEl = document.querySelector(".highscore-wrapper")
     let IHighscore = Highscores()    
@@ -60,13 +61,7 @@ function Tetris(document) {
     
     function tick(direction) {
       if (!isPaused && !gameOver) {
-        frame(direction);
-        ({ trackRowCount, level } = Logic.incrementLevelAfter10Clears(trackRowCount, level));
-        if (currentLevel != level) {
-          currentLevel = level
-          fps = Logic.moveToNextLevel(level)
-          Graphics.displayLevelText(level)
-        }
+        frame(direction)
         timeOutID = schedule()
       } else {
         window.clearTimeout(timeOutID)
@@ -74,28 +69,27 @@ function Tetris(document) {
       }
     }
 
-    async function frame(direction) {
+    function frame(direction) {
       piece = Logic.movePiece(board, piece, direction)
       if (piece == -1) {
         piece = pieceStack.getPiece().PIECE
+        if (Logic.spaceIsOccupied(board, piece)) 
+          handleGameOver()
+        Graphics.animateFirstPiece()
         Graphics.displayPieceStack(pieceStack.getStack())
       }
-      let scoreMultiplier = Logic.checkFullRowsAndEndCondition(board)
-      if (scoreMultiplier === -1) {
-        console.log("Game over")
-        gameOver = true
-        highscoreWrapper.classList.add("game-over")
-        Graphics.displayGameOver()
-        Graphics.displayFinalScore(score)
-        Graphics.removePieceStack()
-        playButton.innerText = "Play"
-        highscores = await IHighscore.checkForHighscore(highscoreEl, highscores, score)
-        return
-      }
+      let scoreMultiplier = Logic.checkFullRows(board)
       trackRowCount += scoreMultiplier
       score = Logic.addScore(scoreMultiplier, level, score);
       Graphics.drawEverything(board, piece)
       Graphics.updateScore(score);
+
+      ({ trackRowCount, level } = Logic.incrementLevelAfter10Clears(trackRowCount, level));
+      if (currentLevel != level) {
+        currentLevel = level
+        fps = Logic.moveToLevel(level)
+        Graphics.displayLevelText(level)
+      }
     }
     
     function schedule() {
@@ -105,6 +99,17 @@ function Tetris(document) {
     function playGame() {
       console.log("Game started")
       return timeOutID = schedule()
+    }
+    
+    async function handleGameOver() {
+      console.log("Game over")
+      gameOver = true
+      highscoreWrapper.classList.add("game-over")
+      Graphics.displayGameOver()
+      Graphics.displayFinalScore(score)
+      Graphics.removePieceStack()
+      playButton.innerText = "Play"
+      highscores = await IHighscore.checkForHighscore(highscoreEl, highscores, score)
     }
 
     function togglePause() {
@@ -147,8 +152,6 @@ function Tetris(document) {
 
     const themeSwitchBtn = document.querySelector("#themeSwitch")
     themeSwitchBtn.onclick = () => Graphics.polarizeHandler(document.body, board, piece, pieceStack?.getStack())
-
-    MobileControls(document, frame)
     
     const tetrisContainer = document.querySelector(".tetris-container")
     const canvas = document.querySelector("#myCanvas")

@@ -1,5 +1,5 @@
+"use strict"
 export default function(document, handler) {
-  "use strict"
   const ROTATE_BTN = "js-rotate"
   const KEY_RIGHT = "js-arrow-right"
   const KEY_DOWN = "js-arrow-down"

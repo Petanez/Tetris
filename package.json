@@ -20,7 +20,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "dev": "webpack --progress --config webpack.config.dev.js",
     "build": "webpack --config webpack.config.js",
     "server": "node testServer.js"

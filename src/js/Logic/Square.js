@@ -1,5 +1,5 @@
+"use strict"
 export default class Square {
-  "use strict"
   constructor(x, y, isOccupied = false) {
     this.x = x
     this.y = y
@@ -11,7 +11,6 @@ export default class Square {
   set isOccupied(value) {
     this.isOccupied = value
   }
-  // perkele
 
   get isOccupied() {
     return this.isOccupied

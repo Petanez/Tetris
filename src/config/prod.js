@@ -19,5 +19,9 @@ export default {
   },
   errorMsgs: {
     highscoreNotFound: "Highscore not found"
+  },
+  highscore: {
+    maxLength: 8,
+    storageKey: "tetris.highscores"
   }
 }

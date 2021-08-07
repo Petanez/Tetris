@@ -1,8 +1,9 @@
-import STORAGE_KEY from "./key.js"
+"use strict"
 import config from "../../config/prod.js"
 
 class HighscoreNotFoundError extends Error {}
 
+const HIGHSCORE_INPUT_MAX_LENGTH = config.highscore.maxLength || 3
 const HIGHSCORES_LENGTH = 10
 const HIGHSCORE_EMPTY = {
   name: "",
@@ -28,7 +29,7 @@ function getHighscoresFromLocalStorage() {
   let highscores
   let key 
   for (let i = 0; key = window.localStorage.key(i); i++) {
-    if (key == STORAGE_KEY)
+    if (key == config.highscore.storageKey)
       highscores = JSON.parse(window.localStorage.getItem(key))
   }
   if (!highscores) 
@@ -78,7 +79,7 @@ function updateScore(element, highscores, highscore, i) {
   ]
   const newScores = [...newHead, ...newTail]
   renderScores(element, newScores)
-  updateStorage(STORAGE_KEY, newScores)
+  updateStorage(config.highscore.storageKey, newScores)
   return newScores
 }
 
@@ -104,6 +105,7 @@ function createInput(attributes = []) {
 }
 
 async function renderForm() {
+  // Get player name, re-render on incorrect input
   return new Promise((res, rej) => {
     const nameForm = document.createElement("form")
     nameForm.id = "highscoreForm"
@@ -112,8 +114,8 @@ async function renderForm() {
     const input = createInput([
       { name: "type", value: "text"},
       { name: "name", value: "name"},
-      { name: "maxLength", value: "8"},
-      { name: "placeholder", value: "Enter name (max 8 letter A-B)"}
+      { name: "maxLength", value: HIGHSCORE_INPUT_MAX_LENGTH },
+      { name: "placeholder", value: `Enter name (max ${HIGHSCORE_INPUT_MAX_LENGTH} letter A-B)`}
     ])
     nameForm.appendChild(input)
     
@@ -141,7 +143,7 @@ async function renderForm() {
 
 function isValidInput(str) {
   const regEx = /^[a-zA-z]+$/gi
-  if (str.length > 8) return false
+  if (str.length > HIGHSCORE_INPUT_MAX_LENGTH) return false
   if (!(regEx.test(str))) return false
   return true
 }

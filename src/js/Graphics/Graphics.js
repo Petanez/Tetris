@@ -1,9 +1,10 @@
+"use strict"
 import config from "../../config/prod.js"
+
+const POLARIZED_KEY = "tetris.polarized"
 
 export default function(document) {
   return (function() {
-    "use strict"
-
     const c = document?.querySelector("#myCanvas")
     const squareSize = config.square.size
     const borderLineWidth = config.border.width
@@ -21,27 +22,22 @@ export default function(document) {
     const gamePausedElement = document.getElementById("gamePaused")
     const pieceStackEl = document.querySelector(".state-info__piece-stack")
     
-    let borderColor = config.border.color
-    let squareBorderColor = config.square.secondaryColor
-    let squareColor1 = config.square.primaryColor
-    let squareColor2 = config.square.secondaryColor
-
-    let isPolarized
+    let squareBorderColor = config.square.primaryColor
+    let isPolarized = JSON.parse(localStorage.getItem(POLARIZED_KEY)) || false
+    if (isPolarized) {
+      document.body.classList.add("polarized")
+    }
     
     function polarizeHandler(element, board, piece) {
       console.log("handling polarization")
       if (element.classList.contains("polarized")) {
-        borderColor = config.border.color
-        squareBorderColor = config.square.primaryColor
-        squareColor1 = config.square.primaryColor
-        squareColor2 = config.square.secondaryColor
-        isPolarized = false
-      } else {
-        borderColor = config.square.secondaryColor
         squareBorderColor = config.square.secondaryColor
-        squareColor1 = config.square.secondaryColor
-        squareColor2 = config.square.primaryColor
+        isPolarized = false
+        JSON.stringify(localStorage.setItem(POLARIZED_KEY, JSON.stringify(false)))
+      } else {
+        squareBorderColor = config.square.primaryColor
         isPolarized = true
+        JSON.stringify(localStorage.setItem(POLARIZED_KEY, JSON.stringify(true)))
       }
       element.classList.toggle("polarized")
       if (board == null) 
@@ -65,6 +61,19 @@ export default function(document) {
       }
     }
 
+    function animateFirstPiece() {
+      let firstPiece = document?.querySelector(".piece-stack__piece:first-of-type")
+      if (firstPiece) {
+        let effectPiece = firstPiece.cloneNode(true)
+        effectPiece.className = "piece-stack__effect-piece"
+        const tetrisContainer = document.querySelector(".tetris-container")
+        tetrisContainer.appendChild(effectPiece)
+        setTimeout(() => {
+          effectPiece.remove()
+        }, 140)
+      }
+    }
+
     function removePieceStack() {
       while (pieceStackEl.firstChild) 
         pieceStackEl.firstChild.remove()
@@ -75,10 +84,7 @@ export default function(document) {
     }
     
     function drawSquare(x, y) {
-      let sLineWidth = .2
       ctx.beginPath()
-      ctx.lineWidth = sLineWidth
-      ctx.strokeStyle = squareColor2
       let opacity = `${(y / config.board.height)}`
       let rgbVal
       let modifiedVal
@@ -101,6 +107,8 @@ export default function(document) {
       ctx.fillRect(squareSize * x, squareSize * y, squareSize, squareSize)
       
       //  draw square lines
+      let sLineWidth = .1
+      ctx.lineWidth = sLineWidth
       ctx.strokeStyle = squareBorderColor
       ctx.strokeRect(sLineWidth + (squareSize * x), sLineWidth + (squareSize * y), squareSize - (sLineWidth * 2), squareSize - (sLineWidth * 2))
     }
@@ -113,7 +121,7 @@ export default function(document) {
     }
     
     function drawBoard(board) {
-      for (let y = board.length - 1; y > 0; y--) {
+      for (let y = board.length - 1; y >= 0; y--) {
         for (let x = 0; x < board[y].length; x++) {
           if (board[y][x].isOccupied) 
             drawSquare(x, y)
@@ -187,7 +195,8 @@ export default function(document) {
       displayLevelText,
       polarizeHandler,
       displayPieceStack,
-      removePieceStack
+      removePieceStack,
+      animateFirstPiece
     }
   })()
 }

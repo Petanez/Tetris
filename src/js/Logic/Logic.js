@@ -1,9 +1,9 @@
+"use strict"
 import Square from "./Square.js"
 import * as Pieces from "./Pieces.js"
 import config from "../../config/prod.js"
 
 export default (function() {
-  "use strict"
   const newPiece = () => {
     return randomPiece()
   }
@@ -13,7 +13,7 @@ export default (function() {
   }
   
   const lockPiece = (board, p) => {
-    p.every(function (val) {
+    p.every(val => {
       return board[val.y][val.x].isOccupied = true
     })
   }
@@ -28,16 +28,6 @@ export default (function() {
     }
 
     this.getPiece = function() {
-      let firstPiece = document.querySelector(".piece-stack__piece:first-of-type")
-      if (firstPiece) {
-        let effectPiece = firstPiece.cloneNode(true)
-        effectPiece.className = "piece-stack__effect-piece"
-        const tetrisContainer = document.querySelector(".tetris-container")
-        tetrisContainer.appendChild(effectPiece)
-        setTimeout(() => {
-          effectPiece.remove()
-        }, 140)
-      }
       stack.push(newPiece())
       return stack.shift()
     }
@@ -53,13 +43,13 @@ export default (function() {
   }
   
   function tryLowerPiece(board, p) {
+    // return -1 if piece gets locked
     if (p.every(square => square.y < board.length - 1)) {
       for (let i = 0; i < p.length; i++) 
         p[i].y++
     } else {
       lockPiece(board, p)
       return -1
-      // return newPiece().PIECE
     }
     // if the new x, y has an occupied square return to previous x, y
     if (p.some(square => board[square.y][square.x].isOccupied)) {
@@ -67,7 +57,6 @@ export default (function() {
         p[i].y--
       lockPiece(board, p)
       return -1
-      // return newPiece().PIECE
     }
     return p
   }
@@ -184,25 +173,24 @@ export default (function() {
     )
   }
   
-  function checkFullRowsAndEndCondition(board) {
+  function checkFullRows(board) {
     let rowsToReplace = [];
     for (let y = board.length - 1; y >= 0; y--) {
       let isFullRow = true
       for (let x = 0; x < board[y].length; x++) {
         if (!board[y][x].isOccupied) 
           isFullRow = false
-        if (y === 0 && board[y][x].isOccupied) 
-          return -1 // Return -1 to indicate game over
       }
       if (isFullRow) {
         rowsToReplace.push(y)
       }
     }
-    replaceRows(board, rowsToReplace)      
+    if (rowsToReplace.length)
+      replaceRows(board, rowsToReplace)      
     let scoreMultiplier = rowsToReplace.length
     return scoreMultiplier
+
   }
-  
   function addFullRow(board) {
     const row = Array.from({ length: 10 }, (_, i) => new Square(i, 0))
     return board.unshift(row)
@@ -225,13 +213,11 @@ export default (function() {
   }
   
   function replaceRows(board, rows) {
-    if (rows.length) {
-      let i = rows.length - 1
-      while (i >= 0) {
-        board.splice(rows[i], 1)
-        addFullRow(board)
-        i--
-      }
+    let i = rows.length - 1
+    while (i >= 0) {
+      board.splice(rows[i], 1)
+      addFullRow(board)
+      i--
     }
   }
   
@@ -261,7 +247,7 @@ export default (function() {
     })
   }
   
-  function moveToNextLevel(level) {
+  function moveToLevel(level) {
     console.log(`Moving to level ${level}`)
     return calculateFps(level)
   }
@@ -278,9 +264,14 @@ export default (function() {
     createTestBoard,
     newPiece,
     newTestPiece,
-    checkFullRowsAndEndCondition,
+    lockPiece,
+    randomPiece,
+    isOPiece,
+    spaceIsOccupied,
+    checkFullRows,
     incrementLevelAfter10Clears,
-    moveToNextLevel,
+    moveToLevel,
+    tryLowerPiece,
     movePiece,
     rotatePiece,
     addScore,
