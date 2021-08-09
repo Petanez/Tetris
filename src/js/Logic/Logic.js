@@ -9,7 +9,7 @@ export default (function() {
   }
 
   const newTestPiece = () => {
-    return new Pieces.iPiece().PIECE
+    return new Pieces.iPiece()
   }
   
   const lockPiece = (board, p) => {
@@ -256,8 +256,6 @@ export default (function() {
     return (1500 / (1.8 * level))
   }
 
-
-  
   return {
     calculateFps,
     createBoard,
@@ -277,6 +275,4 @@ export default (function() {
     addScore,
     PieceStack
   }
-
-  // return Tetris
 })()

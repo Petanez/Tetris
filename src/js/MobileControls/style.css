@@ -28,11 +28,11 @@
 
 .mobile-controls svg {
   pointer-events: none;
-  transform: translateY(25%);
+  transform: translateY(15%);
   width: 60%;
 }
 
-.js-rotate > svg { margin-top: .1ch; }
+.js-rotate > svg { transform: translateY(5%); }
 .js-rotate {
   left: 21rem;
   top: 4.5rem;

@@ -1,12 +1,8 @@
 :root {
   font-size: calc(11px + 0.2vw);
-  /* font-family: Impact, "Courier New", 'Arial Narrow Bold', sans-serif; */
   font-family: Impact, 'Times New Roman', Times, serif;
   --ff-secondary: 'Courier New', Courier, monospace;
   --ff-tercery: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-
-  --time-bg-transition: 300ms;
-  --time-game-over-transition: 500ms;
 
   --clr-arrows: rgba(0, 0, 0, .4);
   --clr-primary: black;
@@ -21,15 +17,20 @@
   --gradient-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.5) 0%, var(--clr-primary) 10.5%, transparent 10.6%, var(--clr-primary) 12%, transparent 13%, rgba(255, 255, 255, 0.5) 15%, rgba(255, 255, 255, 0.9) 33%, transparent 40%, rgba(255, 255, 255, 0.3) 42%, transparent 45%, rgba(0, 0, 0, .9) 46%, transparent 67%);
   --gradient-tetris-header-bg: linear-gradient(176deg, var(--clr-primary) 30%, var(--clr-secondary) 70%);
   --gradient-tetris-header-bg: linear-gradient(160deg, var(--clr-secondary) 20%, var(--clr-primary) 50%);
-
   --gradient-tetris-header-bg-shadow: linear-gradient(0deg, white 70%, var(--clr-primary) 100%);
   
   --position-page-bg: top;
 
   --w-btn-small: 25%;
 
+  --thickness-canvas-border: ;
+
+  --time-bg-transition: 300ms;
+  --time-game-over-transition: 500ms;
+  --time-first-piece-animation: ;
+
   --animation-first-piece: first-piece-animation 1000ms ease infinite alternate-reverse;
-  --animation-piece-effect: first-piece-effect 140ms ease-out;
+  --animation-piece-effect: first-piece-effect var(--time-first-piece-animation) ease-out;
   
   --shadow-tetris-header: .02em .03em 0em rgba(255, 255, 255, .4);
 }
@@ -141,8 +142,8 @@ h2 {
   z-index: 1;
   background: var(--gradient-canvas-bg);
 
-  --border-thickness: 3px;
-  border: var(--border-thickness) solid var(--clr-primary);
+  border: var(--thickness-canvas-border) solid var(--clr-secondary);
+  box-shadow: 0 0 .2rem .1rem inset var(--clr-primary), 0 0 .1rem .0rem var(--clr-primary);
   border-top: none;
   border-top-color: transparent;
   --border-radius-my-canvas: 5%;
@@ -942,11 +943,11 @@ div[class$="keys__left"] > div {
 
 .mobile-controls svg {
   pointer-events: none;
-  transform: translateY(25%);
+  transform: translateY(15%);
   width: 60%;
 }
 
-.js-rotate > svg { margin-top: .1ch; }
+.js-rotate > svg { transform: translateY(5%); }
 .js-rotate {
   left: 21rem;
   top: 4.5rem;

@@ -12,7 +12,8 @@ export default {
   },
   board: {
     height: 24,
-    width: 10
+    width: 10,
+    borderWidth: 3
   },
   keys: {
     pause: "KeyP"
@@ -23,5 +24,10 @@ export default {
   highscore: {
     maxLength: 8,
     storageKey: "tetris.highscores"
+  },
+  pieceStack: {
+    firstPiece: {
+      animationTime: 140
+    }
   }
 }

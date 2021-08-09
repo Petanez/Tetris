@@ -25,10 +25,9 @@ function Tetris(document) {
 
     MobileControls(document, frame)
     const highscoreWrapper = document.querySelector(".highscore-wrapper")
-    const highscoreEl = document.querySelector(".highscore-wrapper")
     let IHighscore = Highscores()    
     let highscores = IHighscore.getHighscores()
-    IHighscore.renderScores(highscoreEl, highscores)
+    IHighscore.renderScores(highscoreWrapper, highscores)
 
     function initGame() {
       console.log("initializing")
@@ -71,7 +70,7 @@ function Tetris(document) {
 
     function frame(direction) {
       piece = Logic.movePiece(board, piece, direction)
-      if (piece == -1) {
+      if (piece === -1) {
         piece = pieceStack.getPiece().PIECE
         if (Logic.spaceIsOccupied(board, piece)) 
           handleGameOver()
@@ -104,12 +103,12 @@ function Tetris(document) {
     async function handleGameOver(error = "") {
       console.log("Game over")
       gameOver = true
-      highscoreWrapper.classList.add("game-over")
       Graphics.displayGameOver()
       Graphics.displayFinalScore(score)
       Graphics.removePieceStack()
       playButton.innerText = "Play"
-      highscores = await IHighscore.checkForHighscore(highscoreEl, highscores, score, error)
+      highscoreWrapper.classList.add("game-over")
+      highscores = await IHighscore.checkForHighscore(highscoreWrapper, highscores, score, error)
         .catch((e) => {
           console.log(e)
           highscores = IHighscore.getHighscores()
@@ -153,7 +152,10 @@ function Tetris(document) {
     } 
 
     const pauseButton = document.querySelector("#pauseButton")
-    pauseButton.onclick = togglePause
+    pauseButton.onclick = () => {
+      if (gameOver || firstStart) return
+      togglePause()
+    }
 
     const themeSwitchBtn = document.querySelector("#themeSwitch")
     themeSwitchBtn.onclick = () => Graphics.polarizeHandler(document.body, board, piece, pieceStack?.getStack())
@@ -161,11 +163,11 @@ function Tetris(document) {
     const tetrisContainer = document.querySelector(".tetris-container")
     const canvas = document.querySelector("#myCanvas")
     window.onload = () => {
-      tetrisContainer.style.width = `${canvas.clientWidth + 6}px`
+      tetrisContainer.style.width = `${canvas.clientWidth + config.board.borderWidth * 2}px`
     }
   
     window.onresize = () => {
-      tetrisContainer.style.width = `${canvas.clientWidth + 6}px`
+      tetrisContainer.style.width = `${canvas.clientWidth + config.board.borderWidth * 2}px`
     }
   })()
 }

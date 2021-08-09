@@ -70,8 +70,8 @@
   z-index: 1;
   background: var(--gradient-canvas-bg);
 
-  --border-thickness: 3px;
-  border: var(--border-thickness) solid var(--clr-primary);
+  border: var(--thickness-canvas-border) solid var(--clr-secondary);
+  box-shadow: 0 0 .2rem .1rem inset var(--clr-primary), 0 0 .1rem .0rem var(--clr-primary);
   border-top: none;
   border-top-color: transparent;
   --border-radius-my-canvas: 5%;

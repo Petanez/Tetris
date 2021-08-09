@@ -10,8 +10,10 @@ describe("Initialization tests", () => {
   describe("Board tests", () => {
     it ("Should create a board of correct width and height", () => {
       board = Logic.createBoard()
-      expect(board.length && board[0].length)
-        .toEqual(config.board.height && config.board.width)
+      expect(board.length)
+        .toEqual(config.board.height)
+      expect(board[0].length)
+        .toEqual(config.board.width)
     })
   
     it ("Every square of board should be unoccupied", () => {

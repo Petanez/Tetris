@@ -114,7 +114,7 @@ async function renderForm(error) {
       { name: "type", value: "text"},
       { name: "name", value: "name"},
       { name: "maxLength", value: HIGHSCORE_INPUT_MAX_LENGTH },
-      { name: "placeholder", value: error ? error : `Enter name (max ${HIGHSCORE_INPUT_MAX_LENGTH} letter A-B)`}
+      { name: "placeholder", value: error || `Enter name (max ${HIGHSCORE_INPUT_MAX_LENGTH} letter A-B)`}
     ])
     nameForm.appendChild(input)
     

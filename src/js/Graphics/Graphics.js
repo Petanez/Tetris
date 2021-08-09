@@ -5,9 +5,12 @@ const POLARIZED_KEY = "tetris.polarized"
 
 export default function(document) {
   return (function() {
+    const root = document.documentElement
+    root.style.setProperty("--thickness-canvas-border", config.board.borderWidth + "px")
+    root.style.setProperty("--time-first-piece-animation", config.pieceStack.firstPiece.animationTime + "ms")
+
     const c = document?.querySelector("#myCanvas")
     const squareSize = config.square.size
-    const borderLineWidth = config.border.width
     const gridHeight = squareSize * config.board.height
     const gridWidth = squareSize * config.board.width
 
@@ -24,9 +27,8 @@ export default function(document) {
     
     let squareBorderColor = config.square.primaryColor
     let isPolarized = JSON.parse(localStorage.getItem(POLARIZED_KEY)) || false
-    if (isPolarized) {
-      document.body.classList.add("polarized")
-    }
+    if (isPolarized) document.body.classList.add("polarized")
+    
     
     function polarizeHandler(element, board, piece) {
       console.log("handling polarization")
@@ -70,7 +72,7 @@ export default function(document) {
         tetrisContainer.appendChild(effectPiece)
         setTimeout(() => {
           effectPiece.remove()
-        }, 140)
+        }, config.pieceStack.firstPiece.animationTime)
       }
     }
 
@@ -80,7 +82,7 @@ export default function(document) {
     }
 
     function clearBoard() {
-      ctx.clearRect(0 + borderLineWidth, 0 + borderLineWidth, c.width - borderLineWidth * 2, c.height - borderLineWidth * 2)
+      ctx.clearRect(0, 0, c.width, c.height)
     }
     
     function drawSquare(x, y) {
@@ -98,7 +100,7 @@ export default function(document) {
 
       let min = .3, max = .8;
       let colorStop = opacity < min ? min : opacity > max ? max : opacity 
-      let sq = ctx.createLinearGradient(borderLineWidth + squareSize * x, borderLineWidth + squareSize * y, squareSize * x + squareSize, squareSize * y + squareSize)
+      let sq = ctx.createLinearGradient(squareSize * x, squareSize * y, squareSize * x + squareSize, squareSize * y + squareSize)
       let color1 = `rgb(${rgbVal}, ${rgbVal}, ${rgbVal})`;
       let color2 = `rgb(${modifiedVal}, ${modifiedVal}, ${modifiedVal})`;
       sq.addColorStop(.2, color1)
