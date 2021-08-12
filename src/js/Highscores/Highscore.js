@@ -3,6 +3,7 @@ import config from "../../config/prod.js"
 
 class HighscoreNotFoundError extends Error {}
 
+const HIGHSCORE_STORAGE_KEY = config.highscore.storageKey
 const HIGHSCORE_INPUT_MAX_LENGTH = config.highscore.maxLength || 3
 const HIGHSCORES_LENGTH = 10
 const HIGHSCORE_EMPTY = {
@@ -10,9 +11,12 @@ const HIGHSCORE_EMPTY = {
   score: 0
 }
 
-function getHighscores(dbUrl) {
-  let highscores
-  if (dbUrl) {
+const DB_URL = process.env.HIGHSCORE_DB_URL
+let highscores
+
+function getHighscores() {
+  if (highscores) return highscores
+  if (DB_URL) {
     // Get highscores from a db
   } else {
     try {
@@ -25,27 +29,33 @@ function getHighscores(dbUrl) {
   return highscores
 }
 
+function setHighscores(scores) {
+  highscores = scores
+  if (DB_URL) updateDatabase(scores)
+  else updateStorage(scores)
+}
+
 function getHighscoresFromLocalStorage() {
   let highscores
   let key 
   for (let i = 0; key = window.localStorage.key(i); i++) {
-    if (key == config.highscore.storageKey)
+    if (key == HIGHSCORE_STORAGE_KEY)
       highscores = JSON.parse(window.localStorage.getItem(key))
   }
   if (!highscores) 
-    throw new HighscoreNotFoundError(config.errorMsgs.highscoreNotFound)
+    throw new HighscoreNotFoundError(config.errorMsg.highscoreNotFound)
   else 
     return highscores
 }
 
-function renderScores(element, scores) {
+function renderScores(element) {
+  console.log("Rendering highscores")
   while (element.firstChild) 
     element.firstChild.remove()
   let highscoresEl = document.createElement("div")
   highscoresEl.className = "highscores"
-  for (let highscore of scores) {
+  for (let highscore of getHighscores()) 
     highscoresEl.appendChild(createScoreElement(highscore.name, highscore.score))
-  }
   element.appendChild(highscoresEl)
 }
 
@@ -55,20 +65,24 @@ function createScoreElement(name, score) {
   
   let nameEl = document.createElement("span")
   nameEl.innerText = name || ""
+  el.appendChild(nameEl)
 
   let scoreEl = document.createElement("span")
   scoreEl.innerText = score || ""
-
-  el.appendChild(nameEl)
   el.appendChild(scoreEl)
+
   return el
 }
 
-function updateStorage(key, scores) {
-  window.localStorage.setItem(key, JSON.stringify(scores))
+function updateStorage(scores) {
+  window.localStorage.setItem(HIGHSCORE_STORAGE_KEY, JSON.stringify(scores))
 }
 
-function updateScore(element, highscores, highscore, i) {
+function updateDatabase(scores) {
+  console.log("updating db")
+}
+
+function updateScore(element, highscore, i) {
   let newHead = highscores.slice(0, i)
   let newTail = [
     {
@@ -78,21 +92,21 @@ function updateScore(element, highscores, highscore, i) {
     ...highscores.slice(i, -1)
   ]
   const newScores = [...newHead, ...newTail]
-  renderScores(element, newScores)
-  updateStorage(config.highscore.storageKey, newScores)
+  setHighscores(newScores)
+  renderScores(element)
   return newScores
 }
 
-async function checkForHighscore(element, highscores, score, error) {
+async function checkForHighscore(element, score, error) {
   let i = highscores.findIndex(highscore => highscore.score < score)
   if (i != -1) {
     console.log("New highscore")
-    const playerName = await renderForm(error)
+    const playerName = await renderNewHighscoreForm(error)
     const highscore = { 
       name: playerName,
       score
     }
-    return updateScore(element, highscores, highscore, i)
+    return updateScore(element, highscore, i)
   } 
   return highscores
 }
@@ -104,7 +118,7 @@ function createInput(attributes = []) {
   return input
 }
 
-async function renderForm(error) {
+async function renderNewHighscoreForm(error) {
   return new Promise((res, rej) => {
     const nameForm = document.createElement("form")
     nameForm.id = "highscoreForm"
@@ -114,7 +128,7 @@ async function renderForm(error) {
       { name: "type", value: "text"},
       { name: "name", value: "name"},
       { name: "maxLength", value: HIGHSCORE_INPUT_MAX_LENGTH },
-      { name: "placeholder", value: error || `Enter name (max ${HIGHSCORE_INPUT_MAX_LENGTH} letter A-B)`}
+      { name: "placeholder", value: error?.message || `Enter name (max ${HIGHSCORE_INPUT_MAX_LENGTH} letter A-B)`}
     ])
     nameForm.appendChild(input)
     
@@ -127,12 +141,12 @@ async function renderForm(error) {
     const pageWrapper = document.querySelector(".page-container")
     pageWrapper.appendChild(nameForm)
     
-    nameForm.addEventListener("submit", async (e) => {
+    nameForm.addEventListener("submit", e => {
       e.preventDefault()
       let name = e.target.name.value 
       if (!isValidInput(name)) {
         e.target.remove()
-        rej(new Error("No numbers allowed!"))
+        rej(new Error("Letters only A-Z"))
       }
       e.target.remove()
       res(name)
@@ -147,12 +161,8 @@ function isValidInput(str) {
   return true
 }
 
-export default function() {
-  return (function() {   
-    return {
-      checkForHighscore,
-      getHighscores,
-      renderScores
-    }
-  })()
+export default {
+  checkForHighscore,
+  getHighscores,
+  renderScores
 }

@@ -1,4 +1,5 @@
 {
+  "production": false,
   "type": "module",
   "name": "tetris",
   "babel": {
@@ -42,6 +43,7 @@
     "@babel/plugin-transform-modules-commonjs": "7.14.5",
     "css-loader": "5.2.6",
     "dotenv": "^10.0.0",
+    "dotenv-webpack": "^7.0.3",
     "express": "4.17.1",
     "html-webpack-plugin": "5.3.1",
     "jest": "27.0.5",
@@ -50,5 +52,6 @@
     "node-canvas": "^2.7.0",
     "webpack": "5.38.1",
     "webpack-cli": "4.7.0"
-  }
+  },
+  "dependencies": {}
 }

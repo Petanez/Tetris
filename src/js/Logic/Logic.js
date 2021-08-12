@@ -37,9 +37,14 @@ export default (function() {
     const nPieces = 7
     const randomNum = Math.floor(Math.random() * nPieces)
     return (
-        randomNum === 0 ? new Pieces.lPiece() : randomNum === 1 ? new Pieces.oPiece() : randomNum === 2 ? new Pieces.tPiece() :
-        randomNum === 3 ? new Pieces.lPieceIsomer() : randomNum === 4 ? new Pieces.sPiece() : randomNum === 5 ? new Pieces.sPieceIsomer() : new Pieces.iPiece()
-      )
+        randomNum === 0 ? new Pieces.lPiece() 
+      : randomNum === 1 ? new Pieces.oPiece() 
+      : randomNum === 2 ? new Pieces.tPiece() 
+      : randomNum === 3 ? new Pieces.lPieceIsomer() 
+      : randomNum === 4 ? new Pieces.sPiece() 
+      : randomNum === 5 ? new Pieces.sPieceIsomer() 
+      : new Pieces.iPiece()
+    )
   }
   
   function tryLowerPiece(board, p) {

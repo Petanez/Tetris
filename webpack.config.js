@@ -2,6 +2,7 @@ import path from "path"
 const __dirname = path.resolve()
 import HtmlWebpackPlugin from "html-webpack-plugin"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
+import dotenv from "dotenv-webpack"
 
 export default {
   mode: "production",
@@ -39,6 +40,7 @@ export default {
     }),
     new MiniCssExtractPlugin({
       filename: "style.css"
-    })
+    }),
+    new dotenv()
   ]
 }

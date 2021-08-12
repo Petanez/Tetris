@@ -1,6 +1,8 @@
 export default {
-  startingScore: 0,
-  startingLevel: 1,
+  initial: {
+    level: 1,
+    score: 0
+  },
   border: {
     width: 2,
     color: "white"
@@ -18,16 +20,20 @@ export default {
   keys: {
     pause: "KeyP"
   },
-  errorMsgs: {
+  errorMsg: {
     highscoreNotFound: "Highscore not found"
   },
   highscore: {
     maxLength: 8,
-    storageKey: "tetris.highscores"
+    storageKey: "tetris.highscore",
+    dbUrl: ""
   },
   pieceStack: {
     firstPiece: {
       animationTime: 140
     }
+  },
+  polarized: {
+    storageKey: "tetris.polarized"
   }
 }
