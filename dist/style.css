@@ -193,9 +193,9 @@ h2 {
   line-height: 1;
   background: var(--clr-secondary);
   background: radial-gradient(ellipse at 50% 0%, var(--clr-primary) 1%, var(--clr-secondary) 30%), var(--clr-secondary);
-  background-size: 360% 13%;
+  background-size: 180% 13%;
   background-repeat: no-repeat;
-  background-position: 56% -0%;
+  background-position: 98% -0%;
   border: 1px solid var(--clr-primary);
   border-radius: .5rem;
   border-bottom-left-radius: 0;
@@ -551,7 +551,7 @@ div[class$="keys__left"] > div {
   text-shadow: .05em .05em .1rem var(--clr-tercery);
   color: var(--clr-tercery);
   text-shadow: .05em .05em .5rem var(--clr-secondary);
-  text-shadow: 0 0 .3rem var(--clr-secondary);
+  text-shadow: .1rem 0 .3rem var(--clr-primary);
   white-space: nowrap;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
@@ -563,8 +563,8 @@ div[class$="keys__left"] > div {
   z-index: -100;
   font-size: 1rem;
   width: 78%;
-  padding: .1em .5em .1em .8em;
-  background: linear-gradient(10deg, var(--clr-primary) 35%, var(--clr-secondary) 50%);
+  padding: .1em .5em .1em .4em;
+  background: linear-gradient(70deg, var(--clr-primary) 29%, var(--clr-secondary) 33%);
   color: var(--clr-secondary);
   margin: 0 0;
 
