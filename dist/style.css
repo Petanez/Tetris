@@ -18,6 +18,9 @@
   --gradient-tetris-header-bg: linear-gradient(176deg, var(--clr-primary) 30%, var(--clr-secondary) 70%);
   --gradient-tetris-header-bg: linear-gradient(160deg, var(--clr-secondary) 20%, var(--clr-primary) 50%);
   --gradient-tetris-header-bg-shadow: linear-gradient(0deg, white 70%, var(--clr-primary) 100%);
+
+  --clr-button-start: rgb(12, 29, 2);
+  --clr-button-start-game: var(--clr-button-start);
   
   --position-page-bg: top;
 
@@ -51,7 +54,7 @@ body {
   --gradient-tetris-header-bg: linear-gradient(160deg, var(--clr-secondary) 20%, var(--clr-primary) 50%);
   --gradient-tetris-header-bg-shadow: linear-gradient(0deg, black 70%, var(--clr-primary) 100%);
   --gradient-game-info-header-bg: linear-gradient(20deg, var(--clr-ff-brightwhite) 7%, var(--clr-light-white) 20%, black 35%);
-  --gradient-canvas-bg: linear-gradient(-180deg, transparent 1%, var(--clr-secondary) 6%);
+  --gradient-canvas-bg: linear-gradient(-180deg, transparent 1%, var(--clr-secondary) 6%, var(--clr-secondary) 40%, white 90%), radial-gradient(circle at center, black, white);
 
   --position-page-bg: bottom;
   
@@ -88,19 +91,21 @@ h2 {
 }
 
 .page-container button {
-  opacity: .8;
-  border-bottom-right-radius: 1rem;
+  opacity: .9;
+  border-bottom-right-radius: .4rem;
   border-width: .2rem;
-  border: .3em double var(--clr-primary);
-  color: var(--clr-primary); 
-  background: var(--clr-secondary);
+  border: 2px solid var(--clr-secondary);
+  color: var(--clr-secondary); 
+  background: var(--clr-primary);
+  
+  /* background: var(--clr-button-start-game); */
   
   font-weight: 600;
   
   font-size: 1.7rem;
   font-family: inherit; 
 
-  padding: .2em 0;
+  padding: .15em 0;
   letter-spacing: .1rem;
 
   cursor: pointer;
@@ -136,6 +141,16 @@ h2 {
   align-items: center;
 }
 
+.tetris-container::after {
+  content: "";
+  background: var(--clr-secondary);
+  position: absolute;
+  width: 150%;
+  height: 3px;
+  left: -25%;
+  bottom: -3px;
+}
+
 #myCanvas {
   height: 100%;
   overflow: visible;
@@ -143,9 +158,10 @@ h2 {
   background: var(--gradient-canvas-bg);
 
   border: var(--thickness-canvas-border) solid var(--clr-secondary);
-  box-shadow: 0 0 .2rem .1rem inset var(--clr-primary), 0 0 .1rem .0rem var(--clr-primary);
+  box-shadow: 0 -.15rem .1rem .1rem inset var(--clr-primary), 0 0 .1rem .0rem var(--clr-primary);
   border-top: none;
   border-top-color: transparent;
+  border-bottom: none;
   --border-radius-my-canvas: 5%;
   border-top-left-radius: var(--border-radius-my-canvas);
   border-top-right-radius: var(--border-radius-my-canvas);
@@ -176,9 +192,14 @@ h2 {
   padding: 1em .5em;
   line-height: 1;
   background: var(--clr-secondary);
-  border: 2px solid var(--clr-primary);
-  border-radius: 2rem;
+  background: radial-gradient(ellipse at 50% 0%, var(--clr-primary) 1%, var(--clr-secondary) 30%), var(--clr-secondary);
+  background-size: 360% 13%;
+  background-repeat: no-repeat;
+  background-position: 56% -0%;
+  border: 1px solid var(--clr-primary);
+  border-radius: .5rem;
   border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
   font-family: var(--ff-secondary);
   color: var(--clr-primary);
   list-style-type: none;
@@ -542,13 +563,13 @@ div[class$="keys__left"] > div {
   z-index: -100;
   font-size: 1rem;
   width: 78%;
-  padding: .4em .5em .5em .8em;
-  background: linear-gradient(-50deg, var(--clr-primary) 85%, var(--clr-secondary) 97%);
+  padding: .1em .5em .1em .8em;
+  background: linear-gradient(10deg, var(--clr-primary) 35%, var(--clr-secondary) 50%);
   color: var(--clr-secondary);
-  margin: 0 auto;
+  margin: 0 0;
 
   border-top-right-radius: 1rem;
-  border-top-left-radius: 1rem;
+  /* border-top-left-radius: 1rem; */
 
   transform: translateY(100px);
   transition: transform 200ms ease-out;
@@ -612,8 +633,8 @@ div[class$="keys__left"] > div {
   transform: translate(-50%, -50%);
   text-align: center;
   color: var(--clr-tercery);
-  text-shadow: .2rem .2rem .2rem var(--clr-primary);
-  font-size: 3rem;
+  text-shadow: .08rem .05rem .1rem var(--clr-primary);
+  font-size: 2.8rem;
 }
 
 #finalScore {
