@@ -10,9 +10,10 @@
   --clr-tercery: rgb(222, 59, 59);
 
   --gradient-game-info-header-bg: linear-gradient(20deg, var(--clr-ff-brightwhite) 7%, var(--clr-light-white) 20%, white 35%);
-  --gradient-canvas-bg: linear-gradient(-180deg, transparent 1%, var(--clr-secondary) 6%);
+  --gradient-canvas-bg: linear-gradient(-180deg, transparent 1%, var(--clr-secondary) , var(--clr-secondary) 40%, black 90%);
+
   --gradient-page-bg: linear-gradient(180deg, black 3%, white 12%, white 46%, white 53%, black 62%, black 70%);
-  --gradient-page-bg: linear-gradient(180deg, black 6%, white 15%, white 36%, white 44%, black 46%, black 50%, white 50%, white 56%, black 65%, black 94%, white 96%);
+  --gradient-page-bg: linear-gradient(180deg, white 6%, white 15%, white 36%, white 44%, black 46%, black 50%, black 50%, black 56%, black 65%, black 94%, white 96%);
 
   --gradient-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.5) 0%, var(--clr-primary) 10.5%, transparent 10.6%, var(--clr-primary) 12%, transparent 13%, rgba(255, 255, 255, 0.5) 15%, rgba(255, 255, 255, 0.9) 33%, transparent 40%, rgba(255, 255, 255, 0.3) 42%, transparent 45%, rgba(0, 0, 0, .9) 46%, transparent 67%);
   --gradient-tetris-header-bg: linear-gradient(176deg, var(--clr-primary) 30%, var(--clr-secondary) 70%);
@@ -54,7 +55,7 @@ body {
   --gradient-tetris-header-bg: linear-gradient(160deg, var(--clr-secondary) 20%, var(--clr-primary) 50%);
   --gradient-tetris-header-bg-shadow: linear-gradient(0deg, black 70%, var(--clr-primary) 100%);
   --gradient-game-info-header-bg: linear-gradient(20deg, var(--clr-ff-brightwhite) 7%, var(--clr-light-white) 20%, black 35%);
-  --gradient-canvas-bg: linear-gradient(-180deg, transparent 1%, var(--clr-secondary) 6%, var(--clr-secondary) 40%, white 90%), radial-gradient(circle at center, black, white);
+  --gradient-canvas-bg: linear-gradient(-180deg, transparent 1%, var(--clr-secondary) 6%, var(--clr-secondary) 40%, white 90%);
 
   --position-page-bg: bottom;
   
