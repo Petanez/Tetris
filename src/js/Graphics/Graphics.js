@@ -54,7 +54,7 @@ export default function(document) {
         let sq = document.createElement("div")
         let width = 20 - (i * 2)       
         sq.className = "piece-stack__square"
-        sq.style.cssText = `left: ${(square.x - 4)*width}%; top: ${square.y * width}%; width: ${width}%; height: ${width}%; opacity: ${100 - 20 * i}%;`   
+        sq.style.cssText = `left: ${(square.x - 4)*width - i * 10}%; top: ${square.y * width + i * 2}%; width: ${width}%; height: ${width}%; opacity: ${100 - 20 * i}%;`   
         pieceEl.appendChild(sq)
       }
     }

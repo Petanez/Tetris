@@ -700,6 +700,7 @@ div[class$="keys__left"] > div {
   padding-left: 10%;
   left: 10%;
   opacity: 0;
+  bottom: 3px;
   width: 100%;
   --height: 4rem;
   width: calc(var(--height) * 5);
@@ -720,7 +721,7 @@ div[class$="keys__left"] > div {
 .state-info__piece-stack::after {
   content: " ";
   position: absolute;
-  width: 118%;
+  width: 95%;
   bottom: 0;
   height: 100%;
   /* border-bottom-right-radius: .5rem; */
@@ -922,7 +923,7 @@ div[class$="keys__left"] > div {
   .scoreboard__score-text {
     position: absolute;
     left: -6.5ch;
-    color: var(--clr-secondary);
+    color: var(--clr-primary);
   }
 
   .game-info > .game-info__content > *:not(#playButton, #pauseButton, .scoreboard, .state-info__piece-stack) {
