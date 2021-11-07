@@ -1,1 +1,105 @@
-<!doctype html><head><title>Tetris</title><meta name="viewport" content="width=device-width,initial-scale=1"><meta charset="UTF-8"><link rel="preconnect" href="https://fonts.gstatic.com"><link href="https://fonts.googleapis.com/css2?family=Mate+SC&display=swap" rel="stylesheet"><link rel="preconnect" href="https://fonts.gstatic.com"><link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet"><script defer="defer" src="bundle.min.js"></script><link href="style.css" rel="stylesheet"></head><body><div class="page-container"><div class="tetris-container"><div class="tetris__header"><a href="#" id="themeSwitch"><div class="theme-switch__background"></div><div class="theme-switch-icon"></div><span class="icon-text">polarize</span></a><div class="theme-switch__cloud1"></div><div class="theme-switch__cloud2"></div><div class="theme-switch__cloud2"></div><h1>TETRIS</h1></div><div class="highscore-wrapper"></div><canvas id="myCanvas"></canvas><div class="state-info"><div class="state-info__level"><h1 id="lvl"></h1></div><h2 id="gamePaused"></h2><div class="state-info__game-over"><h1 id="gOvr" class="game-over-text"><span class="game-over-text__game">GAME</span> <span class="game-over-text__over">OVER</span></h1><h2 id="finalScore"></h2></div></div><div class="game-info"><div class="game-info__content"><div class="state-info__piece-stack"></div><div class="scoreboard"><h2 class="scoreboard__score-text">SCORE</h2><h2 id="score"></h2></div><ul class="game-info__controls"><li>Press <b class="controls__control">P</b> to pause</li><li><div class="controls__arrowkeys controls__control"><div class="arrowkeys__left"><div class="arrow"></div></div><div class="arrowkeys__down"><div class="arrow"></div></div><div class="arrowkeys__right"><div class="arrow"></div></div><div class="arrowkeys__up"><div class="arrow"></div></div></div></li></ul><button id="playButton" onkeypress="event.preventDefault()"></button> <button id="pauseButton" onkeypress="event.preventDefault()">Pause</button></div></div></div></div></body>
+<!DOCTYPE html5>
+
+<head>
+  <title>Tetris</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Mate+SC&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+<script defer src="bundle.js"></script><link href="style.css" rel="stylesheet"></head>
+
+<body>
+  <div class="page-container">
+      
+    <div class="tetris-container">
+
+      <div class="tetris__header">
+        <a href="#" id="themeSwitch">
+          <div class="theme-switch__background"></div>
+          <div class="theme-switch-icon"></div>
+          <span class="icon-text">polarize</span>
+        </a>
+        <div class="theme-switch__cloud1"></div>
+        <div class="theme-switch__cloud2"></div>
+        <div class="theme-switch__cloud2"></div>
+        <h1>
+          TETRIS
+        </h1>
+      </div>
+
+      <div class="highscore-wrapper"></div>
+
+      <canvas id="myCanvas"></canvas>
+
+      <div class="state-info">
+
+        <div class="state-info__level">
+          <h1 id="lvl">
+            <!--
+                          Update current level here
+                      -->
+          </h1>
+        </div>
+        <h2 id="gamePaused">
+          <!--
+                        Game paused here
+                    -->
+        </h2>
+        <div class="state-info__game-over">
+          <h1 id="gOvr" class="game-over-text">
+            <span class="game-over-text__game">GAME</span> 
+            <span class="game-over-text__over">OVER</span>
+            
+          </h1>
+          <h2 id="finalScore">
+            <!--
+                          Update final score here
+                      -->
+          </h2>
+        </div>
+      </div>
+
+      <div class="game-info">
+        <div class="game-info__content">
+
+          <div class="state-info__piece-stack"></div>
+
+          <div class="scoreboard">
+            <h2 class="scoreboard__score-text">
+              SCORE:
+            </h2>
+            <h2 id="score">
+            </h2>
+          </div>
+          <ul class="game-info__controls">
+            <li>
+              Press <b class="controls__control">P</b> to <b style="letter-spacing: 0px; font-size: 1.35rem;">toggle</b> pause
+            </li>
+            <li>
+              <div class="controls__arrowkeys controls__control">
+                <div class="arrowkeys__left">
+                  <div class="arrow"></div>
+                </div>
+                <div class="arrowkeys__down">
+                  <div class="arrow"></div>
+                </div>
+                <div class="arrowkeys__right">
+                  <div class="arrow"></div>
+                </div>
+                <div class="arrowkeys__up">
+                  <div class="arrow"></div>
+                </div>
+              </div>
+            </li>
+          </ul>
+          <button id="playButton" onkeypress="event.preventDefault()"></button>
+          <button id="pauseButton" onkeypress="event.preventDefault()">Pause</button>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</body>

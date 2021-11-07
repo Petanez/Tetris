@@ -97,7 +97,7 @@
   .scoreboard__score-text {
     position: absolute;
     left: -6.5ch;
-    color: var(--clr-secondary);
+    color: var(--clr-primary);
   }
 
   .game-info > .game-info__content > *:not(#playButton, #pauseButton, .scoreboard, .state-info__piece-stack) {

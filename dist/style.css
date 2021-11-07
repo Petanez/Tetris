@@ -10,14 +10,18 @@
   --clr-tercery: rgb(222, 59, 59);
 
   --gradient-game-info-header-bg: linear-gradient(20deg, var(--clr-ff-brightwhite) 7%, var(--clr-light-white) 20%, white 35%);
-  --gradient-canvas-bg: linear-gradient(-180deg, transparent 1%, var(--clr-secondary) 6%);
+  --gradient-canvas-bg: linear-gradient(-180deg, transparent 1%, var(--clr-secondary) , var(--clr-secondary) 40%, black 90%);
+
   --gradient-page-bg: linear-gradient(180deg, black 3%, white 12%, white 46%, white 53%, black 62%, black 70%);
-  --gradient-page-bg: linear-gradient(180deg, black 6%, white 15%, white 36%, white 44%, black 46%, black 50%, white 50%, white 56%, black 65%, black 94%, white 96%);
+  --gradient-page-bg: linear-gradient(180deg, white 6%, white 15%, white 36%, white 44%, black 46%, black 50%, black 50%, black 56%, black 65%, black 94%, white 96%);
 
   --gradient-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.5) 0%, var(--clr-primary) 10.5%, transparent 10.6%, var(--clr-primary) 12%, transparent 13%, rgba(255, 255, 255, 0.5) 15%, rgba(255, 255, 255, 0.9) 33%, transparent 40%, rgba(255, 255, 255, 0.3) 42%, transparent 45%, rgba(0, 0, 0, .9) 46%, transparent 67%);
   --gradient-tetris-header-bg: linear-gradient(176deg, var(--clr-primary) 30%, var(--clr-secondary) 70%);
   --gradient-tetris-header-bg: linear-gradient(160deg, var(--clr-secondary) 20%, var(--clr-primary) 50%);
   --gradient-tetris-header-bg-shadow: linear-gradient(0deg, white 70%, var(--clr-primary) 100%);
+
+  --clr-button-start: rgb(12, 29, 2);
+  --clr-button-start-game: var(--clr-button-start);
   
   --position-page-bg: top;
 
@@ -51,7 +55,7 @@ body {
   --gradient-tetris-header-bg: linear-gradient(160deg, var(--clr-secondary) 20%, var(--clr-primary) 50%);
   --gradient-tetris-header-bg-shadow: linear-gradient(0deg, black 70%, var(--clr-primary) 100%);
   --gradient-game-info-header-bg: linear-gradient(20deg, var(--clr-ff-brightwhite) 7%, var(--clr-light-white) 20%, black 35%);
-  --gradient-canvas-bg: linear-gradient(-180deg, transparent 1%, var(--clr-secondary) 6%);
+  --gradient-canvas-bg: linear-gradient(-180deg, transparent 1%, var(--clr-secondary) 6%, var(--clr-secondary) 40%, white 90%);
 
   --position-page-bg: bottom;
   
@@ -88,19 +92,21 @@ h2 {
 }
 
 .page-container button {
-  opacity: .8;
-  border-bottom-right-radius: 1rem;
+  opacity: .9;
+  /* border-bottom-right-radius: 1rem; */
   border-width: .2rem;
-  border: .3em double var(--clr-primary);
-  color: var(--clr-primary); 
-  background: var(--clr-secondary);
+  border: 2px solid var(--clr-secondary);
+  color: var(--clr-secondary); 
+  background: var(--clr-primary);
+  
+  /* background: var(--clr-button-start-game); */
   
   font-weight: 600;
   
   font-size: 1.7rem;
   font-family: inherit; 
 
-  padding: .2em 0;
+  padding: .15em 0;
   letter-spacing: .1rem;
 
   cursor: pointer;
@@ -112,6 +118,10 @@ h2 {
 #pauseButton {
   display: none;
   color: var(--clr-tercery);
+}
+
+#playButton {
+  margin-left: -2px;
 }
 
 .page-container button:hover {
@@ -136,6 +146,17 @@ h2 {
   align-items: center;
 }
 
+.tetris-container::after {
+  content: "";
+  position: absolute;
+  width: 150%;
+  height: 3px;
+  left: -25%;
+  bottom: -3px;
+  background: var(--clr-secondary);
+
+}
+
 #myCanvas {
   height: 100%;
   overflow: visible;
@@ -143,9 +164,12 @@ h2 {
   background: var(--gradient-canvas-bg);
 
   border: var(--thickness-canvas-border) solid var(--clr-secondary);
-  box-shadow: 0 0 .2rem .1rem inset var(--clr-primary), 0 0 .1rem .0rem var(--clr-primary);
+  /* box-shadow: 0 -.15rem .1rem .1rem inset var(--clr-primary), 0 0 .1rem .0rem var(--clr-primary); */
+  box-shadow: 0 -.15rem .1rem .1rem inset var(--clr-primary);
+
   border-top: none;
   border-top-color: transparent;
+  border-bottom: none;
   --border-radius-my-canvas: 5%;
   border-top-left-radius: var(--border-radius-my-canvas);
   border-top-right-radius: var(--border-radius-my-canvas);
@@ -173,12 +197,18 @@ h2 {
   justify-content: center;
   align-items: center;
   margin: 0;
-  padding: 1em .5em;
+  padding: 2em 2em 1.8em 2em;
   line-height: 1;
   background: var(--clr-secondary);
-  border: 2px solid var(--clr-primary);
-  border-radius: 2rem;
+  background: radial-gradient(ellipse at 50% 0%, var(--clr-primary) 10%, var(--clr-secondary) 30%), var(--clr-secondary);
+  background-size: 360% 30%;
+  background-repeat: no-repeat;
+  background-position: 60% -10%;
+  border: 1px solid var(--clr-primary);
+  /* border-radius: .5rem; */
   border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
   font-family: var(--ff-secondary);
   color: var(--clr-primary);
   list-style-type: none;
@@ -530,7 +560,7 @@ div[class$="keys__left"] > div {
   text-shadow: .05em .05em .1rem var(--clr-tercery);
   color: var(--clr-tercery);
   text-shadow: .05em .05em .5rem var(--clr-secondary);
-  text-shadow: 0 0 .3rem var(--clr-secondary);
+  text-shadow: .05rem .05rem .2rem var(--clr-secondary);
   white-space: nowrap;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
@@ -542,13 +572,15 @@ div[class$="keys__left"] > div {
   z-index: -100;
   font-size: 1rem;
   width: 78%;
-  padding: .4em .5em .5em .8em;
-  background: linear-gradient(-50deg, var(--clr-primary) 85%, var(--clr-secondary) 97%);
+  padding: .1em 0 .3em 1em;
+  background: var(--clr-primary);
+  background: linear-gradient(90deg, var(--clr-primary) 70%, transparent 90%);
+  /* background: linear-gradient(84deg, var(--clr-primary) 29%, var(--clr-secondary) 31%); */
   color: var(--clr-secondary);
-  margin: 0 auto;
+  margin: 0 0;
 
-  border-top-right-radius: 1rem;
-  border-top-left-radius: 1rem;
+  /* border-top-right-radius: 1rem; */
+  /* border-top-left-radius: 1rem; */
 
   transform: translateY(100px);
   transition: transform 200ms ease-out;
@@ -612,8 +644,8 @@ div[class$="keys__left"] > div {
   transform: translate(-50%, -50%);
   text-align: center;
   color: var(--clr-tercery);
-  text-shadow: .2rem .2rem .2rem var(--clr-primary);
-  font-size: 3rem;
+  text-shadow: .08rem .05rem .1rem var(--clr-primary);
+  font-size: 2.8rem;
 }
 
 #finalScore {
@@ -667,8 +699,8 @@ div[class$="keys__left"] > div {
   color: var(--clr-primary);
   padding-left: 10%;
   left: 10%;
-  margin-bottom: -3%;
   opacity: 0;
+  bottom: 3px;
   width: 100%;
   --height: 4rem;
   width: calc(var(--height) * 5);
@@ -681,15 +713,30 @@ div[class$="keys__left"] > div {
   color: var(--clr-tercery);
   padding-left: 1rem;
   border-bottom: 2px solid var(--clr-primary);
-  border-bottom-left-radius: 50rem;
-  top: 20%;
-  left: -10%;
+  /* border-bottom-left-radius: 50rem; */
+  bottom: 5px;
+  left: -13%;
+}
+
+.state-info__piece-stack::after {
+  content: " ";
+  position: absolute;
+  width: 95%;
+  bottom: 0;
+  height: 100%;
+  /* border-bottom-right-radius: .5rem; */
+  border: 2px solid var(--clr-primary);
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  left: -13.2%;
 }
 
 .piece-stack__piece {
   position: relative;
   height: 100%;
   width: 20%;
+  bottom: -1rem;
 }
 
 .piece-stack__square {
@@ -747,13 +794,14 @@ div[class$="keys__left"] > div {
   z-index: 1000;
   left: -69.7%;
   width: 70%;
-  bottom: 17%;
+  bottom: 27%;
   font-size: 1.5rem;
   border: 2px solid var(--clr-primary);
   border-bottom: none;
   border-right: none;
   border-left-color: var(--clr-secondary);
-  background: linear-gradient(-40deg, var(--clr-secondary) 5%, var(--clr-primary) 50%);
+  background: linear-gradient(0deg, transparent 5%, var(--clr-primary) 90%);
+  /* background: var(--clr-primary); */
   color: var(--clr-primary);
 }
 
@@ -768,12 +816,13 @@ div[class$="keys__left"] > div {
   background: var(--clr-secondary);
 
   top: -2.7ch;
-  width: 70%;
-  left: 15%;
-  text-align: center;
-  border-top: 2px solid currentColor;
-  border-top-left-radius: 10%;
-  border-top-right-radius: 10%;
+  width: 8.8ch;
+  /* left: 15%; */
+  left: 0;
+  /* text-align: center; */
+  /* border-top: 2px solid currentColor; */
+  /* border-top-left-radius: 10%; */
+  /* border-top-right-radius: 10%; */
 }
 /*Big smartphones [426px -> 600px]*/
 @media only screen and (max-width: 600px){
@@ -874,7 +923,7 @@ div[class$="keys__left"] > div {
   .scoreboard__score-text {
     position: absolute;
     left: -6.5ch;
-    color: var(--clr-secondary);
+    color: var(--clr-primary);
   }
 
   .game-info > .game-info__content > *:not(#playButton, #pauseButton, .scoreboard, .state-info__piece-stack) {
