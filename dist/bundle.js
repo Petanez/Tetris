@@ -192,10 +192,11 @@ __webpack_require__.r(__webpack_exports__);
   }
 
   function drawBoard(board) {
-    const colorUsed = isPolarized ? primaryColor : secondaryColor
+    const colorUsed = isPolarized ? "rgb(20,20,20)" : "rgb(235, 235, 235)"
     for (let i = 0; i < boardWidth; i++) {
       ctx.strokeStyle = colorUsed
       ctx.beginPath()
+      ctx.lineWidth = .5;
       ctx.moveTo(i * squareSize, 0)
       ctx.lineTo(i * squareSize, squareSize * boardHeight)
       ctx.stroke();
