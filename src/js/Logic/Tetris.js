@@ -60,7 +60,7 @@ export default function Tetris(document) {
   
   function tick(direction) {
     if (!isPaused && !gameOver) {
-      frame(direction)
+      window.requestAnimationFrame(() => frame(direction, false))
       timeOutID = schedule()
     } else {
       window.clearTimeout(timeOutID)
@@ -68,8 +68,14 @@ export default function Tetris(document) {
     }
   }
 
-  function frame(direction) {
-    piece = Logic.movePiece(board, piece, direction)
+  function frame(direction, dropPiece = false) {
+    if (dropPiece) {
+      while (piece !== -1) {
+        piece = Logic.movePiece(board, piece, direction)
+      }
+    }
+    else
+      piece = Logic.movePiece(board, piece, direction)
     if (piece === -1) {
       piece = pieceStack.getPiece().PIECE
       Graphics.animateFirstPiece()
@@ -129,10 +135,14 @@ export default function Tetris(document) {
   const arrowKeys = ["ArrowUp", "ArrowRight", "ArrowDown", "ArrowLeft"]
   document.addEventListener("keydown", e => {
     if (gameOver || firstStart) return
+    if (e.code == "Space") {
+      window.requestAnimationFrame(() => frame("down", true))
+      return
+    }
     if (arrowKeys.includes(e.code)) {
       if (isPaused) return
       const direction = e.code.slice(5).toLowerCase()
-      frame(direction)
+      window.requestAnimationFrame(() => frame(direction, false))
       return
     }
     if (e.code == config.keys.pause) {
@@ -143,6 +153,7 @@ export default function Tetris(document) {
 
   const playButton = document.getElementById("playButton")
   playButton.onclick = () => {
+    playButton.blur();
     initGame()
     playGame()
     playButton.innerText = "Restart"

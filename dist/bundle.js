@@ -581,7 +581,7 @@ __webpack_require__.r(__webpack_exports__);
     if (isOPiece(p)) return p
     let newCoordinates
     try {
-      newCoordinates = calculateRotation(p)
+      newCoordinates = rotate(p)
       if (spaceIsOccupied(board, newCoordinates)) {
         console.log("can't rotate piece")
         return p
@@ -598,7 +598,7 @@ __webpack_require__.r(__webpack_exports__);
     return p
   }
   
-  function calculateRotation(p) {
+  function rotate(p) {
     const anchor = {
       x: p[1].x,
       y: p[1].y,
@@ -944,7 +944,7 @@ function Tetris(document) {
   
   function tick(direction) {
     if (!isPaused && !gameOver) {
-      frame(direction)
+      window.requestAnimationFrame(() => frame(direction, false))
       timeOutID = schedule()
     } else {
       window.clearTimeout(timeOutID)
@@ -952,8 +952,14 @@ function Tetris(document) {
     }
   }
 
-  function frame(direction) {
-    piece = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.movePiece(board, piece, direction)
+  function frame(direction, dropPiece = false) {
+    if (dropPiece) {
+      while (piece !== -1) {
+        piece = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.movePiece(board, piece, direction)
+      }
+    }
+    else
+      piece = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.movePiece(board, piece, direction)
     if (piece === -1) {
       piece = pieceStack.getPiece().PIECE
       Graphics.animateFirstPiece()
@@ -1013,10 +1019,14 @@ function Tetris(document) {
   const arrowKeys = ["ArrowUp", "ArrowRight", "ArrowDown", "ArrowLeft"]
   document.addEventListener("keydown", e => {
     if (gameOver || firstStart) return
+    if (e.code == "Space") {
+      window.requestAnimationFrame(() => frame("down", true))
+      return
+    }
     if (arrowKeys.includes(e.code)) {
       if (isPaused) return
       const direction = e.code.slice(5).toLowerCase()
-      frame(direction)
+      window.requestAnimationFrame(() => frame(direction, false))
       return
     }
     if (e.code == _config_prod_js__WEBPACK_IMPORTED_MODULE_2__.default.keys.pause) {
@@ -1027,6 +1037,7 @@ function Tetris(document) {
 
   const playButton = document.getElementById("playButton")
   playButton.onclick = () => {
+    playButton.blur();
     initGame()
     playGame()
     playButton.innerText = "Restart"
