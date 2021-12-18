@@ -77,6 +77,11 @@ __webpack_require__.r(__webpack_exports__);
   const squareSize = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.square.size
   const gridHeight = squareSize * _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.board.height
   const gridWidth = squareSize * _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.board.width
+  const primaryColor = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.square.primaryColor
+  const secondaryColor = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.square.secondaryColor
+  const boardWidth = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.board.width
+  const boardHeight = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.board.height
+
 
   const ctx = c.getContext("2d")
   c.height = gridHeight
@@ -185,14 +190,23 @@ __webpack_require__.r(__webpack_exports__);
         drawSquare(p[i].x, p[i].y)
     }
   }
-  
+
   function drawBoard(board) {
-    for (let y = board.length - 1; y >= 0; y--) {
-      for (let x = 0; x < board[y].length; x++) {
-        if (board[y][x].isOccupied) 
-          drawSquare(x, y)
+    const colorUsed = isPolarized ? primaryColor : secondaryColor
+    for (let i = 0; i < boardWidth; i++) {
+      ctx.strokeStyle = colorUsed
+      ctx.beginPath()
+      ctx.moveTo(i * squareSize, 0)
+      ctx.lineTo(i * squareSize, squareSize * boardHeight)
+      ctx.stroke();
+    } 
+    if (board != null)
+      for (let y = board.length - 1; y >= 0; y--) {
+        for (let x = 0; x < board[y].length; x++) {
+          if (board[y][x].isOccupied) 
+            drawSquare(x, y)
+        }
       }
-    }
   }
   
   function drawEverything(board, piece) {
@@ -1019,7 +1033,7 @@ function Tetris(document) {
   const arrowKeys = ["ArrowUp", "ArrowRight", "ArrowDown", "ArrowLeft"]
   document.addEventListener("keydown", e => {
     if (gameOver || firstStart) return
-    if (e.code == "Space") {
+    if (e.code == "Space" && !isPaused) {
       window.requestAnimationFrame(() => frame("down", true))
       return
     }

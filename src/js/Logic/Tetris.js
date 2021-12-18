@@ -135,7 +135,7 @@ export default function Tetris(document) {
   const arrowKeys = ["ArrowUp", "ArrowRight", "ArrowDown", "ArrowLeft"]
   document.addEventListener("keydown", e => {
     if (gameOver || firstStart) return
-    if (e.code == "Space") {
+    if (e.code == "Space" && !isPaused) {
       window.requestAnimationFrame(() => frame("down", true))
       return
     }

@@ -10,6 +10,11 @@ export default function(document) {
   const squareSize = config.square.size
   const gridHeight = squareSize * config.board.height
   const gridWidth = squareSize * config.board.width
+  const primaryColor = config.square.primaryColor
+  const secondaryColor = config.square.secondaryColor
+  const boardWidth = config.board.width
+  const boardHeight = config.board.height
+
 
   const ctx = c.getContext("2d")
   c.height = gridHeight
@@ -118,14 +123,23 @@ export default function(document) {
         drawSquare(p[i].x, p[i].y)
     }
   }
-  
+
   function drawBoard(board) {
-    for (let y = board.length - 1; y >= 0; y--) {
-      for (let x = 0; x < board[y].length; x++) {
-        if (board[y][x].isOccupied) 
-          drawSquare(x, y)
+    const colorUsed = isPolarized ? primaryColor : secondaryColor
+    for (let i = 0; i < boardWidth; i++) {
+      ctx.strokeStyle = colorUsed
+      ctx.beginPath()
+      ctx.moveTo(i * squareSize, 0)
+      ctx.lineTo(i * squareSize, squareSize * boardHeight)
+      ctx.stroke();
+    } 
+    if (board != null)
+      for (let y = board.length - 1; y >= 0; y--) {
+        for (let x = 0; x < board[y].length; x++) {
+          if (board[y][x].isOccupied) 
+            drawSquare(x, y)
+        }
       }
-    }
   }
   
   function drawEverything(board, piece) {
