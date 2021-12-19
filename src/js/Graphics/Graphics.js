@@ -10,6 +10,11 @@ export default function(document) {
   const squareSize = config.square.size
   const gridHeight = squareSize * config.board.height
   const gridWidth = squareSize * config.board.width
+  const primaryColor = config.square.primaryColor
+  const secondaryColor = config.square.secondaryColor
+  const boardWidth = config.board.width
+  const boardHeight = config.board.height
+
 
   const ctx = c.getContext("2d")
   c.height = gridHeight
@@ -113,19 +118,45 @@ export default function(document) {
   }
   
   function drawPiece(p) {
+    let points = [];
     for (let i = p.length - 1; i >= 0; i--) {
-      if (p[i].isOccupied) 
+      if (p[i].isOccupied){
         drawSquare(p[i].x, p[i].y)
+        const val = points.find(obj => obj.x == p[i].x) 
+        console.log(val)
+        if (!val)
+          points.push({x: p[i].x, y: p[i].y})
+        if (val && val.y < p[i].y)
+          val.y = p[i].y
+      } 
     }
+    points.forEach(p => {
+      ctx.beginPath()
+      console.log("filling")
+      ctx.fillStyle = "rgba(50, 50, 50, .2)";
+      ctx.fillRect(p.x * squareSize, p.y * squareSize + squareSize, squareSize, (boardHeight - p.y) * squareSize)
+    })
   }
-  
+
   function drawBoard(board) {
-    for (let y = board.length - 1; y >= 0; y--) {
-      for (let x = 0; x < board[y].length; x++) {
-        if (board[y][x].isOccupied) 
-          drawSquare(x, y)
+    const colorUsed = isPolarized ? "rgb(20,20,20)" : "rgb(235, 235, 235)"
+    // Draw board stripes
+    for (let i = 0; i < boardWidth; i++) {
+      ctx.strokeStyle = colorUsed
+      ctx.beginPath()
+      ctx.lineWidth = .5;
+      ctx.moveTo(i * squareSize, 0)
+      ctx.lineTo(i * squareSize, squareSize * boardHeight)
+      ctx.stroke();
+    } 
+    if (board != null)
+      for (let y = board.length - 1; y >= 0; y--) {
+        for (let x = 0; x < board[y].length; x++) {
+          if (board[y][x].isOccupied) 
+            drawSquare(x, y)
+        }
+
       }
-    }
   }
   
   function drawEverything(board, piece) {

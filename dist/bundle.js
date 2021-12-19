@@ -77,6 +77,11 @@ __webpack_require__.r(__webpack_exports__);
   const squareSize = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.square.size
   const gridHeight = squareSize * _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.board.height
   const gridWidth = squareSize * _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.board.width
+  const primaryColor = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.square.primaryColor
+  const secondaryColor = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.square.secondaryColor
+  const boardWidth = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.board.width
+  const boardHeight = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.board.height
+
 
   const ctx = c.getContext("2d")
   c.height = gridHeight
@@ -180,19 +185,45 @@ __webpack_require__.r(__webpack_exports__);
   }
   
   function drawPiece(p) {
+    let points = [];
     for (let i = p.length - 1; i >= 0; i--) {
-      if (p[i].isOccupied) 
+      if (p[i].isOccupied){
         drawSquare(p[i].x, p[i].y)
+        const val = points.find(obj => obj.x == p[i].x) 
+        console.log(val)
+        if (!val)
+          points.push({x: p[i].x, y: p[i].y})
+        if (val && val.y < p[i].y)
+          val.y = p[i].y
+      } 
     }
+    points.forEach(p => {
+      ctx.beginPath()
+      console.log("filling")
+      ctx.fillStyle = "rgba(50, 50, 50, .2)";
+      ctx.fillRect(p.x * squareSize, p.y * squareSize + squareSize, squareSize, (boardHeight - p.y) * squareSize)
+    })
   }
-  
+
   function drawBoard(board) {
-    for (let y = board.length - 1; y >= 0; y--) {
-      for (let x = 0; x < board[y].length; x++) {
-        if (board[y][x].isOccupied) 
-          drawSquare(x, y)
+    const colorUsed = isPolarized ? "rgb(20,20,20)" : "rgb(235, 235, 235)"
+    // Draw board stripes
+    for (let i = 0; i < boardWidth; i++) {
+      ctx.strokeStyle = colorUsed
+      ctx.beginPath()
+      ctx.lineWidth = .5;
+      ctx.moveTo(i * squareSize, 0)
+      ctx.lineTo(i * squareSize, squareSize * boardHeight)
+      ctx.stroke();
+    } 
+    if (board != null)
+      for (let y = board.length - 1; y >= 0; y--) {
+        for (let x = 0; x < board[y].length; x++) {
+          if (board[y][x].isOccupied) 
+            drawSquare(x, y)
+        }
+
       }
-    }
   }
   
   function drawEverything(board, piece) {
@@ -581,7 +612,7 @@ __webpack_require__.r(__webpack_exports__);
     if (isOPiece(p)) return p
     let newCoordinates
     try {
-      newCoordinates = calculateRotation(p)
+      newCoordinates = rotate(p)
       if (spaceIsOccupied(board, newCoordinates)) {
         console.log("can't rotate piece")
         return p
@@ -598,7 +629,7 @@ __webpack_require__.r(__webpack_exports__);
     return p
   }
   
-  function calculateRotation(p) {
+  function rotate(p) {
     const anchor = {
       x: p[1].x,
       y: p[1].y,
@@ -944,7 +975,7 @@ function Tetris(document) {
   
   function tick(direction) {
     if (!isPaused && !gameOver) {
-      frame(direction)
+      window.requestAnimationFrame(() => frame(direction, false))
       timeOutID = schedule()
     } else {
       window.clearTimeout(timeOutID)
@@ -952,8 +983,14 @@ function Tetris(document) {
     }
   }
 
-  function frame(direction) {
-    piece = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.movePiece(board, piece, direction)
+  function frame(direction, dropPiece = false) {
+    if (dropPiece) {
+      while (piece !== -1) {
+        piece = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.movePiece(board, piece, direction)
+      }
+    }
+    else
+      piece = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.movePiece(board, piece, direction)
     if (piece === -1) {
       piece = pieceStack.getPiece().PIECE
       Graphics.animateFirstPiece()
@@ -1013,10 +1050,14 @@ function Tetris(document) {
   const arrowKeys = ["ArrowUp", "ArrowRight", "ArrowDown", "ArrowLeft"]
   document.addEventListener("keydown", e => {
     if (gameOver || firstStart) return
+    if (e.code == "Space" && !isPaused) {
+      window.requestAnimationFrame(() => frame("down", true))
+      return
+    }
     if (arrowKeys.includes(e.code)) {
       if (isPaused) return
       const direction = e.code.slice(5).toLowerCase()
-      frame(direction)
+      window.requestAnimationFrame(() => frame(direction, false))
       return
     }
     if (e.code == _config_prod_js__WEBPACK_IMPORTED_MODULE_2__.default.keys.pause) {
@@ -1027,6 +1068,7 @@ function Tetris(document) {
 
   const playButton = document.getElementById("playButton")
   playButton.onclick = () => {
+    playButton.blur();
     initGame()
     playGame()
     playButton.innerText = "Restart"

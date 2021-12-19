@@ -74,24 +74,29 @@
             </h2>
           </div>
           <ul class="game-info__controls">
-            <li>
-              Press <b class="controls__control">P</b> to <b style="letter-spacing: 0px; font-size: 1.35rem;">toggle</b> pause
+            <li class="game-info__description_content">
+              <span class="control-description-wrapper">to pause</span>
+              Press <div class="key-highlight">P</div>
+            </li>
+            <li class="game-info__description_content">
+              <span class="control-description-wrapper">to drop the piece</span>
+              Press <div class="key-highlight">Space</div>
+            </li>
+            <li class="controls__arrowkeys controls__control">
+              <div class="arrowkeys__left">
+                <div class="arrow"></div>
+              </div>
+              <div class="arrowkeys__down">
+                <div class="arrow"></div>
+              </div>
+              <div class="arrowkeys__right">
+                <div class="arrow"></div>
+              </div>
+              <div class="arrowkeys__up">
+                <div class="arrow"></div>
+              </div>
             </li>
             <li>
-              <div class="controls__arrowkeys controls__control">
-                <div class="arrowkeys__left">
-                  <div class="arrow"></div>
-                </div>
-                <div class="arrowkeys__down">
-                  <div class="arrow"></div>
-                </div>
-                <div class="arrowkeys__right">
-                  <div class="arrow"></div>
-                </div>
-                <div class="arrowkeys__up">
-                  <div class="arrow"></div>
-                </div>
-              </div>
             </li>
           </ul>
           <button id="playButton" onkeypress="event.preventDefault()"></button>

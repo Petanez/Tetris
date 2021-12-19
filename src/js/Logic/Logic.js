@@ -116,7 +116,7 @@ export default (function() {
     if (isOPiece(p)) return p
     let newCoordinates
     try {
-      newCoordinates = calculateRotation(p)
+      newCoordinates = rotate(p)
       if (spaceIsOccupied(board, newCoordinates)) {
         console.log("can't rotate piece")
         return p
@@ -133,7 +133,7 @@ export default (function() {
     return p
   }
   
-  function calculateRotation(p) {
+  function rotate(p) {
     const anchor = {
       x: p[1].x,
       y: p[1].y,
