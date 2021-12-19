@@ -93,14 +93,14 @@ export default function(document) {
     let rgbVal
     let modifiedVal
     if (isPolarized) {
-      rgbVal = 255 - (opacity * 255) + y * 3
-      modifiedVal = y > 0 ? rgbVal - y * 5: rgbVal
+      rgbVal = 255 - (opacity * 255)
+      modifiedVal = rgbVal - (y + 1) * 3
     } else {
-      rgbVal = (opacity * 255)
-      modifiedVal = y > 0 ? rgbVal - y * 5 : rgbVal
+      rgbVal = (opacity * 200)
+      modifiedVal = rgbVal + (y + 1) * 3
     }
 
-    let min = .3, max = .8;
+    let min = .3, max = 1;
     let colorStop = opacity < min ? min : opacity > max ? max : opacity 
     let sq = ctx.createLinearGradient(squareSize * x, squareSize * y, squareSize * x + squareSize, squareSize * y + squareSize)
     let color1 = `rgb(${rgbVal}, ${rgbVal}, ${rgbVal})`;
@@ -130,6 +130,7 @@ export default function(document) {
           val.y = p[i].y
       } 
     }
+    // draw a "shade" for the piece
     points.forEach(p => {
       ctx.beginPath()
       console.log("filling")
