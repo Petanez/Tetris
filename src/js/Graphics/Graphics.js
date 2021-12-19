@@ -118,14 +118,29 @@ export default function(document) {
   }
   
   function drawPiece(p) {
+    let points = [];
     for (let i = p.length - 1; i >= 0; i--) {
-      if (p[i].isOccupied) 
+      if (p[i].isOccupied){
         drawSquare(p[i].x, p[i].y)
+        const val = points.find(obj => obj.x == p[i].x) 
+        console.log(val)
+        if (!val)
+          points.push({x: p[i].x, y: p[i].y})
+        if (val && val.y < p[i].y)
+          val.y = p[i].y
+      } 
     }
+    points.forEach(p => {
+      ctx.beginPath()
+      console.log("filling")
+      ctx.fillStyle = "rgba(50, 50, 50, .2)";
+      ctx.fillRect(p.x * squareSize, p.y * squareSize + squareSize, squareSize, (boardHeight - p.y) * squareSize)
+    })
   }
 
   function drawBoard(board) {
     const colorUsed = isPolarized ? "rgb(20,20,20)" : "rgb(235, 235, 235)"
+    // Draw board stripes
     for (let i = 0; i < boardWidth; i++) {
       ctx.strokeStyle = colorUsed
       ctx.beginPath()
@@ -140,6 +155,7 @@ export default function(document) {
           if (board[y][x].isOccupied) 
             drawSquare(x, y)
         }
+
       }
   }
   
