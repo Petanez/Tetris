@@ -848,7 +848,8 @@ div[class$="keys__left"] > div {
   position: absolute;
   z-index: 1000;
   left: -69.7%;
-  width: 70%;
+  left: -89.7%;
+  width: 90%;
   bottom: 27%;
   font-size: 1.5rem;
   border: 2px solid var(--clr-primary);
@@ -1093,6 +1094,7 @@ div[class$="keys__left"] > div {
   height: 100%;
   font-size: inherit;
   counter-reset: highscore;
+  padding-top: .3ch;
 }
 
 .highscores__score {
@@ -1125,6 +1127,28 @@ div[class$="keys__left"] > div {
   content: counter(highscore)".";
   counter-increment: highscore;
 }
+
+/* .highscores__score:first-child::before {
+  position: absolute;
+  font-size: 1.5em;
+  bottom: .1ch;
+  opacity: 1;
+  content: counter(highscore)".";
+  counter-increment: highscore;
+  animation: first-place-animation 2000ms ease-in-out infinite;
+}
+
+@keyframes first-place-animation {
+  0% {
+    transform: rotate(0deg);
+  } 30% {
+    transform: rotate(5deg);
+  } 60% {
+    transform: rotate(-5deg);
+  } 100% {
+    transform: rotate(0);
+  }
+} */
 
 .js-name-form {
   position: absolute;

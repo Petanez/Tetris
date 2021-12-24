@@ -767,7 +767,8 @@ div[class$="keys__left"] > div {
   position: absolute;
   z-index: 1000;
   left: -69.7%;
-  width: 70%;
+  left: -89.7%;
+  width: 90%;
   bottom: 27%;
   font-size: 1.5rem;
   border: 2px solid var(--clr-primary);
