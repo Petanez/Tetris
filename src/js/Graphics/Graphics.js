@@ -87,7 +87,7 @@ export default function(document) {
     ctx.clearRect(0, 0, c.width, c.height)
   }
   
-  function drawSquare(x, y, dropPiece = false) {
+  function drawSquare(x, y, dropPiece = false, blankSquare = false) {
     let drawOpacity = dropPiece ? .1 : 1;
     ctx.beginPath()
     let opacity = `${(y / config.board.height)}`
@@ -97,10 +97,11 @@ export default function(document) {
       rgbVal = 255 - (opacity * 255)
       modifiedVal = rgbVal - (y + 1) * 3
     } else {
-      rgbVal = (opacity * 200)
+      rgbVal = (opacity * 250)
       modifiedVal = rgbVal + (y + 1) * 3
     }
 
+    // Ugly
     if (!dropPiece) {
       let min = .3, max = 1;
       let colorStop = opacity < min ? min : opacity > max ? max : opacity 
@@ -110,31 +111,32 @@ export default function(document) {
       sq.addColorStop(.2, color1)
       sq.addColorStop(colorStop, color2)
       ctx.fillStyle = sq
-    } else {
+    } else if(!blankSquare) {
       // Duplicate , fix at some point you piece of poop
       const lightColor = "rgb(45, 45, 45)"
       const darkColor = "rgb(210,210,210)"
-      const colorUsed = isPolarized ? darkColor : lightColor 
+      // const colorUsed = isPolarized ? darkColor : lightColor 
+      const colorUsed = isPolarized ? lightColor : darkColor 
     
       ctx.fillStyle = colorUsed
     }
-    ctx.fillRect(squareSize * x, squareSize * y, squareSize, squareSize)
-
-    
+    if (!blankSquare)
+      ctx.fillRect(squareSize * x, squareSize * y, squareSize, squareSize)
+    // Ugly
+        
     //  draw square lines
     let sLineWidth = .1
     ctx.lineWidth = sLineWidth
-    ctx.strokeStyle = squareBorderColor
+    ctx.strokeStyle = blankSquare ? "rgb(150,150,150)" : squareBorderColor
     if (!dropPiece)
       ctx.strokeRect(sLineWidth + (squareSize * x), sLineWidth + (squareSize * y), squareSize - (sLineWidth * 2), squareSize - (sLineWidth * 2))
   }
-  
-  function drawPiece(p, highestYs) {
+
+  function lowestSquarePoints(p) {
+    // Used for "shade"
     let lowestPieceSquares = [];
-    // draw piece
     for (let i = p.length - 1; i >= 0; i--) {
       if (p[i].isOccupied){
-        drawSquare(p[i].x, p[i].y)
         const val = lowestPieceSquares.find(obj => obj.x == p[i].x) 
         if (!val)
           lowestPieceSquares.push({x: p[i].x, y: p[i].y})
@@ -142,25 +144,21 @@ export default function(document) {
           val.y = p[i].y
       } 
     }
-
-    // draw drop piece
-    let dropPieceDrawHeight = p.reduce((a, c) => {
-      if (!a[c.x])
-        a[c.x] = c.y
-      else if (a[c.x] < c.y)
-        a[c.x] = c.y
-      return a
-    }, {})
-    let minDiff = Object.keys(dropPieceDrawHeight)
-      .reduce((a, c) => {
-        let diff = highestYs[c] - dropPieceDrawHeight[c]
-        if (diff < a)
-          a = diff
-        return a
-      }, 24)
+    return lowestPieceSquares
+  }
+  
+  function drawPiece(p, minDiff) {
+    // draw piece
     for (let i = p.length - 1; i >= 0; i--) {
       drawSquare(p[i].x, p[i].y + minDiff - 1, true)
     }
+    for (let i = p.length - 1; i >= 0; i--) {
+      if (p[i].isOccupied){
+        drawSquare(p[i].x, p[i].y)
+      } 
+    }
+
+    // draw drop piece
     // draw a "shade" for the piece, its super "efficient"
     // lowestPieceSquares.forEach(p => {
     //   ctx.beginPath()
@@ -186,32 +184,22 @@ export default function(document) {
   }
 
   function drawBoard(board) {
-    const lightColor = "rgb(205, 205, 205)"
-    const darkColor = "rgb(50,50,50)"
-    const colorUsed = isPolarized ? darkColor : lightColor 
-    // const colorUsed = isPolarized ? lightColor : darkColor 
-    // Draw board stripes
-    // for (let i = 0; i < boardWidth; i++) {
-    //   ctx.strokeStyle = colorUsed
-    //   ctx.beginPath()
-    //   ctx.lineWidth = .5;
-    //   ctx.moveTo(i * squareSize, 0)
-    //   ctx.lineTo(i * squareSize, squareSize * boardHeight)
-    //   ctx.stroke();
-    // } 
     if (board != null)
       for (let y = board.length - 1; y >= 0; y--) {
         for (let x = 0; x < board[y].length; x++) {
           if (board[y][x].isOccupied) 
             drawSquare(x, y)
+          else 
+            drawSquare(x, y, false, true)
         }
-
       }
   }
   
   function drawEverything(board, piece) {
     ctx.clearRect(0, 0, c.width, c.height)
     drawBoard(board)
+
+    // Ugly
     let highestYs = board.reduce((yIndexes, r, rI) => {
       for (let c = 1; c <= r.length; c++) {
         if (board[rI][c - 1].isOccupied && yIndexes[c] > rI)
@@ -220,7 +208,23 @@ export default function(document) {
       return yIndexes
     }, Array.from({ length: 11 }, () => 24))
     highestYs.shift()
-    drawPiece(piece, highestYs)
+    let dropPieceDrawHeight = piece.reduce((a, c) => {
+      if (!a[c.x])
+        a[c.x] = c.y
+      else if (a[c.x] < c.y)
+        a[c.x] = c.y
+      return a
+    }, {})
+    let minDiff = Object.keys(dropPieceDrawHeight)
+      .reduce((a, c) => {
+        let diff = highestYs[c] - dropPieceDrawHeight[c]
+        if (diff < a)
+          a = diff
+        return a
+      }, 24)
+    // Ugly
+
+    drawPiece(piece, minDiff)
   }
   
   function displayGameOver() {
