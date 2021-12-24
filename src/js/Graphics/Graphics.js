@@ -90,26 +90,25 @@ export default function(document) {
   function drawSquare(x, y, dropPiece = false, blankSquare = false) {
     let drawOpacity = dropPiece ? .1 : 1;
     ctx.beginPath()
-    let opacity = `${(y / config.board.height)}`
+    let opacity = `${((y / 2) / config.board.height)}`
     let rgbVal
     let modifiedVal
     if (isPolarized) {
       rgbVal = 255 - (opacity * 255)
-      modifiedVal = rgbVal - (y + 1) * 3
+      modifiedVal = rgbVal
     } else {
       rgbVal = (opacity * 250)
-      modifiedVal = rgbVal + (y + 1) * 3
+      modifiedVal = rgbVal
     }
 
     // Ugly
     if (!dropPiece) {
       let min = .3, max = 1;
-      let colorStop = opacity < min ? min : opacity > max ? max : opacity 
       let sq = ctx.createLinearGradient(squareSize * x, squareSize * y, squareSize * x + squareSize, squareSize * y + squareSize)
       let color1 = `rgba(${rgbVal}, ${rgbVal}, ${rgbVal}, ${drawOpacity})`;
       let color2 = `rgba(${modifiedVal}, ${modifiedVal}, ${modifiedVal}, ${drawOpacity})`;
-      sq.addColorStop(.2, color1)
-      sq.addColorStop(colorStop, color2)
+      sq.addColorStop(min, color1)
+      sq.addColorStop(max, color2)
       ctx.fillStyle = sq
     } else if(!blankSquare) {
       // Duplicate , fix at some point you piece of poop
@@ -128,7 +127,7 @@ export default function(document) {
     let sLineWidth = .1
     ctx.lineWidth = sLineWidth
     ctx.strokeStyle = blankSquare ? "rgb(150,150,150)" : squareBorderColor
-    if (!dropPiece)
+    if (blankSquare)
       ctx.strokeRect(sLineWidth + (squareSize * x), sLineWidth + (squareSize * y), squareSize - (sLineWidth * 2), squareSize - (sLineWidth * 2))
   }
 
