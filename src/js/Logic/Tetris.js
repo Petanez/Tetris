@@ -83,7 +83,9 @@ export default function Tetris(document) {
       if (Logic.spaceIsOccupied(board, piece)) 
         handleGameOver()
     }
-    let scoreMultiplier = Logic.checkFullRows(board)
+    let scoreMultiplier, s = Logic.checkFullRows(board)
+    if (s.length)
+      Graphics.rowRemovalAnimations(s)
     trackRowCount += scoreMultiplier
     score = Logic.addScore(scoreMultiplier, level, score);
     Graphics.updateScore(score);

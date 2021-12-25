@@ -193,7 +193,7 @@ export default (function() {
     if (rowsToReplace.length)
       replaceRows(board, rowsToReplace)      
     let scoreMultiplier = rowsToReplace.length
-    return scoreMultiplier
+    return scoreMultiplier, rowsToReplace
 
   }
   function addFullRow(board) {

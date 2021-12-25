@@ -1,5 +1,6 @@
 "use strict"
 import config from "../../config/prod.js"
+import MobileControls from "../MobileControls/MobileControls.js"
 
 export default function(document) {
   const root = document.documentElement
@@ -86,11 +87,30 @@ export default function(document) {
   function clearBoard() {
     ctx.clearRect(0, 0, c.width, c.height)
   }
+
+  function rowRemovalAnimations(rowsToRemove) {
+    console.log("drawing removal animations")
+    for (let i = 0; i < rowsToRemove.length; i++) {
+      let stateInfo = document.querySelector(".state-info")
+      let pieceHeight = stateInfo.clientHeight / boardHeight
+      let width = stateInfo.clientWidth
+      let rowEl = document.createElement("div")
+      rowEl.style.cssText = `position: absolute; z-index: -1000; top: ${pieceHeight * rowsToRemove[i]}; width: ${width}; height: ${pieceHeight}; background: ${isPolarized ? primaryColor : secondaryColor}; 
+      animation: piece-removal-animation 300ms ease-out forwards;`
+      
+      // rowEl.style.cssText = `position: absolute; top: 0; width: ${boardWidth * squareSize}; height: ${squareSize}; background: black; top `
+      stateInfo.appendChild(rowEl)
+      setTimeout(() => {
+        rowEl.remove()
+      }, 300)
+    }
+  }
   
   function drawSquare(x, y, dropPiece = false, blankSquare = false) {
     let drawOpacity = dropPiece ? .1 : 1;
     ctx.beginPath()
-    let opacity = `${((y / 2) / config.board.height)}`
+    // let opacity = `${((y / 2) / config.board.height)}`
+    let opacity = 0
     let rgbVal
     let modifiedVal
     if (isPolarized) {
@@ -285,7 +305,8 @@ export default function(document) {
     polarizeHandler,
     displayPieceStack,
     removePieceStack,
-    animateFirstPiece
+    animateFirstPiece,
+    rowRemovalAnimations
   }
 }
 

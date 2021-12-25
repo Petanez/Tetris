@@ -65,8 +65,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _config_prod_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../config/prod.js */ "./src/config/prod.js");
+/* harmony import */ var _MobileControls_MobileControls_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../MobileControls/MobileControls.js */ "./src/js/MobileControls/MobileControls.js");
 
 ;
+
 
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(document) {
   const root = document.documentElement
@@ -153,11 +155,30 @@ __webpack_require__.r(__webpack_exports__);
   function clearBoard() {
     ctx.clearRect(0, 0, c.width, c.height)
   }
+
+  function rowRemovalAnimations(rowsToRemove) {
+    console.log("drawing removal animations")
+    for (let i = 0; i < rowsToRemove.length; i++) {
+      let stateInfo = document.querySelector(".state-info")
+      let pieceHeight = stateInfo.clientHeight / boardHeight
+      let width = stateInfo.clientWidth
+      let rowEl = document.createElement("div")
+      rowEl.style.cssText = `position: absolute; z-index: -1000; top: ${pieceHeight * rowsToRemove[i]}; width: ${width}; height: ${pieceHeight}; background: ${isPolarized ? primaryColor : secondaryColor}; 
+      animation: piece-removal-animation 300ms ease-out forwards;`
+      
+      // rowEl.style.cssText = `position: absolute; top: 0; width: ${boardWidth * squareSize}; height: ${squareSize}; background: black; top `
+      stateInfo.appendChild(rowEl)
+      setTimeout(() => {
+        rowEl.remove()
+      }, 300)
+    }
+  }
   
   function drawSquare(x, y, dropPiece = false, blankSquare = false) {
     let drawOpacity = dropPiece ? .1 : 1;
     ctx.beginPath()
-    let opacity = `${((y / 2) / _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.board.height)}`
+    // let opacity = `${((y / 2) / config.board.height)}`
+    let opacity = 0
     let rgbVal
     let modifiedVal
     if (isPolarized) {
@@ -352,7 +373,8 @@ __webpack_require__.r(__webpack_exports__);
     polarizeHandler,
     displayPieceStack,
     removePieceStack,
-    animateFirstPiece
+    animateFirstPiece,
+    rowRemovalAnimations
   }
 }
 
@@ -750,7 +772,7 @@ __webpack_require__.r(__webpack_exports__);
     if (rowsToReplace.length)
       replaceRows(board, rowsToReplace)      
     let scoreMultiplier = rowsToReplace.length
-    return scoreMultiplier
+    return scoreMultiplier, rowsToReplace
 
   }
   function addFullRow(board) {
@@ -1059,7 +1081,9 @@ function Tetris(document) {
       if (_Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.spaceIsOccupied(board, piece)) 
         handleGameOver()
     }
-    let scoreMultiplier = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.checkFullRows(board)
+    let scoreMultiplier, s = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.checkFullRows(board)
+    if (s.length)
+      Graphics.rowRemovalAnimations(s)
     trackRowCount += scoreMultiplier
     score = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.addScore(scoreMultiplier, level, score);
     Graphics.updateScore(score);
