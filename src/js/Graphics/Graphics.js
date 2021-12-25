@@ -7,6 +7,7 @@ export default function(document) {
   root.style.setProperty("--thickness-canvas-border", config.board.borderWidth + "px")
   root.style.setProperty("--time-first-piece-animation", config.pieceStack.firstPiece.animationTime + "ms")
 
+  const rowRemovalAnimationTime = 500;
   const c = document?.querySelector("#myCanvas")
   const squareSize = config.square.size
   const gridHeight = squareSize * config.board.height
@@ -95,14 +96,13 @@ export default function(document) {
       let pieceHeight = stateInfo.clientHeight / boardHeight
       let width = stateInfo.clientWidth
       let rowEl = document.createElement("div")
-      rowEl.style.cssText = `position: absolute; z-index: -1000; top: ${pieceHeight * rowsToRemove[i]}; width: ${width}; height: ${pieceHeight}; background: ${isPolarized ? primaryColor : secondaryColor}; 
-      animation: piece-removal-animation 300ms ease-out forwards;`
+      rowEl.style.cssText = `opacity: 0; position: absolute; z-index: -1000; top: ${pieceHeight * rowsToRemove[i]}; width: ${width}; height: ${pieceHeight}; background: ${isPolarized ? primaryColor : secondaryColor}; 
+      animation: piece-removal-animation ${rowRemovalAnimationTime}ms ease-in forwards;`
       
-      // rowEl.style.cssText = `position: absolute; top: 0; width: ${boardWidth * squareSize}; height: ${squareSize}; background: black; top `
       stateInfo.appendChild(rowEl)
       setTimeout(() => {
         rowEl.remove()
-      }, 300)
+      }, rowRemovalAnimationTime)
     }
   }
   

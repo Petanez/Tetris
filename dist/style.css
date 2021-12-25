@@ -559,9 +559,9 @@ div[class$="keys__left"] > div {
   -webkit-background-clip: text;
   color: transparent;
   z-index: 10;
-  left: -3.81ch;
+  left: -3.88ch;
   font-size: 1.4em;
-  bottom: -1.31ch;
+  bottom: -1.43ch;
   transform: perspective(.4em) rotateX(-155deg) scaleY(1) translateX(2.2em);
 }
 
@@ -629,14 +629,48 @@ div[class$="keys__left"] > div {
   }
 }
 
-@keyframes piece-removal-animation {
+/* @keyframes piece-removal-animation {
   0% {
     opacity: 0;
     transform: translate(0, 0) scale(1);
   }
-  100% {
+  50% {
     opacity: 1;
-    transform: translate(100%, -100%) scale(.1);
+    transform: translate(100%, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(150%, -900%) scale(.1);
+  }
+} */
+
+/* @keyframes piece-removal-animation {
+  0% {
+    opacity: 0;
+    transform: translate(2%, 0) scale(.96, 1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(2%, -200%) scale(.96, .5);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(2%, -2400%) scale(.96, .1);
+  }
+} */
+
+@keyframes piece-removal-animation {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(1, 1);
+  }
+  50% {
+    opacity: .4;
+    transform: translate(0%, -200%) scale(.88, .5);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(0%, -2400%) scale(.88, .1);
   }
 }
 

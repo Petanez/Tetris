@@ -75,6 +75,7 @@ __webpack_require__.r(__webpack_exports__);
   root.style.setProperty("--thickness-canvas-border", _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.board.borderWidth + "px")
   root.style.setProperty("--time-first-piece-animation", _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.pieceStack.firstPiece.animationTime + "ms")
 
+  const rowRemovalAnimationTime = 500;
   const c = document?.querySelector("#myCanvas")
   const squareSize = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.square.size
   const gridHeight = squareSize * _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.board.height
@@ -163,14 +164,13 @@ __webpack_require__.r(__webpack_exports__);
       let pieceHeight = stateInfo.clientHeight / boardHeight
       let width = stateInfo.clientWidth
       let rowEl = document.createElement("div")
-      rowEl.style.cssText = `position: absolute; z-index: -1000; top: ${pieceHeight * rowsToRemove[i]}; width: ${width}; height: ${pieceHeight}; background: ${isPolarized ? primaryColor : secondaryColor}; 
-      animation: piece-removal-animation 300ms ease-out forwards;`
+      rowEl.style.cssText = `opacity: 0; position: absolute; z-index: -1000; top: ${pieceHeight * rowsToRemove[i]}; width: ${width}; height: ${pieceHeight}; background: ${isPolarized ? primaryColor : secondaryColor}; 
+      animation: piece-removal-animation ${rowRemovalAnimationTime}ms ease-in forwards;`
       
-      // rowEl.style.cssText = `position: absolute; top: 0; width: ${boardWidth * squareSize}; height: ${squareSize}; background: black; top `
       stateInfo.appendChild(rowEl)
       setTimeout(() => {
         rowEl.remove()
-      }, 300)
+      }, rowRemovalAnimationTime)
     }
   }
   
