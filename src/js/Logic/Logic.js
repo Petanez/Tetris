@@ -54,14 +54,14 @@ export default (function() {
         p[i].y++
     } else {
       lockPiece(board, p)
-      return -1
+      return []
     }
     // if the new x, y has an occupied square return to previous x, y
     if (p.some(square => board[square.y][square.x].isOccupied)) {
       for (let i = 0; i < p.length; i++) 
         p[i].y--
       lockPiece(board, p)
-      return -1
+      return []
     }
     return p
   }
@@ -182,18 +182,15 @@ export default (function() {
     let rowsToReplace = [];
     for (let y = board.length - 1; y >= 0; y--) {
       let isFullRow = true
-      for (let x = 0; x < board[y].length; x++) {
+      for (let x = 0; x < board[y].length; x++)
         if (!board[y][x].isOccupied) 
           isFullRow = false
-      }
-      if (isFullRow) {
+      if (isFullRow) 
         rowsToReplace.push(y)
-      }
     }
     if (rowsToReplace.length)
       replaceRows(board, rowsToReplace)      
-    let scoreMultiplier = rowsToReplace.length
-    return scoreMultiplier, rowsToReplace
+    return rowsToReplace
 
   }
   function addFullRow(board) {
@@ -258,7 +255,7 @@ export default (function() {
   }
   
   function calculateFps(level) {
-    return (1500 / (1.8 * level))
+    return (1600 / (1.8 * level))
   }
 
   return {

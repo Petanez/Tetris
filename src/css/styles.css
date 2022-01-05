@@ -30,7 +30,7 @@
   font-size: 1.7rem;
   font-family: inherit; 
 
-  padding: .15em 0;
+  padding: .1em 0 .15em;
   letter-spacing: .1rem;
 
   cursor: pointer;
@@ -356,19 +356,24 @@ div[class$="keys__left"] > div {
 #themeSwitch::after {
   content: "";
   position: absolute;
+  z-index: -10000;
   width: 350%;
   height: 350%;
-  left: -125%;
-  top: -125%;
+  left: -145%;
+  top: -145%;
   border-radius: 50%;
-  transform: scale(.1);
-  filter: blur(1em);
+  transform: scale(.67);
+  border: 8px dashed var(--clr-secondary);
+  /* border-style: ; */
+  opacity: .5;
+  /* filter: blur(.4em); */
   background: var(--clr-primary);
-  transition: transform 200ms ease-in-out;
+  transition: transform 150ms ease;
 }
 
 #themeSwitch:hover::after {
   transform: scale(1);
+  opacity: 1;
 }
 
 #themeSwitch:hover .icon-text {
@@ -411,12 +416,13 @@ div[class$="keys__left"] > div {
   color: var(--clr-secondary);
   opacity: .5;
   text-shadow: 0 0 .2em var(--clr-primary);
+  text-shadow: .2em .14em .12em var(--clr-primary);
 
-  bottom: .8rem;
+  bottom: 1rem;
   left: 56%;
 
-  bottom: 1.2rem;
-  left: 30%;
+  bottom: 1.3rem;
+  left: 28%;
   transition: transform 400ms ease;
   animation: icon-text-animation 5000ms ease-in-out infinite;
 }
@@ -475,7 +481,7 @@ div[class$="keys__left"] > div {
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
-  z-index: 10;
+  z-index: -10000000;
   left: -3.88ch;
   font-size: 1.4em;
   bottom: -1.43ch;
@@ -521,6 +527,7 @@ div[class$="keys__left"] > div {
   filter: blur(.25em);
   z-index: -10000;
   bottom: -100%;
+  opacity: .7;
   left: -95%;
   height: 60%;
   width: 139%;
@@ -529,12 +536,13 @@ div[class$="keys__left"] > div {
 }
 
 .theme-switch__cloud2:last-of-type {
-  bottom: -260%;
+  bottom: -166%;
   width: 200%;
+  z-index: 10000;
   height: 50%;
-  opacity: .5;
+  opacity: .9;
   filter: blur(.3em);
-  left: -50%;
+  left: -70%;
 }
 
 @keyframes anim-cloud2 {
@@ -578,16 +586,20 @@ div[class$="keys__left"] > div {
 
 @keyframes piece-removal-animation {
   0% {
-    opacity: 0;
-    transform: translate(0, 0) scale(1, 1);
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg) scale(.98, 1);
   }
-  50% {
-    opacity: .4;
-    transform: translate(0%, -200%) scale(.88, .5);
+  20% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg) scale(.98, .2);
+  }
+  60% {
+    opacity: .8;
+    transform: translate(0%, -200%) rotate(4deg) scale(.95, .5);
   }
   100% {
     opacity: 0;
-    transform: translate(0%, -2400%) scale(.88, .1);
+    transform: translate(0%, -2400%) rotate(90deg) scale(.88, .1);
   }
 }
 
@@ -768,7 +780,7 @@ div[class$="keys__left"] > div {
   border-bottom: 2px solid var(--clr-primary);
   /* border-bottom-left-radius: 50rem; */
   bottom: 5px;
-  left: -13%;
+  left: -14%;
 }
 
 .state-info__piece-stack::after {
@@ -782,7 +794,7 @@ div[class$="keys__left"] > div {
   border-top: none;
   border-left: none;
   border-right: none;
-  left: -13%;
+  left: -14%;
 }
 
 .piece-stack__piece {

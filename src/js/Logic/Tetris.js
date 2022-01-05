@@ -17,6 +17,7 @@ export default function Tetris(document) {
   Highscores.renderScores(highscoreWrapper)
 
   let firstStart = true
+  let debug = true
   let board
   let piece
   let score
@@ -41,11 +42,12 @@ export default function Tetris(document) {
       firstStart = false
     }
 
+    board = debug ? Logic.createTestBoard() : Logic.createBoard()
+    piece = debug ? Logic.newTestPiece().PIECE : pieceStack.getPiece().PIECE
     pieceStack = new Logic.PieceStack()
-    board = Logic.createBoard()
-    piece = pieceStack.getPiece().PIECE
     score = config.initial.score
     level = config.initial.level
+    // level = 10
     fps = Logic.calculateFps(level)
     trackRowCount = 0
     isPaused = false
@@ -70,22 +72,23 @@ export default function Tetris(document) {
 
   function frame(direction, dropPiece = false) {
     if (dropPiece) {
-      while (piece !== -1) {
+      while (piece.length) {
         piece = Logic.movePiece(board, piece, direction)
       }
     }
     else
       piece = Logic.movePiece(board, piece, direction)
-    if (piece === -1) {
+    if (!piece.length) {
       piece = pieceStack.getPiece().PIECE
       Graphics.animateFirstPiece()
       Graphics.displayPieceStack(pieceStack.getStack())
       if (Logic.spaceIsOccupied(board, piece)) 
         handleGameOver()
     }
-    let scoreMultiplier, s = Logic.checkFullRows(board)
-    if (s.length)
-      Graphics.rowRemovalAnimations(s)
+    let rowsToReplace = Logic.checkFullRows(board)
+    if (rowsToReplace.length)
+      Graphics.rowRemovalAnimations(rowsToReplace)
+    let scoreMultiplier = rowsToReplace.length
     trackRowCount += scoreMultiplier
     score = Logic.addScore(scoreMultiplier, level, score);
     Graphics.updateScore(score);

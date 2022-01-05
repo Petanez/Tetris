@@ -65,10 +65,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _config_prod_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../config/prod.js */ "./src/config/prod.js");
-/* harmony import */ var _MobileControls_MobileControls_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../MobileControls/MobileControls.js */ "./src/js/MobileControls/MobileControls.js");
 
 ;
-
 
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(document) {
   const root = document.documentElement
@@ -164,9 +162,17 @@ __webpack_require__.r(__webpack_exports__);
       let pieceHeight = stateInfo.clientHeight / boardHeight
       let width = stateInfo.clientWidth
       let rowEl = document.createElement("div")
-      rowEl.style.cssText = `opacity: 0; position: absolute; z-index: -1000; top: ${pieceHeight * rowsToRemove[i]}; width: ${width}; height: ${pieceHeight}; background: ${isPolarized ? primaryColor : secondaryColor}; 
-      animation: piece-removal-animation ${rowRemovalAnimationTime}ms ease-in forwards;`
-      
+      // rowEl.style.cssText = `opacity: 0; position: absolute; z-index: -1000; top: ${pieceHeight * rowsToRemove[i]}; width: ${width}; height: ${pieceHeight}; background: ${isPolarized ? primaryColor : secondaryColor}; 
+      // animation: piece-removal-animation ${rowRemovalAnimationTime}ms  ease-in forwards;`
+
+      // rowEl.style.cssText = `opacity: 0; position: absolute; z-index: -1000; top: ${pieceHeight * rowsToRemove[i]}; width: ${width}; height: ${pieceHeight}; background: ${isPolarized ? primaryColor : secondaryColor}; 
+      // animation: piece-removal-animation ease-in forwards;`
+      let rgb = rowsToRemove[i] * 5
+      rowEl.style.cssText = `opacity: 0; position: absolute; z-index: -1000; top: ${pieceHeight * rowsToRemove[i]}; width: ${width}; height: ${pieceHeight}; background: rgb(${rgb}, ${rgb}, ${rgb}); 
+      animation: piece-removal-animation ease-in forwards;`
+      rowEl.style.animationDuration = `${rowRemovalAnimationTime}ms`
+      // rowEl.style.animationDelay = '1000ms'
+
       stateInfo.appendChild(rowEl)
       setTimeout(() => {
         rowEl.remove()
@@ -177,8 +183,8 @@ __webpack_require__.r(__webpack_exports__);
   function drawSquare(x, y, dropPiece = false, blankSquare = false) {
     let drawOpacity = dropPiece ? .1 : 1;
     ctx.beginPath()
-    // let opacity = `${((y / 2) / config.board.height)}`
-    let opacity = 0
+    let opacity = `${((y / 2) / _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.board.height)}`
+    // let opacity = 0
     let rgbVal
     let modifiedVal
     if (isPolarized) {
@@ -197,7 +203,7 @@ __webpack_require__.r(__webpack_exports__);
       let color2 = `rgba(${modifiedVal}, ${modifiedVal}, ${modifiedVal}, ${drawOpacity})`;
       sq.addColorStop(min, color1)
       sq.addColorStop(max, color2)
-      ctx.fillStyle = sq
+      ctx.fillStyle = color1
     } else if(!blankSquare) {
       // Duplicate , fix at some point you piece of poop
       const lightColor = "rgb(45, 45, 45)"
@@ -212,62 +218,26 @@ __webpack_require__.r(__webpack_exports__);
     // Ugly
         
     //  draw square lines
-    let sLineWidth = .1
-    ctx.lineWidth = sLineWidth
-    ctx.strokeStyle = blankSquare ? "rgb(150,150,150)" : squareBorderColor
-    if (blankSquare)
+    if (!dropPiece) {
+      let sLineWidth = .1
+      ctx.lineWidth = sLineWidth
+      ctx.strokeStyle = "rgb(150,150,150)"
       ctx.strokeRect(sLineWidth + (squareSize * x), sLineWidth + (squareSize * y), squareSize - (sLineWidth * 2), squareSize - (sLineWidth * 2))
-  }
-
-  function lowestSquarePoints(p) {
-    // Used for "shade"
-    let lowestPieceSquares = [];
-    for (let i = p.length - 1; i >= 0; i--) {
-      if (p[i].isOccupied){
-        const val = lowestPieceSquares.find(obj => obj.x == p[i].x) 
-        if (!val)
-          lowestPieceSquares.push({x: p[i].x, y: p[i].y})
-        if (val && val.y < p[i].y)
-          val.y = p[i].y
-      } 
     }
-    return lowestPieceSquares
+    // if (blankSquare)
   }
   
   function drawPiece(p, minDiff) {
-    // draw piece
+    // draw "drop" piece
     for (let i = p.length - 1; i >= 0; i--) {
       drawSquare(p[i].x, p[i].y + minDiff - 1, true)
     }
+    // draw piece
     for (let i = p.length - 1; i >= 0; i--) {
       if (p[i].isOccupied){
         drawSquare(p[i].x, p[i].y)
       } 
     }
-
-    // draw drop piece
-    // draw a "shade" for the piece, its super "efficient"
-    // lowestPieceSquares.forEach(p => {
-    //   ctx.beginPath()
-    //   // let sq = ctx.createLinearGradient(squareSize * x, squareSize * y, squareSize * x + squareSize, squareSize * y + squareSize)
-    //   let sq = ctx.createLinearGradient(p.x * squareSize,
-    //                                     p.y * squareSize,
-    //                                     (p.x + 1), 
-    //                                     (highestYs[p.x] > 8 ? highestYs[p.x] : highestYs[p.x] + 8) * squareSize)
-    //   ctx.fillStyle = sq
-    //   sq.addColorStop(0, "rgba(0,0,0,1)")
-    //   sq.addColorStop(.05, "rgba(20,20,20,.2)")
-    //   sq.addColorStop(.15, "transparent")
-    //   sq.addColorStop(.5, "transparent")
-    //   sq.addColorStop(.6, "rgba(235, 235, 235, .2)")
-    //   // ctx.fillStyle = isPolarized ? "rgba(50, 50, 50, .2)" : "rgba(250, 250, 250, .2)";;
-    //   // ctx.fillStyle += isPolarized ? "rgba(50, 50, 50, .2)" : "rgba(250, 250, 250, .2)";;
-
-    //   ctx.fillRect(p.x * squareSize,
-    //                p.y * squareSize + squareSize,
-    //                squareSize, 
-    //                ((highestYs[p.x] - p.y) * squareSize) - squareSize)
-    // })
   }
 
   function drawBoard(board) {
@@ -633,14 +603,14 @@ __webpack_require__.r(__webpack_exports__);
         p[i].y++
     } else {
       lockPiece(board, p)
-      return -1
+      return []
     }
     // if the new x, y has an occupied square return to previous x, y
     if (p.some(square => board[square.y][square.x].isOccupied)) {
       for (let i = 0; i < p.length; i++) 
         p[i].y--
       lockPiece(board, p)
-      return -1
+      return []
     }
     return p
   }
@@ -761,18 +731,15 @@ __webpack_require__.r(__webpack_exports__);
     let rowsToReplace = [];
     for (let y = board.length - 1; y >= 0; y--) {
       let isFullRow = true
-      for (let x = 0; x < board[y].length; x++) {
+      for (let x = 0; x < board[y].length; x++)
         if (!board[y][x].isOccupied) 
           isFullRow = false
-      }
-      if (isFullRow) {
+      if (isFullRow) 
         rowsToReplace.push(y)
-      }
     }
     if (rowsToReplace.length)
       replaceRows(board, rowsToReplace)      
-    let scoreMultiplier = rowsToReplace.length
-    return scoreMultiplier, rowsToReplace
+    return rowsToReplace
 
   }
   function addFullRow(board) {
@@ -837,7 +804,7 @@ __webpack_require__.r(__webpack_exports__);
   }
   
   function calculateFps(level) {
-    return (1500 / (1.8 * level))
+    return (1600 / (1.8 * level))
   }
 
   return {
@@ -1015,6 +982,7 @@ function Tetris(document) {
   _Highscores_Highscore_js__WEBPACK_IMPORTED_MODULE_4__.default.renderScores(highscoreWrapper)
 
   let firstStart = true
+  let debug = true
   let board
   let piece
   let score
@@ -1039,11 +1007,12 @@ function Tetris(document) {
       firstStart = false
     }
 
+    board = debug ? _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.createTestBoard() : _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.createBoard()
+    piece = debug ? _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.newTestPiece().PIECE : pieceStack.getPiece().PIECE
     pieceStack = new _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.PieceStack()
-    board = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.createBoard()
-    piece = pieceStack.getPiece().PIECE
     score = _config_prod_js__WEBPACK_IMPORTED_MODULE_2__.default.initial.score
     level = _config_prod_js__WEBPACK_IMPORTED_MODULE_2__.default.initial.level
+    // level = 10
     fps = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.calculateFps(level)
     trackRowCount = 0
     isPaused = false
@@ -1068,22 +1037,23 @@ function Tetris(document) {
 
   function frame(direction, dropPiece = false) {
     if (dropPiece) {
-      while (piece !== -1) {
+      while (piece.length) {
         piece = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.movePiece(board, piece, direction)
       }
     }
     else
       piece = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.movePiece(board, piece, direction)
-    if (piece === -1) {
+    if (!piece.length) {
       piece = pieceStack.getPiece().PIECE
       Graphics.animateFirstPiece()
       Graphics.displayPieceStack(pieceStack.getStack())
       if (_Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.spaceIsOccupied(board, piece)) 
         handleGameOver()
     }
-    let scoreMultiplier, s = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.checkFullRows(board)
-    if (s.length)
-      Graphics.rowRemovalAnimations(s)
+    let rowsToReplace = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.checkFullRows(board)
+    if (rowsToReplace.length)
+      Graphics.rowRemovalAnimations(rowsToReplace)
+    let scoreMultiplier = rowsToReplace.length
     trackRowCount += scoreMultiplier
     score = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.addScore(scoreMultiplier, level, score);
     Graphics.updateScore(score);
