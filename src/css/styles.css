@@ -587,19 +587,23 @@ div[class$="keys__left"] > div {
 @keyframes piece-removal-animation {
   0% {
     opacity: 1;
-    transform: translate(0, 0) rotate(0deg) scale(.98, 1);
+    transform: translate(0, 0) rotate(0deg) scale(.98, .7);
+    border-radius: 0;
   }
-  20% {
-    opacity: 1;
-    transform: translate(0, 0) rotate(0deg) scale(.98, .2);
+  15% {
+    opacity: .5;
+    transform: translate(0, 0) rotate(0deg) scale(.9, .2);
+    border-radius: 0;
   }
   60% {
     opacity: .8;
-    transform: translate(0%, -200%) rotate(4deg) scale(.95, .5);
+    transform: translate(0%, -200%) rotate(4deg) scale(.75, .1);
+    border-radius: 0;
   }
   100% {
     opacity: 0;
     transform: translate(0%, -2400%) rotate(90deg) scale(.88, .1);
+    border-radius: 0;
   }
 }
 

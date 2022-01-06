@@ -100,10 +100,13 @@ export default function(document) {
 
       // rowEl.style.cssText = `opacity: 0; position: absolute; z-index: -1000; top: ${pieceHeight * rowsToRemove[i]}; width: ${width}; height: ${pieceHeight}; background: ${isPolarized ? primaryColor : secondaryColor}; 
       // animation: piece-removal-animation ease-in forwards;`
-      let rgb = rowsToRemove[i] * 5
+      console.log(rowsToRemove[i])
+      let rgb = 255 - (rowsToRemove[i] * 6)
+      // let rgb = (rowsToRemove[i] * 5)
       rowEl.style.cssText = `opacity: 0; position: absolute; z-index: -1000; top: ${pieceHeight * rowsToRemove[i]}; width: ${width}; height: ${pieceHeight}; background: rgb(${rgb}, ${rgb}, ${rgb}); 
-      animation: piece-removal-animation ease-in forwards;`
+      animation: piece-removal-animation ease-in-out forwards;`
       rowEl.style.animationDuration = `${rowRemovalAnimationTime}ms`
+      rowEl.style.border = `2px solid black`
       // rowEl.style.animationDelay = '1000ms'
 
       stateInfo.appendChild(rowEl)
