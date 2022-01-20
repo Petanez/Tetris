@@ -231,9 +231,9 @@ export default (function() {
     })
   }
 
-  function createTestBoard() {
+  function createTestBoard(n) {
     return Array.from({ length: config.board.height }, (v, _) => {
-      if (_ < 20) {
+      if (_ < n) {
         return v = Array.from({ length: config.board.width }, (_, x) => {
           return new Square(x, 0)
         })

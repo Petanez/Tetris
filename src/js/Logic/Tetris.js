@@ -42,7 +42,8 @@ export default function Tetris(document) {
       firstStart = false
     }
 
-    board = debug ? Logic.createTestBoard() : Logic.createBoard()
+    // board = debug ? Logic.createTestBoard(20) : Logic.createBoard()
+    board = debug ? Logic.createTestBoard(10) : Logic.createBoard()
     piece = debug ? Logic.newTestPiece().PIECE : pieceStack.getPiece().PIECE
     pieceStack = new Logic.PieceStack()
     score = config.initial.score

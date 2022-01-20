@@ -73,7 +73,7 @@ __webpack_require__.r(__webpack_exports__);
   root.style.setProperty("--thickness-canvas-border", _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.board.borderWidth + "px")
   root.style.setProperty("--time-first-piece-animation", _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.pieceStack.firstPiece.animationTime + "ms")
 
-  const rowRemovalAnimationTime = 500;
+  const rowRemovalAnimationTime = 700;
   const c = document?.querySelector("#myCanvas")
   const squareSize = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.square.size
   const gridHeight = squareSize * _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.board.height
@@ -168,12 +168,13 @@ __webpack_require__.r(__webpack_exports__);
       // rowEl.style.cssText = `opacity: 0; position: absolute; z-index: -1000; top: ${pieceHeight * rowsToRemove[i]}; width: ${width}; height: ${pieceHeight}; background: ${isPolarized ? primaryColor : secondaryColor}; 
       // animation: piece-removal-animation ease-in forwards;`
       console.log(rowsToRemove[i])
-      let rgb = 255 - (rowsToRemove[i] * 6)
+      let multiplier = 5
+      let rgb = isPolarized ? (255 - (rowsToRemove[i] * multiplier)) : rowsToRemove[i] * multiplier
       // let rgb = (rowsToRemove[i] * 5)
       rowEl.style.cssText = `opacity: 0; position: absolute; z-index: -1000; top: ${pieceHeight * rowsToRemove[i]}; width: ${width}; height: ${pieceHeight}; background: rgb(${rgb}, ${rgb}, ${rgb}); 
       animation: piece-removal-animation ease-in-out forwards;`
       rowEl.style.animationDuration = `${rowRemovalAnimationTime}ms`
-      rowEl.style.border = `2px solid black`
+      rowEl.style.border = `1px solid black`
       // rowEl.style.animationDelay = '1000ms'
 
       stateInfo.appendChild(rowEl)
@@ -783,9 +784,9 @@ __webpack_require__.r(__webpack_exports__);
     })
   }
 
-  function createTestBoard() {
+  function createTestBoard(n) {
     return Array.from({ length: _config_prod_js__WEBPACK_IMPORTED_MODULE_2__.default.board.height }, (v, _) => {
-      if (_ < 20) {
+      if (_ < n) {
         return v = Array.from({ length: _config_prod_js__WEBPACK_IMPORTED_MODULE_2__.default.board.width }, (_, x) => {
           return new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(x, 0)
         })
@@ -1010,7 +1011,8 @@ function Tetris(document) {
       firstStart = false
     }
 
-    board = debug ? _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.createTestBoard() : _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.createBoard()
+    // board = debug ? Logic.createTestBoard(20) : Logic.createBoard()
+    board = debug ? _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.createTestBoard(10) : _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.createBoard()
     piece = debug ? _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.newTestPiece().PIECE : pieceStack.getPiece().PIECE
     pieceStack = new _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.PieceStack()
     score = _config_prod_js__WEBPACK_IMPORTED_MODULE_2__.default.initial.score
