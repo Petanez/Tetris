@@ -18,6 +18,7 @@
   --gradient-page-bg: linear-gradient(180deg, white 6%, white 15%, white 36%, white 44%, black 46%, black 50%, black 50%, black 56%, black 65%, black 94%, white 96%);
 
   --gradient-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.5) 0%, var(--clr-primary) 10.5%, transparent 10.6%, var(--clr-primary) 12%, transparent 13%, rgba(255, 255, 255, 0.5) 15%, rgba(255, 255, 255, 0.9) 33%, transparent 40%, rgba(255, 255, 255, 0.3) 42%, transparent 45%, rgba(0, 0, 0, .9) 46%, transparent 67%);
+  /* --gradient-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.5) 0%, var(--clr-primary) 10.5%, transparent 10.6%, var(--clr-primary) 12%, transparent 13%, rgba(233, 142, 37, 0.5) 15%, rgba(255, 255, 255, 0.9) 33%, transparent 30%, rgba(246, 253, 224, 0.9) 42%, transparent 45%, rgba(243, 233, 140, 0.9) 46%, transparent 67%); */
   --gradient-tetris-header-bg: linear-gradient(176deg, var(--clr-primary) 30%, var(--clr-secondary) 70%);
   --gradient-tetris-header-bg: linear-gradient(160deg, var(--clr-secondary) 20%, var(--clr-primary) 50%);
   --gradient-tetris-header-bg-shadow: linear-gradient(5deg, white 10%, var(--clr-primary) 30%);

@@ -17,7 +17,7 @@ export default function Tetris(document) {
   Highscores.renderScores(highscoreWrapper)
 
   let firstStart = true
-  let debug = true
+  let debug = false
   let board
   let piece
   let score
@@ -38,17 +38,15 @@ export default function Tetris(document) {
     }
 
     if (firstStart) {
-      document.querySelector(".scoreboard").style.transform = "translateY(0)";
+      document.querySelector(".scoreboard").style.opacity = "1";
       firstStart = false
     }
 
-    // board = debug ? Logic.createTestBoard(20) : Logic.createBoard()
+    pieceStack = new Logic.PieceStack()
     board = debug ? Logic.createTestBoard(10) : Logic.createBoard()
     piece = debug ? Logic.newTestPiece().PIECE : pieceStack.getPiece().PIECE
-    pieceStack = new Logic.PieceStack()
     score = config.initial.score
     level = config.initial.level
-    // level = 10
     fps = Logic.calculateFps(level)
     trackRowCount = 0
     isPaused = false
@@ -173,7 +171,7 @@ export default function Tetris(document) {
 
   const themeSwitchBtn = document.querySelector("#themeSwitch")
   themeSwitchBtn.onclick = () => Graphics.polarizeHandler(document.body, board, piece, pieceStack?.getStack())
-    
+
   const tetrisContainer = document.querySelector(".tetris-container")
   const canvas = document.querySelector("#myCanvas")
   window.onload = () => {

@@ -171,7 +171,7 @@ __webpack_require__.r(__webpack_exports__);
       let multiplier = 5
       let rgb = isPolarized ? (255 - (rowsToRemove[i] * multiplier)) : rowsToRemove[i] * multiplier
       // let rgb = (rowsToRemove[i] * 5)
-      rowEl.style.cssText = `opacity: 0; position: absolute; z-index: -1000; top: ${pieceHeight * rowsToRemove[i]}; width: ${width}; height: ${pieceHeight}; background: rgb(${rgb}, ${rgb}, ${rgb}); 
+      rowEl.style.cssText = `opacity: 0; position: absolute; z-index: -1000; top: ${pieceHeight * rowsToRemove[i]}; width: ${width}; height: ${pieceHeight}; background: rgb(${rgb}, ${rgb}, ${rgb});
       animation: piece-removal-animation ease-in-out forwards;`
       rowEl.style.animationDuration = `${rowRemovalAnimationTime}ms`
       rowEl.style.border = `1px solid black`
@@ -188,6 +188,7 @@ __webpack_require__.r(__webpack_exports__);
     let drawOpacity = dropPiece ? .1 : 1;
     ctx.beginPath()
     let opacity = `${((y / 2) / _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.board.height)}`
+    // let opacity = `${((y / 4) / config.board.height)}`
     // let opacity = 0
     let rgbVal
     let modifiedVal
@@ -208,6 +209,7 @@ __webpack_require__.r(__webpack_exports__);
       sq.addColorStop(min, color1)
       sq.addColorStop(max, color2)
       ctx.fillStyle = color1
+      // ctx.fillStyle = "black"
     } else if(!blankSquare) {
       // Duplicate , fix at some point you piece of poop
       const lightColor = "rgb(45, 45, 45)"
@@ -225,7 +227,9 @@ __webpack_require__.r(__webpack_exports__);
     if (!dropPiece) {
       let sLineWidth = .1
       ctx.lineWidth = sLineWidth
-      ctx.strokeStyle = "rgb(150,150,150)"
+      let rgb = isPolarized ? (0 + y*8) : (255 - y * 8)
+      // let rgb = 0 + y * 8
+      ctx.strokeStyle = `rgba(${rgb},${rgb},${rgb},${y*(y/_config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.board.height)})`
       ctx.strokeRect(sLineWidth + (squareSize * x), sLineWidth + (squareSize * y), squareSize - (sLineWidth * 2), squareSize - (sLineWidth * 2))
     }
     // if (blankSquare)
@@ -986,7 +990,7 @@ function Tetris(document) {
   _Highscores_Highscore_js__WEBPACK_IMPORTED_MODULE_4__.default.renderScores(highscoreWrapper)
 
   let firstStart = true
-  let debug = true
+  let debug = false
   let board
   let piece
   let score
@@ -1007,17 +1011,15 @@ function Tetris(document) {
     }
 
     if (firstStart) {
-      document.querySelector(".scoreboard").style.transform = "translateY(0)";
+      document.querySelector(".scoreboard").style.opacity = "1";
       firstStart = false
     }
 
-    // board = debug ? Logic.createTestBoard(20) : Logic.createBoard()
+    pieceStack = new _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.PieceStack()
     board = debug ? _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.createTestBoard(10) : _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.createBoard()
     piece = debug ? _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.newTestPiece().PIECE : pieceStack.getPiece().PIECE
-    pieceStack = new _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.PieceStack()
     score = _config_prod_js__WEBPACK_IMPORTED_MODULE_2__.default.initial.score
     level = _config_prod_js__WEBPACK_IMPORTED_MODULE_2__.default.initial.level
-    // level = 10
     fps = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.calculateFps(level)
     trackRowCount = 0
     isPaused = false
@@ -1142,7 +1144,7 @@ function Tetris(document) {
 
   const themeSwitchBtn = document.querySelector("#themeSwitch")
   themeSwitchBtn.onclick = () => Graphics.polarizeHandler(document.body, board, piece, pieceStack?.getStack())
-    
+
   const tetrisContainer = document.querySelector(".tetris-container")
   const canvas = document.querySelector("#myCanvas")
   window.onload = () => {

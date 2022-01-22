@@ -104,7 +104,7 @@ export default function(document) {
       let multiplier = 5
       let rgb = isPolarized ? (255 - (rowsToRemove[i] * multiplier)) : rowsToRemove[i] * multiplier
       // let rgb = (rowsToRemove[i] * 5)
-      rowEl.style.cssText = `opacity: 0; position: absolute; z-index: -1000; top: ${pieceHeight * rowsToRemove[i]}; width: ${width}; height: ${pieceHeight}; background: rgb(${rgb}, ${rgb}, ${rgb}); 
+      rowEl.style.cssText = `opacity: 0; position: absolute; z-index: -1000; top: ${pieceHeight * rowsToRemove[i]}; width: ${width}; height: ${pieceHeight}; background: rgb(${rgb}, ${rgb}, ${rgb});
       animation: piece-removal-animation ease-in-out forwards;`
       rowEl.style.animationDuration = `${rowRemovalAnimationTime}ms`
       rowEl.style.border = `1px solid black`
@@ -121,6 +121,7 @@ export default function(document) {
     let drawOpacity = dropPiece ? .1 : 1;
     ctx.beginPath()
     let opacity = `${((y / 2) / config.board.height)}`
+    // let opacity = `${((y / 4) / config.board.height)}`
     // let opacity = 0
     let rgbVal
     let modifiedVal
@@ -141,6 +142,7 @@ export default function(document) {
       sq.addColorStop(min, color1)
       sq.addColorStop(max, color2)
       ctx.fillStyle = color1
+      // ctx.fillStyle = "black"
     } else if(!blankSquare) {
       // Duplicate , fix at some point you piece of poop
       const lightColor = "rgb(45, 45, 45)"
@@ -158,7 +160,9 @@ export default function(document) {
     if (!dropPiece) {
       let sLineWidth = .1
       ctx.lineWidth = sLineWidth
-      ctx.strokeStyle = "rgb(150,150,150)"
+      let rgb = isPolarized ? (0 + y*8) : (255 - y * 8)
+      // let rgb = 0 + y * 8
+      ctx.strokeStyle = `rgba(${rgb},${rgb},${rgb},${y*(y/config.board.height)})`
       ctx.strokeRect(sLineWidth + (squareSize * x), sLineWidth + (squareSize * y), squareSize - (sLineWidth * 2), squareSize - (sLineWidth * 2))
     }
     // if (blankSquare)
