@@ -58,9 +58,10 @@ export default function(document) {
       pieceEl.classList = `${stack[i].constructor.name} piece-stack__piece`
       for (let square of stack[i].PIECE) {
         let sq = document.createElement("div")
-        let width = 20 - (i * 2)       
+        let width = 20 - (i * 4)       
         sq.className = "piece-stack__square"
-        sq.style.cssText = `left: ${(square.x - 4)*width - i * 10}%; top: ${square.y * width + i * 2}%; width: ${width}%; height: ${width}%; opacity: ${100 - 20 * i}%;`   
+        sq.style.cssText = `left: ${(square.x - 4)*width - i * 20}%; top: ${square.y * width + (i * 10)}%; width: ${width}%; height: ${width}%; filter: blur(.${i}1em);`   
+        sq.style.opacity = i > 0 ? `.${40 - 7 * i}` : '.80';
         pieceEl.appendChild(sq)
       }
     }
@@ -227,6 +228,10 @@ export default function(document) {
   
   function displayGameOver() {
     gameOverElement.style.opacity = 1
+    const game = document.querySelector(".game-over-text__game")
+    const over = document.querySelector(".game-over-text__over")
+    // game.style.transform = "translateX(0)"
+    // over.style.transform = "translateX(0)"
   }
 
   function displayLevelText(level) {

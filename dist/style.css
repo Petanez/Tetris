@@ -12,17 +12,26 @@
   --gradient-game-info-header-bg: linear-gradient(20deg, var(--clr-ff-brightwhite) 7%, var(--clr-light-white) 20%, white 35%);
   --gradient-canvas-bg: linear-gradient(-180deg, transparent 1%, var(--clr-secondary) 10%, black 90%);
   --gradient-canvas-bg: linear-gradient(-180deg, transparent 1%, var(--clr-secondary) 90%, black 99%);
-  --gradient-canvas-bg: white;
+  --gradient-canvas-bg: linear-gradient(0deg, white, transparent);
 
   --gradient-page-bg: linear-gradient(180deg, black 3%, white 12%, white 46%, white 53%, black 62%, black 70%);
   --gradient-page-bg: linear-gradient(180deg, white 6%, white 15%, white 36%, white 44%, black 46%, black 50%, black 50%, black 56%, black 65%, black 94%, white 96%);
+  --gradient-page-bg: linear-gradient(182deg, white 6%, white 15%, white 36%, white 44%, black 46%, black 50%, black 50%, black 56%, black 65%, black 94%, rgba(0,0,0,.8) 98%, white 99.5%);
+  --gradient-page-bg-top: radial-gradient(ellipse at top left, rgba(255,255,255,.1) 4%, rgba(255,255,255,.4) 5%, rgba(255,255,255,.1) 7%, rgba(255,255,255,.7) 8.5%, rgba(255,255,255,.4) 10%, rgba(255,255,255,.15) 15%,transparent 30%);
+  --gradient-page-bg-top: radial-gradient(ellipse at top left, rgba(255,255,255,.1) 4%, rgba(255,255,255,.9) 6%, rgba(255,255,255,.1) 8.5%, rgba(255,255,255,.6) 9.5%, rgba(255,255,255,.3) 10%, rgba(255,255,255,.15) 15%,transparent 30%);
+  /* --gradient-page-bg-top: radial-gradient(ellipse at top left, rgba(255,255,255,.1) 4%, rgba(255,255,255,.9) 6%, rgba(255,255,255,.1) 8.5%, rgba(255,255,255,.6) 9.5%, rgba(255,255,255,.3) 10%, rgba(255,255,255,.15) 15%, black 15.5%, rgba(255,255,255,.2),transparent 30%); */
+  /* --gradient-page-bg-top: radial-gradient(ellipse at top left, rgba(255,255,255,.1) 4%, rgba(255,255,255,.4) 6%, rgba(255,255,255,.1) 6.5%, rgba(255,255,255,.2) 6.5%, rgba(255,255,255,.5) 8%, rgba(255,255,255,.05) 9%, black 15.5%, rgba(255,255,255,.1) 18%,transparent 30%); */
+  --gradient-page-bg-top: radial-gradient(ellipse at top left, rgba(255,255,255,.1) 1%, rgba(255,255,255,.4) 4%, rgba(255,255,255,.1) 4.5%, rgba(255,255,255,.2) 6.5%, rgba(255,255,255,.5) 8%, rgba(255,255,255,.05) 9%, black 15.5%, rgba(255,255,255,.1) 18%,transparent 30%);
+  /* --gradient-page-bg-top: radial-gradient(ellipse at top left, rgba(255,255,255,1) 1%, rgba(255,255,255,.4) 4%, rgba(255,255,255,.1) 4.5%, rgba(255,255,255,.2) 6.5%, rgba(255,255,255,.5) 8%, rgba(255,255,255,.05) 9%, black 15.5%, rgba(255,255,255,.1) 18%,transparent 30%); */
+  /* --gradient-page-bg-top: radial-gradient(ellipse at top left, rgba(255,255,255,1) 5%, rgba(255,255,255,.2) 6.5%, rgba(0, 0, 0,.3) 7%, rgba(255,255,255,.25) 12%, black 15.5%, rgba(255,255,255,.1) 18%,transparent 30%); */
+
 
   --gradient-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.5) 0%, var(--clr-primary) 10.5%, transparent 10.6%, var(--clr-primary) 12%, transparent 13%, rgba(255, 255, 255, 0.5) 15%, rgba(255, 255, 255, 0.9) 33%, transparent 40%, rgba(255, 255, 255, 0.3) 42%, transparent 45%, rgba(0, 0, 0, .9) 46%, transparent 67%);
   /* --gradient-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.5) 0%, var(--clr-primary) 10.5%, transparent 10.6%, var(--clr-primary) 12%, transparent 13%, rgba(233, 142, 37, 0.5) 15%, rgba(255, 255, 255, 0.9) 33%, transparent 30%, rgba(246, 253, 224, 0.9) 42%, transparent 45%, rgba(243, 233, 140, 0.9) 46%, transparent 67%); */
   --gradient-tetris-header-bg: linear-gradient(176deg, var(--clr-primary) 30%, var(--clr-secondary) 70%);
   --gradient-tetris-header-bg: linear-gradient(160deg, var(--clr-secondary) 20%, var(--clr-primary) 50%);
   --gradient-tetris-header-bg-shadow: linear-gradient(5deg, white 10%, var(--clr-primary) 30%);
-  --gradient-tetris-header-bg-shadow: linear-gradient(8deg, black 10%, white 60%);
+  --gradient-tetris-header-bg-shadow: linear-gradient(8deg, var(--clr-primary) 10%, var(--clr-secondary) 60%);
   /* --gradient-tetris-header-bg-shadow: white; */
   
   --clr-button-start: rgb(12, 29, 2);
@@ -56,13 +65,19 @@ body {
   --clr-secondary: black;
   --clr-arrows: rgba(255, 255, 255, .4);
 
-  --gradient-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.5) 0%, var(--clr-primary) 10.5%, transparent 10.6%, var(--clr-primary) 12%, transparent 13%, rgba(0, 0, 0, 0.5) 15%, rgba(0, 0, 0, 0.9) 33%, transparent 40%, rgba(0, 0, 0, 0.3) 42%, transparent 45%, rgba(255, 255, 255, .4) 46%, transparent 67%);
+  --gradient-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.5) 0%, var(--clr-primary) 10.5%, transparent 10.6%, var(--clr-primary) 12%, transparent 13%, rgba(0, 0, 0, 0.5) 15%, rgba(0, 0, 0, 0.9) 33%, transparent 40%, rgba(0, 0, 0, 0.3) 42%, transparent 45%, white 45.5%,rgba(255, 255, 255, .2) 46%, transparent 67%);
+  /* --gradient-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.5) 0%, var(--clr-primary) 10.5%, black 10.6%, var(--clr-primary) 12%, black 13%, rgba(0, 0, 0, 1) 15%, rgba(255, 255, 255, 0.4) 33%, transparent 40%, rgba(0, 0, 0, 0.3) 42%, transparent 45%, white 45.5%,rgba(255, 255, 255, .2) 46%, transparent 67%); */
   --gradient-tetris-header-bg: linear-gradient(160deg, var(--clr-secondary) 20%, var(--clr-primary) 50%);
   --gradient-tetris-header-bg-shadow: linear-gradient(0deg, black 70%, var(--clr-primary) 100%);
   --gradient-game-info-header-bg: linear-gradient(20deg, var(--clr-ff-brightwhite) 7%, var(--clr-light-white) 20%, black 35%);
   --gradient-canvas-bg: linear-gradient(-180deg, transparent 1%, var(--clr-secondary) 10%, white 90%);
   --gradient-canvas-bg: linear-gradient(-180deg, transparent 1%, var(--clr-secondary) 45%, white 82%);
   --gradient-canvas-bg: black;
+  --gradient-canvas-bg: linear-gradient(0deg, black, transparent);
+
+  --gradient-tetris-header-bg-shadow: linear-gradient(8deg, var(--clr-primary) 10%, var(--clr-secondary) 60%);
+  --gradient-tetris-header-bg-shadow: linear-gradient(15deg, black 50%, white 60%);
+  --gradient-tetris-header-bg-shadow: linear-gradient(165deg, black 40%, white 60%);
 
 
 
@@ -94,19 +109,38 @@ h2 {
   margin: 0;
   height: 100%;
   width: 100%;
+  /* background: var(--gradient-page-bg); */
   background: var(--gradient-page-bg);
   background-size: 100% 200%;
   background-position-y: var(--position-page-bg);
   transition: background-position-y var(--time-bg-transition) ease-out;
 }
 
+.page-container::after {
+  content: "";
+  width: 320%;
+  left: 0%;
+  top: -2%;
+  height: 100%;
+  z-index: 0;
+  position: absolute;
+  pointer-events: none;
+  background: radial-gradient(circle at 0% 20%, rgba(0,0,0,.8) 1%, transparent 10%), var(--gradient-page-bg-top);
+  background: radial-gradient(ellipse at 2% 25%, rgba(255,255,255,.2) 1%, transparent 8%), var(--gradient-page-bg-top);
+  /* background: radial-gradient(circle at top left, white 10%, transparent 30%); */
+}
+
 .background-img {
   position: absolute;
   width: auto;
   height: 70%;
+  height: 60%;
   bottom: 0;
-  right: -10%;
-  filter: blur(.2em);
+  /* right: -10%; */
+  /* left: -10%; */
+  left: -70px;
+  filter: blur(.1em);
+  transform: scaleX(-1);
   opacity: .3;
 }
 
@@ -498,13 +532,15 @@ div[class$="keys__left"] > div {
   content: "";
   position: absolute;
   z-index: -10000;
-  width: 350%;
-  height: 350%;
-  left: -145%;
-  top: -145%;
+  width: 550%;
+  height: 550%;
+  /* left: -145%;
+  top: -145%; */
+  left: -225%;
+  top: -225%;
   border-radius: 50%;
-  transform: scale(.67);
-  border: 8px dashed var(--clr-secondary);
+  transform: scale(.8);
+  /* border: 8px dashed var(--clr-secondary); */
   /* border-style: ; */
   opacity: .5;
   /* filter: blur(.4em); */
@@ -542,8 +578,8 @@ div[class$="keys__left"] > div {
   position: relative;
   background: radial-gradient(circle at center, var(--clr-primary), transparent 70%);
   opacity: .2;
-  width: 2rem;
-  height: 2rem;
+  width: 2.2rem;
+  height: 2.2rem;
   transition: opacity 200ms ease-in;
 }
 
@@ -635,9 +671,9 @@ div[class$="keys__left"] > div {
   position: absolute;
   z-index: 10;
   filter: blur(.17em);
-  bottom: -90%;
+  bottom: -170%;
   left: -133%;
-  height: 120%;
+  height: 140%;
   width: 202%;
   animation: anim-cloud1 35000ms linear forwards infinite alternate-reverse;
 }
@@ -669,7 +705,7 @@ div[class$="keys__left"] > div {
   z-index: -10000;
   bottom: -100%;
   opacity: .7;
-  left: -95%;
+  left: -25%;
   height: 60%;
   width: 139%;
   transform: translateX(0);
@@ -677,12 +713,12 @@ div[class$="keys__left"] > div {
 }
 
 .theme-switch__cloud2:last-of-type {
-  bottom: -166%;
-  width: 200%;
   z-index: 10000;
+  width: 200%;
   height: 50%;
-  opacity: .9;
+  opacity: .4;
   filter: blur(.3em);
+  bottom: -256%;
   left: -70%;
 }
 
@@ -786,7 +822,7 @@ div[class$="keys__left"] > div {
   background: var(--clr-primary);
   background: linear-gradient(90deg, var(--clr-primary) 70%, transparent 90%);
   background: linear-gradient(0deg, var(--clr-secondary) 5%, transparent 30%, transparent 60%, var(--clr-secondary) 95%), linear-gradient(90deg, var(--clr-primary) 70%, transparent 90%);
-  background: linear-gradient(-3.5deg, var(--clr-secondary) 5%, transparent 15%, transparent 20%, var(--clr-secondary) 25%), linear-gradient(90deg, var(--clr-primary) 70%, transparent 80%);
+  background: linear-gradient(-3.5deg, var(--clr-secondary) 10%, transparent 15%, var(--clr-secondary) 25%), linear-gradient(90deg, var(--clr-primary) 70%, transparent 80%);
   /* background: linear-gradient(84deg, var(--clr-primary) 29%, var(--clr-secondary) 31%); */
   color: var(--clr-secondary);
   margin: 0 0;
@@ -802,7 +838,7 @@ div[class$="keys__left"] > div {
 .scoreboard > h2:first-child {
   opacity: .5;
   /* opacity: 0; */
-  text-shadow: .1em 0em .1rem var(--clr-primary);
+  text-shadow: .1em 0em .2rem var(--clr-primary);
   font-size: 1.2em;
   /* margin-left: .2em; */
   display: block;
@@ -885,13 +921,15 @@ div[class$="keys__left"] > div {
 }
 
 .game-over-text {
-  position: absolute;
+  /* position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
+  display: block;
   z-index: 10000;
   opacity: 0;
-  width: 4ch;
+  /* width: 4ch; */
+  width: 100%;
   text-align: center;
   margin: 0;
   margin-inline: auto;
@@ -902,6 +940,18 @@ div[class$="keys__left"] > div {
   transition: opacity var(--time-game-over-transition) ease;
 }
 
+.game-over-text__game {
+  transform: translateX(-200%);
+  transition: transform 500ms ease-in;
+  width: 100%;
+}
+
+.game-over-text__over {
+  transform: translateX(200%);
+  transition: transform 500ms ease-in;
+  width: 100%;
+
+}
 
 
 /* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
@@ -916,7 +966,7 @@ div[class$="keys__left"] > div {
   z-index: 1000000;
   box-sizing: border-box;
   color: var(--clr-primary);
-  /* padding-left: 10%; */
+  padding-left: 5%;
   left: 7%;
   opacity: 0;
   width: 100%;

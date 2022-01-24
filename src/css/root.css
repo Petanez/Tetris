@@ -12,17 +12,26 @@
   --gradient-game-info-header-bg: linear-gradient(20deg, var(--clr-ff-brightwhite) 7%, var(--clr-light-white) 20%, white 35%);
   --gradient-canvas-bg: linear-gradient(-180deg, transparent 1%, var(--clr-secondary) 10%, black 90%);
   --gradient-canvas-bg: linear-gradient(-180deg, transparent 1%, var(--clr-secondary) 90%, black 99%);
-  --gradient-canvas-bg: white;
+  --gradient-canvas-bg: linear-gradient(0deg, white, transparent);
 
   --gradient-page-bg: linear-gradient(180deg, black 3%, white 12%, white 46%, white 53%, black 62%, black 70%);
   --gradient-page-bg: linear-gradient(180deg, white 6%, white 15%, white 36%, white 44%, black 46%, black 50%, black 50%, black 56%, black 65%, black 94%, white 96%);
+  --gradient-page-bg: linear-gradient(182deg, white 6%, white 15%, white 36%, white 44%, black 46%, black 50%, black 50%, black 56%, black 65%, black 94%, rgba(0,0,0,.8) 98%, white 99.5%);
+  --gradient-page-bg-top: radial-gradient(ellipse at top left, rgba(255,255,255,.1) 4%, rgba(255,255,255,.4) 5%, rgba(255,255,255,.1) 7%, rgba(255,255,255,.7) 8.5%, rgba(255,255,255,.4) 10%, rgba(255,255,255,.15) 15%,transparent 30%);
+  --gradient-page-bg-top: radial-gradient(ellipse at top left, rgba(255,255,255,.1) 4%, rgba(255,255,255,.9) 6%, rgba(255,255,255,.1) 8.5%, rgba(255,255,255,.6) 9.5%, rgba(255,255,255,.3) 10%, rgba(255,255,255,.15) 15%,transparent 30%);
+  /* --gradient-page-bg-top: radial-gradient(ellipse at top left, rgba(255,255,255,.1) 4%, rgba(255,255,255,.9) 6%, rgba(255,255,255,.1) 8.5%, rgba(255,255,255,.6) 9.5%, rgba(255,255,255,.3) 10%, rgba(255,255,255,.15) 15%, black 15.5%, rgba(255,255,255,.2),transparent 30%); */
+  /* --gradient-page-bg-top: radial-gradient(ellipse at top left, rgba(255,255,255,.1) 4%, rgba(255,255,255,.4) 6%, rgba(255,255,255,.1) 6.5%, rgba(255,255,255,.2) 6.5%, rgba(255,255,255,.5) 8%, rgba(255,255,255,.05) 9%, black 15.5%, rgba(255,255,255,.1) 18%,transparent 30%); */
+  --gradient-page-bg-top: radial-gradient(ellipse at top left, rgba(255,255,255,.1) 1%, rgba(255,255,255,.4) 4%, rgba(255,255,255,.1) 4.5%, rgba(255,255,255,.2) 6.5%, rgba(255,255,255,.5) 8%, rgba(255,255,255,.05) 9%, black 15.5%, rgba(255,255,255,.1) 18%,transparent 30%);
+  /* --gradient-page-bg-top: radial-gradient(ellipse at top left, rgba(255,255,255,1) 1%, rgba(255,255,255,.4) 4%, rgba(255,255,255,.1) 4.5%, rgba(255,255,255,.2) 6.5%, rgba(255,255,255,.5) 8%, rgba(255,255,255,.05) 9%, black 15.5%, rgba(255,255,255,.1) 18%,transparent 30%); */
+  /* --gradient-page-bg-top: radial-gradient(ellipse at top left, rgba(255,255,255,1) 5%, rgba(255,255,255,.2) 6.5%, rgba(0, 0, 0,.3) 7%, rgba(255,255,255,.25) 12%, black 15.5%, rgba(255,255,255,.1) 18%,transparent 30%); */
+
 
   --gradient-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.5) 0%, var(--clr-primary) 10.5%, transparent 10.6%, var(--clr-primary) 12%, transparent 13%, rgba(255, 255, 255, 0.5) 15%, rgba(255, 255, 255, 0.9) 33%, transparent 40%, rgba(255, 255, 255, 0.3) 42%, transparent 45%, rgba(0, 0, 0, .9) 46%, transparent 67%);
   /* --gradient-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.5) 0%, var(--clr-primary) 10.5%, transparent 10.6%, var(--clr-primary) 12%, transparent 13%, rgba(233, 142, 37, 0.5) 15%, rgba(255, 255, 255, 0.9) 33%, transparent 30%, rgba(246, 253, 224, 0.9) 42%, transparent 45%, rgba(243, 233, 140, 0.9) 46%, transparent 67%); */
   --gradient-tetris-header-bg: linear-gradient(176deg, var(--clr-primary) 30%, var(--clr-secondary) 70%);
   --gradient-tetris-header-bg: linear-gradient(160deg, var(--clr-secondary) 20%, var(--clr-primary) 50%);
   --gradient-tetris-header-bg-shadow: linear-gradient(5deg, white 10%, var(--clr-primary) 30%);
-  --gradient-tetris-header-bg-shadow: linear-gradient(8deg, black 10%, white 60%);
+  --gradient-tetris-header-bg-shadow: linear-gradient(8deg, var(--clr-primary) 10%, var(--clr-secondary) 60%);
   /* --gradient-tetris-header-bg-shadow: white; */
   
   --clr-button-start: rgb(12, 29, 2);
@@ -56,13 +65,19 @@ body {
   --clr-secondary: black;
   --clr-arrows: rgba(255, 255, 255, .4);
 
-  --gradient-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.5) 0%, var(--clr-primary) 10.5%, transparent 10.6%, var(--clr-primary) 12%, transparent 13%, rgba(0, 0, 0, 0.5) 15%, rgba(0, 0, 0, 0.9) 33%, transparent 40%, rgba(0, 0, 0, 0.3) 42%, transparent 45%, rgba(255, 255, 255, .4) 46%, transparent 67%);
+  --gradient-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.5) 0%, var(--clr-primary) 10.5%, transparent 10.6%, var(--clr-primary) 12%, transparent 13%, rgba(0, 0, 0, 0.5) 15%, rgba(0, 0, 0, 0.9) 33%, transparent 40%, rgba(0, 0, 0, 0.3) 42%, transparent 45%, white 45.5%,rgba(255, 255, 255, .2) 46%, transparent 67%);
+  /* --gradient-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.5) 0%, var(--clr-primary) 10.5%, black 10.6%, var(--clr-primary) 12%, black 13%, rgba(0, 0, 0, 1) 15%, rgba(255, 255, 255, 0.4) 33%, transparent 40%, rgba(0, 0, 0, 0.3) 42%, transparent 45%, white 45.5%,rgba(255, 255, 255, .2) 46%, transparent 67%); */
   --gradient-tetris-header-bg: linear-gradient(160deg, var(--clr-secondary) 20%, var(--clr-primary) 50%);
   --gradient-tetris-header-bg-shadow: linear-gradient(0deg, black 70%, var(--clr-primary) 100%);
   --gradient-game-info-header-bg: linear-gradient(20deg, var(--clr-ff-brightwhite) 7%, var(--clr-light-white) 20%, black 35%);
   --gradient-canvas-bg: linear-gradient(-180deg, transparent 1%, var(--clr-secondary) 10%, white 90%);
   --gradient-canvas-bg: linear-gradient(-180deg, transparent 1%, var(--clr-secondary) 45%, white 82%);
   --gradient-canvas-bg: black;
+  --gradient-canvas-bg: linear-gradient(0deg, black, transparent);
+
+  --gradient-tetris-header-bg-shadow: linear-gradient(8deg, var(--clr-primary) 10%, var(--clr-secondary) 60%);
+  --gradient-tetris-header-bg-shadow: linear-gradient(15deg, black 50%, white 60%);
+  --gradient-tetris-header-bg-shadow: linear-gradient(165deg, black 40%, white 60%);
 
 
 
