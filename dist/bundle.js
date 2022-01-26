@@ -29,7 +29,7 @@ __webpack_require__.r(__webpack_exports__);
   board: {
     height: 24,
     width: 10,
-    borderWidth: 3
+    borderWidth: 0
   },
   keys: {
     pause: "KeyP"
@@ -323,10 +323,12 @@ __webpack_require__.r(__webpack_exports__);
   function togglePause(isPaused) {
     console.log("toggling pause")
     if (isPaused) {
+      c.style.filter = "blur(0em)"
       const stackFirstPiece = document.querySelector(".state-info__piece-stack > *:first-child")
       gamePausedElement.innerText = ""
       stackFirstPiece.style.animation = "var(--animation-first-piece)"
     } else {
+      c.style.filter = "blur(.5em)"
       const stackFirstPiece = document.querySelector(".state-info__piece-stack > *:first-child")
       gamePausedElement.innerText = "PAUSED"
       stackFirstPiece.style.animation = "none"
@@ -335,6 +337,7 @@ __webpack_require__.r(__webpack_exports__);
   
   function resetUi(level) {
     displayLevelText(level)
+    c.style.filter = "blur(0em)"
     playButton.innerText = "Play"
     scoreElement.innerText = 0
     gameOverElement.setAttribute("style", "opacity: 0%")

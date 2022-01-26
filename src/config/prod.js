@@ -15,7 +15,7 @@ export default {
   board: {
     height: 24,
     width: 10,
-    borderWidth: 3
+    borderWidth: 0
   },
   keys: {
     pause: "KeyP"

@@ -256,10 +256,12 @@ export default function(document) {
   function togglePause(isPaused) {
     console.log("toggling pause")
     if (isPaused) {
+      c.style.filter = "blur(0em)"
       const stackFirstPiece = document.querySelector(".state-info__piece-stack > *:first-child")
       gamePausedElement.innerText = ""
       stackFirstPiece.style.animation = "var(--animation-first-piece)"
     } else {
+      c.style.filter = "blur(.5em)"
       const stackFirstPiece = document.querySelector(".state-info__piece-stack > *:first-child")
       gamePausedElement.innerText = "PAUSED"
       stackFirstPiece.style.animation = "none"
@@ -268,6 +270,7 @@ export default function(document) {
   
   function resetUi(level) {
     displayLevelText(level)
+    c.style.filter = "blur(0em)"
     playButton.innerText = "Play"
     scoreElement.innerText = 0
     gameOverElement.setAttribute("style", "opacity: 0%")

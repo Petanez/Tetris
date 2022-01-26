@@ -66,6 +66,7 @@ body {
   --clr-arrows: rgba(255, 255, 255, .4);
 
   --gradient-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.5) 0%, var(--clr-primary) 10.5%, transparent 10.6%, var(--clr-primary) 12%, transparent 13%, rgba(0, 0, 0, 0.5) 15%, rgba(0, 0, 0, 0.9) 33%, transparent 40%, rgba(0, 0, 0, 0.3) 42%, transparent 45%, white 45.5%,rgba(255, 255, 255, .2) 46%, transparent 67%);
+  --gradient-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.5) 0%, var(--clr-primary) 10.5%, transparent 10.6%, var(--clr-primary) 12%, transparent 13%, rgba(0, 0, 0, 0.5) 15%, rgba(0, 0, 0, 0.9) 33%, black 40%, rgba(0, 0, 0, .2) 42%, black 45%, white 45.5%,rgba(255, 255, 255, .2) 46%, transparent 67%);
   /* --gradient-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.5) 0%, var(--clr-primary) 10.5%, black 10.6%, var(--clr-primary) 12%, black 13%, rgba(0, 0, 0, 1) 15%, rgba(255, 255, 255, 0.4) 33%, transparent 40%, rgba(0, 0, 0, 0.3) 42%, transparent 45%, white 45.5%,rgba(255, 255, 255, .2) 46%, transparent 67%); */
   --gradient-tetris-header-bg: linear-gradient(160deg, var(--clr-secondary) 20%, var(--clr-primary) 50%);
   --gradient-tetris-header-bg-shadow: linear-gradient(0deg, black 70%, var(--clr-primary) 100%);
