@@ -21,7 +21,7 @@
   --gradient-page-bg-top: radial-gradient(ellipse at top left, rgba(255,255,255,.1) 4%, rgba(255,255,255,.9) 6%, rgba(255,255,255,.1) 8.5%, rgba(255,255,255,.6) 9.5%, rgba(255,255,255,.3) 10%, rgba(255,255,255,.15) 15%,transparent 30%);
   /* --gradient-page-bg-top: radial-gradient(ellipse at top left, rgba(255,255,255,.1) 4%, rgba(255,255,255,.9) 6%, rgba(255,255,255,.1) 8.5%, rgba(255,255,255,.6) 9.5%, rgba(255,255,255,.3) 10%, rgba(255,255,255,.15) 15%, black 15.5%, rgba(255,255,255,.2),transparent 30%); */
   /* --gradient-page-bg-top: radial-gradient(ellipse at top left, rgba(255,255,255,.1) 4%, rgba(255,255,255,.4) 6%, rgba(255,255,255,.1) 6.5%, rgba(255,255,255,.2) 6.5%, rgba(255,255,255,.5) 8%, rgba(255,255,255,.05) 9%, black 15.5%, rgba(255,255,255,.1) 18%,transparent 30%); */
-  --gradient-page-bg-top: radial-gradient(ellipse at top left, rgba(255,255,255,.1) 1%, rgba(255,255,255,.4) 4%, rgba(255,255,255,.1) 4.5%, rgba(255,255,255,.2) 6.5%, rgba(255,255,255,.5) 8%, rgba(255,255,255,.05) 9%, black 15.5%, rgba(255,255,255,.1) 18%,transparent 30%);
+  --gradient-page-bg-top: radial-gradient(ellipse at top left, rgba(255,255,255,.2) 3%, rgba(255,255,255,.1) 3.5%, rgba(255,255,255,.7) 4.5%, rgba(255,255,255,1) 6%, rgba(255,255,255,1) 7%, transparent 8.5%, rgba(255,255,255,.1) 11%,transparent 12%);
   /* --gradient-page-bg-top: radial-gradient(ellipse at top left, rgba(255,255,255,1) 1%, rgba(255,255,255,.4) 4%, rgba(255,255,255,.1) 4.5%, rgba(255,255,255,.2) 6.5%, rgba(255,255,255,.5) 8%, rgba(255,255,255,.05) 9%, black 15.5%, rgba(255,255,255,.1) 18%,transparent 30%); */
   /* --gradient-page-bg-top: radial-gradient(ellipse at top left, rgba(255,255,255,1) 5%, rgba(255,255,255,.2) 6.5%, rgba(0, 0, 0,.3) 7%, rgba(255,255,255,.25) 12%, black 15.5%, rgba(255,255,255,.1) 18%,transparent 30%); */
 
@@ -66,9 +66,10 @@ body {
   --clr-arrows: rgba(255, 255, 255, .4);
 
   --gradient-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.5) 0%, var(--clr-primary) 10.5%, transparent 10.6%, var(--clr-primary) 12%, transparent 13%, rgba(0, 0, 0, 0.5) 15%, rgba(0, 0, 0, 0.9) 33%, transparent 40%, rgba(0, 0, 0, 0.3) 42%, transparent 45%, white 45.5%,rgba(255, 255, 255, .2) 46%, transparent 67%);
-  --gradient-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.5) 0%, var(--clr-primary) 10.5%, transparent 10.6%, var(--clr-primary) 12%, transparent 13%, rgba(0, 0, 0, 0.5) 15%, rgba(0, 0, 0, 0.9) 33%, black 40%, rgba(0, 0, 0, .2) 42%, black 45%, white 45.5%,rgba(255, 255, 255, .2) 46%, transparent 67%);
+  --gradient-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.5) 0%, var(--clr-primary) 10.5%, transparent 10.6%, var(--clr-primary) 12%, var(--clr-primary) 12.8%, transparent 13%, rgba(0, 0, 0, 1) 14%, rgb(50, 50, 50) 29%, rgb(100, 100, 100) 38%, black 44%, rgba(0, 0, 0, .2) 45%, white 45.5%, rgba(255, 255, 255, .4) 48%, transparent 67%);
   /* --gradient-theme-switch-bg: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.5) 0%, var(--clr-primary) 10.5%, black 10.6%, var(--clr-primary) 12%, black 13%, rgba(0, 0, 0, 1) 15%, rgba(255, 255, 255, 0.4) 33%, transparent 40%, rgba(0, 0, 0, 0.3) 42%, transparent 45%, white 45.5%,rgba(255, 255, 255, .2) 46%, transparent 67%); */
   --gradient-tetris-header-bg: linear-gradient(160deg, var(--clr-secondary) 20%, var(--clr-primary) 50%);
+  --gradient-tetris-header-bg: radial-gradient(circle at -5% 10%, var(--clr-secondary) 30%, var(--clr-primary) 35%);
   --gradient-tetris-header-bg-shadow: linear-gradient(0deg, black 70%, var(--clr-primary) 100%);
   --gradient-game-info-header-bg: linear-gradient(20deg, var(--clr-ff-brightwhite) 7%, var(--clr-light-white) 20%, black 35%);
   --gradient-canvas-bg: linear-gradient(-180deg, transparent 1%, var(--clr-secondary) 10%, white 90%);
@@ -78,7 +79,7 @@ body {
 
   --gradient-tetris-header-bg-shadow: linear-gradient(8deg, var(--clr-primary) 10%, var(--clr-secondary) 60%);
   --gradient-tetris-header-bg-shadow: linear-gradient(15deg, black 50%, white 60%);
-  --gradient-tetris-header-bg-shadow: linear-gradient(165deg, black 40%, white 60%);
+  --gradient-tetris-header-bg-shadow: linear-gradient(195deg, black 20%, white 60%);
 
 
 
@@ -123,7 +124,7 @@ h2 {
   left: 0%;
   top: -2%;
   height: 100%;
-  z-index: 0;
+  z-index: 100;
   position: absolute;
   pointer-events: none;
   background: var(--gradient-page-bg-top);
@@ -133,14 +134,15 @@ h2 {
 
 .page-container::before {
   content: "";
-  width: 320%;
+  width: 350%;
   left: 0%;
   top: -2%;
   height: 100%;
-  z-index: 1000;
+  z-index: 0;
   position: absolute;
   pointer-events: none;
-  background: radial-gradient(circle at 0% 30%, rgba(0,0,0,1) 2%, transparent 6%), radial-gradient(ellipse at 0% 0%, transparent 10%,rgba(255,255,255,.5) 16%, transparent 20%);
+  background: radial-gradient(circle at 0% 20%, rgba(0,0,0,1) 2%, rgba(255,255,255,.2) 5%, transparent 15%), 
+    radial-gradient(ellipse at 0% 0%, transparent 10.5%, rgba(255,255,255,.1) 11%, transparent 12%, rgba(255,255,255,.2) 14%,rgba(255,255,255,.3) 16%, transparent 20%);
   /* background: radial-gradient(circle at 0% 30%, rgba(0,0,0,1) 2%, transparent 6%), radial-gradient(ellipse at 0% 0%, transparent 10%,white 15%, rgba(255,255,255,.2) 16%, transparent 20%); */
   /* background: radial-gradient(ellipse at 2% 25%, rgba(255,255,255,.2) 1%, transparent 8%), var(--gradient-page-bg-top); */
   /* background: radial-gradient(circle at top left, white 10%, transparent 30%); */
@@ -284,7 +286,7 @@ h2 {
   background-size: 360% 30%;
   background-repeat: no-repeat;
   background-position: 60% -10%;
-  border: 2px solid var(--clr-primary);
+  border-top: 1px solid var(--clr-primary);
   /* border-left: none; */
   border-right: none;
   border-bottom: none;
@@ -653,7 +655,8 @@ div[class$="keys__left"] > div {
   color: var(--clr-secondary);
 
   background: var(--gradient-tetris-header-bg);
-  text-shadow: var(--shadow-tetris-header);
+  /* text-shadow: var(--shadow-tetris-header); */
+  /* text-shadow: 0 0 0px white; */
 
   -webkit-background-clip: text;
   background-clip: text;
@@ -664,13 +667,14 @@ div[class$="keys__left"] > div {
 .tetris__header > h1::after {
   content: "TETRIS";
   position: absolute;
+  display: none;
   text-shadow: none;
   overflow: visible;
   font-size: 1.84em;
   width: 200%;
   color: var(--clr-secondary);
   background: var(--gradient-tetris-header-bg-shadow);
-  opacity: .4;
+  opacity: .1;
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
@@ -687,7 +691,7 @@ div[class$="keys__left"] > div {
   position: absolute;
   z-index: 10;
   filter: blur(.17em);
-  bottom: -170%;
+  bottom: -240%;
   left: -133%;
   height: 140%;
   width: 202%;
@@ -1095,7 +1099,7 @@ div[class$="keys__left"] > div {
   width: 90%;
   bottom: 27%;
   font-size: 1.5rem;
-  border: 2px solid var(--clr-primary);
+  /* border: 2px solid var(--clr-primary); */
   border-bottom: none;
   border-right: none;
   border-left-color: var(--clr-secondary);
@@ -1110,11 +1114,23 @@ div[class$="keys__left"] > div {
   border-bottom: 2px solid var(--clr-secondary);
 } */
 
+.highscore-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -10%;
+  width: 100%;
+  height: 100%;
+  z-index: -100;
+  background: var(--clr-secondary);
+  filter: blur(2em);
+}
+
 .highscore-wrapper::before {
   content: "Highscores";
   position: absolute;
   color: var(--clr-primary);
-  background: var(--clr-secondary);
+  /* background: var(--clr-secondary); */
 
   top: -2.7ch;
   width: 8.8ch;

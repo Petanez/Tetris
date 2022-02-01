@@ -21,7 +21,7 @@
   left: 0%;
   top: -2%;
   height: 100%;
-  z-index: 0;
+  z-index: 100;
   position: absolute;
   pointer-events: none;
   background: var(--gradient-page-bg-top);
@@ -31,14 +31,15 @@
 
 .page-container::before {
   content: "";
-  width: 320%;
+  width: 350%;
   left: 0%;
   top: -2%;
   height: 100%;
-  z-index: 1000;
+  z-index: 0;
   position: absolute;
   pointer-events: none;
-  background: radial-gradient(circle at 0% 30%, rgba(0,0,0,1) 2%, transparent 6%), radial-gradient(ellipse at 0% 0%, transparent 10%,rgba(255,255,255,.5) 16%, transparent 20%);
+  background: radial-gradient(circle at 0% 20%, rgba(0,0,0,1) 2%, rgba(255,255,255,.2) 5%, transparent 15%), 
+    radial-gradient(ellipse at 0% 0%, transparent 10.5%, rgba(255,255,255,.1) 11%, transparent 12%, rgba(255,255,255,.2) 14%,rgba(255,255,255,.3) 16%, transparent 20%);
   /* background: radial-gradient(circle at 0% 30%, rgba(0,0,0,1) 2%, transparent 6%), radial-gradient(ellipse at 0% 0%, transparent 10%,white 15%, rgba(255,255,255,.2) 16%, transparent 20%); */
   /* background: radial-gradient(ellipse at 2% 25%, rgba(255,255,255,.2) 1%, transparent 8%), var(--gradient-page-bg-top); */
   /* background: radial-gradient(circle at top left, white 10%, transparent 30%); */
@@ -182,7 +183,7 @@
   background-size: 360% 30%;
   background-repeat: no-repeat;
   background-position: 60% -10%;
-  border: 2px solid var(--clr-primary);
+  border-top: 1px solid var(--clr-primary);
   /* border-left: none; */
   border-right: none;
   border-bottom: none;
@@ -551,7 +552,8 @@ div[class$="keys__left"] > div {
   color: var(--clr-secondary);
 
   background: var(--gradient-tetris-header-bg);
-  text-shadow: var(--shadow-tetris-header);
+  /* text-shadow: var(--shadow-tetris-header); */
+  /* text-shadow: 0 0 0px white; */
 
   -webkit-background-clip: text;
   background-clip: text;
@@ -562,13 +564,14 @@ div[class$="keys__left"] > div {
 .tetris__header > h1::after {
   content: "TETRIS";
   position: absolute;
+  display: none;
   text-shadow: none;
   overflow: visible;
   font-size: 1.84em;
   width: 200%;
   color: var(--clr-secondary);
   background: var(--gradient-tetris-header-bg-shadow);
-  opacity: .4;
+  opacity: .1;
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
@@ -585,7 +588,7 @@ div[class$="keys__left"] > div {
   position: absolute;
   z-index: 10;
   filter: blur(.17em);
-  bottom: -170%;
+  bottom: -240%;
   left: -133%;
   height: 140%;
   width: 202%;
@@ -993,7 +996,7 @@ div[class$="keys__left"] > div {
   width: 90%;
   bottom: 27%;
   font-size: 1.5rem;
-  border: 2px solid var(--clr-primary);
+  /* border: 2px solid var(--clr-primary); */
   border-bottom: none;
   border-right: none;
   border-left-color: var(--clr-secondary);
@@ -1008,11 +1011,23 @@ div[class$="keys__left"] > div {
   border-bottom: 2px solid var(--clr-secondary);
 } */
 
+.highscore-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -10%;
+  width: 100%;
+  height: 100%;
+  z-index: -100;
+  background: var(--clr-secondary);
+  filter: blur(2em);
+}
+
 .highscore-wrapper::before {
   content: "Highscores";
   position: absolute;
   color: var(--clr-primary);
-  background: var(--clr-secondary);
+  /* background: var(--clr-secondary); */
 
   top: -2.7ch;
   width: 8.8ch;
