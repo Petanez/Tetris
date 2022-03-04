@@ -46,6 +46,22 @@ export default (function() {
       : new Pieces.iPiece()
     )
   }
+
+  function getTarget(board, piece) {
+    // get topography of board
+    let graph = board.reduce((acc, c, i) => {
+      c.forEach((n, j) => { 
+        if (n.isOccupied && i < acc[j]) {
+          acc[j] = i
+        }
+      })
+      return acc
+    }, Array.from({ length: board[0].length }, () => {
+      return board.length
+    }))
+    // Use the graph to get a target to drop the piece in
+    console.log(graph)
+  }
   
   function tryLowerPiece(board, p) {
     // return -1 if piece gets locked
@@ -275,6 +291,7 @@ export default (function() {
     movePiece,
     rotatePiece,
     addScore,
+    getTarget,
     PieceStack
   }
 })()

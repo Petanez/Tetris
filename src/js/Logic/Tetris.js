@@ -5,7 +5,7 @@ import config from "../../config/prod.js"
 import MobileControls from "../MobileControls/MobileControls.js"
 import Highscores from "../Highscores/Highscore.js"
 
-export default function Tetris(document) {
+export default function Tetris(document, ai) {
   const Graphics = GraphicsModule(document)
   Graphics.resetUi(0)
 
@@ -105,8 +105,25 @@ export default function Tetris(document) {
     return window.setTimeout(tick, fps)
   }
 
-  function playGame() {
+  let target;
+  function aiTick() {
+    console.log("in timeout")
+    if (piece && !target) {
+      target = Logic.getTarget(board, piece)
+
+    }
+    if (!isPaused) aiSchedule()
+  }
+
+  function aiSchedule() {
+    return window.setTimeout(aiTick, 400)
+  }
+
+  function playGame(ai) {
     console.log("Game started")
+    if (ai) {
+      aiSchedule();
+    }
     return timeOutID = schedule()
   }
   
@@ -159,7 +176,7 @@ export default function Tetris(document) {
   playButton.onclick = () => {
     playButton.blur();
     initGame()
-    playGame()
+    playGame(ai)
     playButton.innerText = "Restart"
   } 
 

@@ -38,8 +38,8 @@
   z-index: 0;
   position: absolute;
   pointer-events: none;
-  background: radial-gradient(circle at 0% 20%, rgba(0,0,0,1) 2%, rgba(255,255,255,.2) 5%, transparent 15%), 
-    radial-gradient(ellipse at 0% 0%, transparent 10.5%, rgba(255,255,255,.1) 11%, transparent 12%, rgba(255,255,255,.2) 14%,rgba(255,255,255,.3) 16%, transparent 20%);
+  background: radial-gradient(circle at 0% 20%, rgba(0,0,0,1) 2%, rgba(255,255,255,.13) 5%, transparent 15%), 
+    radial-gradient(ellipse at 0% 0%, transparent 10.5%, rgba(255,255,255,.1) 11%, transparent 12%, rgba(255,255,255,.05) 14%,rgba(255,255,255,.1) 16%, transparent 20%);
   /* background: radial-gradient(circle at 0% 30%, rgba(0,0,0,1) 2%, transparent 6%), radial-gradient(ellipse at 0% 0%, transparent 10%,white 15%, rgba(255,255,255,.2) 16%, transparent 20%); */
   /* background: radial-gradient(ellipse at 2% 25%, rgba(255,255,255,.2) 1%, transparent 8%), var(--gradient-page-bg-top); */
   /* background: radial-gradient(circle at top left, white 10%, transparent 30%); */
@@ -126,7 +126,7 @@
   align-items: center;
 }
 
-.tetris-container::after {
+/* .tetris-container::after {
   content: "";
   position: absolute;
   width: 150%;
@@ -135,7 +135,7 @@
   bottom: -3px;
   background: var(--clr-secondary);
 
-}
+} */
 
 #myCanvas {
   height: 100%;
@@ -508,7 +508,7 @@ div[class$="keys__left"] > div {
   color: var(--clr-secondary);
   opacity: .5;
   text-shadow: 0 0 .2em var(--clr-primary);
-  text-shadow: .2em .14em .12em var(--clr-primary);
+  text-shadow: .1em .1em .12em var(--clr-primary);
 
   bottom: 1rem;
   left: 56%;
@@ -689,15 +689,20 @@ div[class$="keys__left"] > div {
   letter-spacing: -.1rem;
   font-size: 1.85em;
   width: 100%;
-  margin-left: -6%;
+  height: 100%;
+  vertical-align: end;
+  /* line-height: 140%; */
+  /* margin-left: -6%; */
+  /* padding: .3em 0 .1em; */
+  padding: .15em 0;
   padding-left: 2rem;
-  border: 2px solid var(--clr-secondary);
+  border-bottom: 2px solid var(--clr-secondary);
   filter: hue-rotate(0deg);
   animation: score-hue-rotate 8000ms ease-in-out infinite;
-  
+  /* background: transparent; */
+  background: var(--clr-secondary);
   /* border-top-color: var(--clr-primary); */
   /* border-left: none; */
-  border-right: none;
   color: var(--clr-secondary);
   text-shadow: .05em .05em .1rem var(--clr-tercery);
   color: var(--clr-tercery);
@@ -730,16 +735,18 @@ div[class$="keys__left"] > div {
   display: flex;
   align-items: center;
   position: relative;
-  z-index: -100;
+  z-index: -1000;
   font-size: 1rem;
   font-size: 1.2rem;
-  height: 50px;
+  /* height: 50px; */
+  padding-bottom: .3em;
   width: 78%;
-  padding: .1em 0 .3em 1em;
   background: var(--clr-primary);
   background: linear-gradient(90deg, var(--clr-primary) 70%, transparent 90%);
   background: linear-gradient(0deg, var(--clr-secondary) 5%, transparent 30%, transparent 60%, var(--clr-secondary) 95%), linear-gradient(90deg, var(--clr-primary) 70%, transparent 90%);
   background: linear-gradient(-3.9deg, var(--clr-secondary) 10%, transparent 15%, var(--clr-secondary) 25%), linear-gradient(90deg, var(--clr-primary) 70%, transparent 80%);
+  background: linear-gradient(-50.9deg, var(--clr-secondary) 20%, transparent 25%, transparent 75%, var(--clr-secondary) 80%), linear-gradient(90deg, var(--clr-primary) 70%, transparent 80%);
+  background: linear-gradient(-195.9deg, var(--clr-secondary) 40%, transparent 40%, transparent 66%, var(--clr-secondary) 96%), linear-gradient(90deg, var(--clr-primary) 70%, transparent 80%);
   /* background: linear-gradient(84deg, var(--clr-primary) 29%, var(--clr-secondary) 31%); */
   color: var(--clr-secondary);
   margin: 0 0;
@@ -753,15 +760,20 @@ div[class$="keys__left"] > div {
 }
 
 .scoreboard > h2:first-child {
-  opacity: .5;
+  /* opacity: .5; */
   /* opacity: 0; */
-  text-shadow: .1em 0em .2rem var(--clr-primary);
+  text-shadow: .05em .02em .07rem var(--clr-primary);
   font-size: 1.2em;
   /* margin-left: .2em; */
+  z-index: 100;
   display: block;
   position: absolute;
-  left: 72%;
-  bottom: -5%;
+  left: 66%;
+  /* height: 100%;
+  bottom: 2%; */
+  /* height: 100%; */
+  left: -2%;
+  bottom: -8%;
 }
 
 .state-info {

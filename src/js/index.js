@@ -1,3 +1,3 @@
 import Tetris from "./Logic/Tetris.js"
 
-Tetris(document) 
+Tetris(document, true) 

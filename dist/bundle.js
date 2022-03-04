@@ -611,6 +611,22 @@ __webpack_require__.r(__webpack_exports__);
       : new _Pieces_js__WEBPACK_IMPORTED_MODULE_1__.iPiece()
     )
   }
+
+  function getTarget(board, piece) {
+    // get topography of board
+    let graph = board.reduce((acc, c, i) => {
+      c.forEach((n, j) => { 
+        if (n.isOccupied && i < acc[j]) {
+          acc[j] = i
+        }
+      })
+      return acc
+    }, Array.from({ length: board[0].length }, () => {
+      return board.length
+    }))
+    // Use the graph to get a target to drop the piece in
+    console.log(graph)
+  }
   
   function tryLowerPiece(board, p) {
     // return -1 if piece gets locked
@@ -840,6 +856,7 @@ __webpack_require__.r(__webpack_exports__);
     movePiece,
     rotatePiece,
     addScore,
+    getTarget,
     PieceStack
   }
 })());
@@ -986,7 +1003,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function Tetris(document) {
+function Tetris(document, ai) {
   const Graphics = (0,_Graphics_Graphics_js__WEBPACK_IMPORTED_MODULE_1__.default)(document)
   Graphics.resetUi(0)
 
@@ -1086,8 +1103,25 @@ function Tetris(document) {
     return window.setTimeout(tick, fps)
   }
 
-  function playGame() {
+  let target;
+  function aiTick() {
+    console.log("in timeout")
+    if (piece && !target) {
+      target = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.getTarget(board, piece)
+
+    }
+    if (!isPaused) aiSchedule()
+  }
+
+  function aiSchedule() {
+    return window.setTimeout(aiTick, 400)
+  }
+
+  function playGame(ai) {
     console.log("Game started")
+    if (ai) {
+      aiSchedule();
+    }
     return timeOutID = schedule()
   }
   
@@ -1140,7 +1174,7 @@ function Tetris(document) {
   playButton.onclick = () => {
     playButton.blur();
     initGame()
-    playGame()
+    playGame(ai)
     playButton.innerText = "Restart"
   } 
 
@@ -1305,7 +1339,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Logic_Tetris_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Logic/Tetris.js */ "./src/js/Logic/Tetris.js");
 
 
-(0,_Logic_Tetris_js__WEBPACK_IMPORTED_MODULE_0__.default)(document) 
+(0,_Logic_Tetris_js__WEBPACK_IMPORTED_MODULE_0__.default)(document, true) 
 })();
 
 // This entry need to be wrapped in an IIFE because it need to be isolated against other entry modules.
