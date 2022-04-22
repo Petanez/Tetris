@@ -115,16 +115,34 @@ export default function Tetris(document, ai) {
     if (!isPaused) aiSchedule()
   }
 
+    /*
+  Get piece topography
+
+  (S-PIECE TOPOGRAPHY)
+  0: {x: 4, y: 0}
+  1: {x: 4, y: 1}
+  2: {x: 5, y: 1}
+  3: {x: 5, y: 2}
+
+  (BOARD TOPOGRAPHY)
+  (10) [24, 24, 24, 21, 21, 24, 24, 24, 24, 24]
+  
+  Find topography distance differences from graph
+
+  Find the closest to optimal topography difference
+
+  Next 
+    -> Find necessary amount of rotations
+    -> Find required moves in x direction
+  */
+
   function aiSchedule() {
     return window.setTimeout(aiTick, 400)
   }
 
   function playGame(ai) {
     console.log("Game started")
-    if (ai) {
-      aiSchedule();
-    }
-    return timeOutID = schedule()
+    return timeOutID = ai ? aiSchedule() : schedule();
   }
   
   async function handleGameOver(error = "") {

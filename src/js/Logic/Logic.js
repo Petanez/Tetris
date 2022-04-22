@@ -49,7 +49,7 @@ export default (function() {
 
   function getTarget(board, piece) {
     // get topography of board
-    let graph = board.reduce((acc, c, i) => {
+    let boardTop = board.reduce((acc, c, i) => {
       c.forEach((n, j) => { 
         if (n.isOccupied && i < acc[j]) {
           acc[j] = i
@@ -59,8 +59,30 @@ export default (function() {
     }, Array.from({ length: board[0].length }, () => {
       return board.length
     }))
+
+    // get piece topography
+    let pieceTop = piece.reduce((acc, c, i) => {
+      let objI = acc.indexOf(obj => obj.x == c.x)
+      if (objI == -1)
+        acc.push({x: c.x, y: c.y})
+      else if (acc[objI].y < c.y)
+        acc[objI].y = c.y
+      return acc 
+    }, [])
+    console.log(pieceTop)
+    
+
     // Use the graph to get a target to drop the piece in
-    console.log(graph)
+    // for each x value find the lowest ys
+    console.log(boardTop)
+
+    // store required steps to get to target
+    let targetSteps = {
+      rotations: 0, // later
+      movesX: 0,
+      direction: "left"
+    };
+
   }
   
   function tryLowerPiece(board, p) {
