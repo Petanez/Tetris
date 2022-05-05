@@ -47,9 +47,8 @@ export default (function() {
     )
   }
 
-  function getTarget(board, piece) {
-    // get topography of board
-    let boardTop = board.reduce((acc, c, i) => {
+  function getBoardTopography(board) {
+    return board.reduce((acc, c, i) => {
       c.forEach((n, j) => { 
         if (n.isOccupied && i < acc[j]) {
           acc[j] = i
@@ -59,30 +58,51 @@ export default (function() {
     }, Array.from({ length: board[0].length }, () => {
       return board.length
     }))
+  }
 
+  function getPieceTopography(piece) {
+    //////////////////////////////////////////////////
     // get piece topography
+    // as of this state works with none rotations
     let pieceTop = piece.reduce((acc, c, i) => {
-      let objI = acc.indexOf(obj => obj.x == c.x)
+      let objI = acc.findIndex(obj => obj.x == c.x)
       if (objI == -1)
         acc.push({x: c.x, y: c.y})
       else if (acc[objI].y < c.y)
         acc[objI].y = c.y
       return acc 
     }, [])
-    console.log(pieceTop)
+    console.log("pieceTop", pieceTop)
     
+  }
 
-    // Use the graph to get a target to drop the piece in
-    // for each x value find the lowest ys
-    console.log(boardTop)
-
+  function getTarget(board, piece) {
     // store required steps to get to target
     let targetSteps = {
       rotations: 0, // later
       movesX: 0,
       direction: "left"
     };
+    // get topography of board
+    let boardTop = getBoardTopography(board); 
 
+    //////////////////////////////////////////////////
+    // compare the piece with the board topography
+    // if board "floor" is flat, find rotations to get the piece as low as possible
+    // with no room below the piece
+    
+    // Find highest and lowest differences between square distances
+    let differences = piece.reduce((acc, c, _) => {
+      if (!acc.x.includes(c.x))
+        acc.x.push(c.x)
+      if (!acc.y.includes(c.y))
+        acc.y.push(c.y)
+      return acc
+    }, {x: [], y: []})
+    let xDiff = differences.x
+    let yDiff = differences.y
+    let rotations = 0
+    // if ()
   }
   
   function tryLowerPiece(board, p) {

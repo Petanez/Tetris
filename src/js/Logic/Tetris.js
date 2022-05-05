@@ -119,13 +119,12 @@ export default function Tetris(document, ai) {
   Get piece topography
 
   (S-PIECE TOPOGRAPHY)
-  0: {x: 4, y: 0}
-  1: {x: 4, y: 1}
-  2: {x: 5, y: 1}
-  3: {x: 5, y: 2}
+  0: {x: 0, y: 0}
+  1: {x: 1, y: 1}
+  2: {x: 2, y: 0}
 
   (BOARD TOPOGRAPHY)
-  (10) [24, 24, 24, 21, 21, 24, 24, 24, 24, 24]
+  (10) [24, 24, 23, 22, 23, 24, 24, 24, 24, 24]
   
   Find topography distance differences from graph
 
