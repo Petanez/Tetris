@@ -1,3 +1,3 @@
 import Tetris from "./Logic/Tetris.js"
-
-Tetris(document, true) 
+const ai = false;
+Tetris(document, ai) 
