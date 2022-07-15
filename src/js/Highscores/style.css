@@ -7,6 +7,7 @@
   height: 100%;
   font-size: inherit;
   counter-reset: highscore;
+  padding-top: .3ch;
 }
 
 .highscores__score {
@@ -39,6 +40,28 @@
   content: counter(highscore)".";
   counter-increment: highscore;
 }
+
+/* .highscores__score:first-child::before {
+  position: absolute;
+  font-size: 1.5em;
+  bottom: .1ch;
+  opacity: 1;
+  content: counter(highscore)".";
+  counter-increment: highscore;
+  animation: first-place-animation 2000ms ease-in-out infinite;
+}
+
+@keyframes first-place-animation {
+  0% {
+    transform: rotate(0deg);
+  } 30% {
+    transform: rotate(5deg);
+  } 60% {
+    transform: rotate(-5deg);
+  } 100% {
+    transform: rotate(0);
+  }
+} */
 
 .js-name-form {
   position: absolute;

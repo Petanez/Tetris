@@ -46,6 +46,64 @@ export default (function() {
       : new Pieces.iPiece()
     )
   }
+
+  function getBoardTopography(board) {
+    return board.reduce((acc, c, i) => {
+      c.forEach((n, j) => { 
+        if (n.isOccupied && i < acc[j]) {
+          acc[j] = i
+        }
+      })
+      return acc
+    }, Array.from({ length: board[0].length }, () => {
+      return board.length
+    }))
+  }
+
+  function getPieceTopography(piece) {
+    //////////////////////////////////////////////////
+    // get piece topography
+    // as of this state works with none rotations
+    let pieceTop = piece.reduce((acc, c, i) => {
+      let objI = acc.findIndex(obj => obj.x == c.x)
+      if (objI == -1)
+        acc.push({x: c.x, y: c.y})
+      else if (acc[objI].y < c.y)
+        acc[objI].y = c.y
+      return acc 
+    }, [])
+    console.log("pieceTop", pieceTop)
+    
+  }
+
+  function getTarget(board, piece) {
+    // store required steps to get to target
+    let targetSteps = {
+      rotations: 0, // later
+      movesX: 0,
+      direction: "left"
+    };
+    // get topography of board
+    let boardTop = getBoardTopography(board); 
+
+    //////////////////////////////////////////////////
+    // compare the piece with the board topography
+    // if board "floor" is flat, find rotations to get the piece as low as possible
+    // with no room below the piece
+    
+    // Find highest and lowest differences between square distances
+    let differences = piece.reduce((acc, c, _) => {
+      if (!acc.x.includes(c.x))
+        acc.x.push(c.x)
+      if (!acc.y.includes(c.y))
+        acc.y.push(c.y)
+      return acc
+    }, {x: [], y: []})
+    let xDiff = differences.x
+    let yDiff = differences.y
+    let rotations = 0
+    // if ()
+  }
   
   function tryLowerPiece(board, p) {
     // return -1 if piece gets locked
@@ -54,14 +112,14 @@ export default (function() {
         p[i].y++
     } else {
       lockPiece(board, p)
-      return -1
+      return []
     }
     // if the new x, y has an occupied square return to previous x, y
     if (p.some(square => board[square.y][square.x].isOccupied)) {
       for (let i = 0; i < p.length; i++) 
         p[i].y--
       lockPiece(board, p)
-      return -1
+      return []
     }
     return p
   }
@@ -182,18 +240,15 @@ export default (function() {
     let rowsToReplace = [];
     for (let y = board.length - 1; y >= 0; y--) {
       let isFullRow = true
-      for (let x = 0; x < board[y].length; x++) {
+      for (let x = 0; x < board[y].length; x++)
         if (!board[y][x].isOccupied) 
           isFullRow = false
-      }
-      if (isFullRow) {
+      if (isFullRow) 
         rowsToReplace.push(y)
-      }
     }
     if (rowsToReplace.length)
       replaceRows(board, rowsToReplace)      
-    let scoreMultiplier = rowsToReplace.length
-    return scoreMultiplier
+    return rowsToReplace
 
   }
   function addFullRow(board) {
@@ -234,9 +289,9 @@ export default (function() {
     })
   }
 
-  function createTestBoard() {
+  function createTestBoard(n) {
     return Array.from({ length: config.board.height }, (v, _) => {
-      if (_ < 20) {
+      if (_ < n) {
         return v = Array.from({ length: config.board.width }, (_, x) => {
           return new Square(x, 0)
         })
@@ -258,7 +313,7 @@ export default (function() {
   }
   
   function calculateFps(level) {
-    return (1500 / (1.8 * level))
+    return (1600 / (1.8 * level))
   }
 
   return {
@@ -278,6 +333,7 @@ export default (function() {
     movePiece,
     rotatePiece,
     addScore,
+    getTarget,
     PieceStack
   }
 })()

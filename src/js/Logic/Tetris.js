@@ -5,7 +5,7 @@ import config from "../../config/prod.js"
 import MobileControls from "../MobileControls/MobileControls.js"
 import Highscores from "../Highscores/Highscore.js"
 
-export default function Tetris(document) {
+export default function Tetris(document, ai) {
   const Graphics = GraphicsModule(document)
   Graphics.resetUi(0)
 
@@ -17,6 +17,7 @@ export default function Tetris(document) {
   Highscores.renderScores(highscoreWrapper)
 
   let firstStart = true
+  let debug = false
   let board
   let piece
   let score
@@ -37,13 +38,13 @@ export default function Tetris(document) {
     }
 
     if (firstStart) {
-      document.querySelector(".scoreboard").style.transform = "translateY(0)";
+      document.querySelector(".scoreboard").style.opacity = "1";
       firstStart = false
     }
 
     pieceStack = new Logic.PieceStack()
-    board = Logic.createBoard()
-    piece = pieceStack.getPiece().PIECE
+    board = debug ? Logic.createTestBoard(10) : Logic.createBoard()
+    piece = debug ? Logic.newTestPiece().PIECE : pieceStack.getPiece().PIECE
     score = config.initial.score
     level = config.initial.level
     fps = Logic.calculateFps(level)
@@ -70,20 +71,23 @@ export default function Tetris(document) {
 
   function frame(direction, dropPiece = false) {
     if (dropPiece) {
-      while (piece !== -1) {
+      while (piece.length) {
         piece = Logic.movePiece(board, piece, direction)
       }
     }
     else
       piece = Logic.movePiece(board, piece, direction)
-    if (piece === -1) {
+    if (!piece.length) {
       piece = pieceStack.getPiece().PIECE
       Graphics.animateFirstPiece()
       Graphics.displayPieceStack(pieceStack.getStack())
       if (Logic.spaceIsOccupied(board, piece)) 
         handleGameOver()
     }
-    let scoreMultiplier = Logic.checkFullRows(board)
+    let rowsToReplace = Logic.checkFullRows(board)
+    if (rowsToReplace.length)
+      Graphics.rowRemovalAnimations(rowsToReplace)
+    let scoreMultiplier = rowsToReplace.length
     trackRowCount += scoreMultiplier
     score = Logic.addScore(scoreMultiplier, level, score);
     Graphics.updateScore(score);
@@ -101,9 +105,43 @@ export default function Tetris(document) {
     return window.setTimeout(tick, fps)
   }
 
-  function playGame() {
+  let target;
+  function aiTick() {
+    console.log("in timeout")
+    if (piece && !target) {
+      target = Logic.getTarget(board, piece)
+
+    }
+    if (!isPaused) aiSchedule()
+  }
+
+    /*
+  Get piece topography
+
+  (S-PIECE TOPOGRAPHY)
+  0: {x: 0, y: 0}
+  1: {x: 1, y: 1}
+  2: {x: 2, y: 0}
+
+  (BOARD TOPOGRAPHY)
+  (10) [24, 24, 23, 22, 23, 24, 24, 24, 24, 24]
+  
+  Find topography distance differences from graph
+
+  Find the closest to optimal topography difference
+
+  Next 
+    -> Find necessary amount of rotations
+    -> Find required moves in x direction
+  */
+
+  function aiSchedule() {
+    return window.setTimeout(aiTick, 400)
+  }
+
+  function playGame(ai) {
     console.log("Game started")
-    return timeOutID = schedule()
+    return timeOutID = ai ? aiSchedule() : schedule();
   }
   
   async function handleGameOver(error = "") {
@@ -155,7 +193,7 @@ export default function Tetris(document) {
   playButton.onclick = () => {
     playButton.blur();
     initGame()
-    playGame()
+    playGame(ai)
     playButton.innerText = "Restart"
   } 
 
@@ -167,7 +205,7 @@ export default function Tetris(document) {
 
   const themeSwitchBtn = document.querySelector("#themeSwitch")
   themeSwitchBtn.onclick = () => Graphics.polarizeHandler(document.body, board, piece, pieceStack?.getStack())
-    
+
   const tetrisContainer = document.querySelector(".tetris-container")
   const canvas = document.querySelector("#myCanvas")
   window.onload = () => {

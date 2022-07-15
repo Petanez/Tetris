@@ -6,6 +6,7 @@ export default function(document) {
   root.style.setProperty("--thickness-canvas-border", config.board.borderWidth + "px")
   root.style.setProperty("--time-first-piece-animation", config.pieceStack.firstPiece.animationTime + "ms")
 
+  const rowRemovalAnimationTime = 700;
   const c = document?.querySelector("#myCanvas")
   const squareSize = config.square.size
   const gridHeight = squareSize * config.board.height
@@ -57,9 +58,10 @@ export default function(document) {
       pieceEl.classList = `${stack[i].constructor.name} piece-stack__piece`
       for (let square of stack[i].PIECE) {
         let sq = document.createElement("div")
-        let width = 20 - (i * 2)       
+        let width = 20 - (i * 4)       
         sq.className = "piece-stack__square"
-        sq.style.cssText = `left: ${(square.x - 4)*width - i * 10}%; top: ${square.y * width + i * 2}%; width: ${width}%; height: ${width}%; opacity: ${100 - 20 * i}%;`   
+        sq.style.cssText = `left: ${(square.x - 4)*width - i * 20}%; top: ${square.y * width + (i * 10)}%; width: ${width}%; height: ${width}%; filter: blur(.${i}1em);`   
+        sq.style.opacity = i > 0 ? `.${40 - 7 * i}` : '.80';
         pieceEl.appendChild(sq)
       }
     }
@@ -86,87 +88,151 @@ export default function(document) {
   function clearBoard() {
     ctx.clearRect(0, 0, c.width, c.height)
   }
+
+  function rowRemovalAnimations(rowsToRemove) {
+    for (let i = 0; i < rowsToRemove.length; i++) {
+      console.log("drawing removal animations")
+      let stateInfo = document.querySelector(".state-info")
+      let pieceHeight = stateInfo.clientHeight / boardHeight
+      let width = stateInfo.clientWidth
+      let rowEl = document.createElement("div")
+      // rowEl.style.cssText = `opacity: 0; position: absolute; z-index: -1000; top: ${pieceHeight * rowsToRemove[i]}; width: ${width}; height: ${pieceHeight}; background: ${isPolarized ? primaryColor : secondaryColor}; 
+      // animation: piece-removal-animation ${rowRemovalAnimationTime}ms  ease-in forwards;`
+
+      // rowEl.style.cssText = `opacity: 0; position: absolute; z-index: -1000; top: ${pieceHeight * rowsToRemove[i]}; width: ${width}; height: ${pieceHeight}; background: ${isPolarized ? primaryColor : secondaryColor}; 
+      // animation: piece-removal-animation ease-in forwards;`
+      console.log(rowsToRemove[i])
+      let multiplier = 5
+      let rgb = isPolarized ? (255 - (rowsToRemove[i] * multiplier)) : rowsToRemove[i] * multiplier
+      // let rgb = (rowsToRemove[i] * 5)
+      rowEl.style.cssText = `opacity: 0; position: absolute; z-index: 1000; top: ${pieceHeight * rowsToRemove[i]}; width: ${width}; height: ${pieceHeight}; background: rgb(${rgb}, ${rgb}, ${rgb});
+      animation: piece-removal-animation ease-in-out forwards;`
+      rowEl.style.animationDuration = `${rowRemovalAnimationTime}ms`
+      rowEl.style.border = `1px solid black`
+      // rowEl.style.animationDelay = '1000ms'
+
+      stateInfo.appendChild(rowEl)
+      console.log(rowEl)
+      setTimeout(() => {
+        rowEl.remove()
+      }, rowRemovalAnimationTime)
+    }
+  }
   
-  function drawSquare(x, y) {
+  function drawSquare(x, y, dropPiece = false, blankSquare = false) {
+    let drawOpacity = dropPiece ? .1 : 1;
     ctx.beginPath()
-    let opacity = `${(y / config.board.height)}`
+    let opacity = `${((y / 2) / config.board.height)}`
+    // let opacity = `${((y / 4) / config.board.height)}`
+    // let opacity = 0
     let rgbVal
     let modifiedVal
     if (isPolarized) {
-      rgbVal = 255 - (opacity * 255) + y * 3
-      modifiedVal = y > 0 ? rgbVal - y * 5: rgbVal
+      rgbVal = 255 - (opacity * 255)
+      modifiedVal = rgbVal
     } else {
-      rgbVal = (opacity * 255)
-      modifiedVal = y > 0 ? rgbVal - y * 5 : rgbVal
+      rgbVal = (opacity * 250)
+      modifiedVal = rgbVal
     }
 
-    let min = .3, max = .8;
-    let colorStop = opacity < min ? min : opacity > max ? max : opacity 
-    let sq = ctx.createLinearGradient(squareSize * x, squareSize * y, squareSize * x + squareSize, squareSize * y + squareSize)
-    let color1 = `rgb(${rgbVal}, ${rgbVal}, ${rgbVal})`;
-    let color2 = `rgb(${modifiedVal}, ${modifiedVal}, ${modifiedVal})`;
-    sq.addColorStop(.2, color1)
-    sq.addColorStop(colorStop, color2)
-    ctx.fillStyle = sq
-    ctx.fillRect(squareSize * x, squareSize * y, squareSize, squareSize)
+    // Ugly
+    if (!dropPiece) {
+      let min = .3, max = 1;
+      let sq = ctx.createLinearGradient(squareSize * x, squareSize * y, squareSize * x + squareSize, squareSize * y + squareSize)
+      let color1 = `rgba(${rgbVal}, ${rgbVal}, ${rgbVal}, ${drawOpacity})`;
+      let color2 = `rgba(${modifiedVal}, ${modifiedVal}, ${modifiedVal}, ${drawOpacity})`;
+      sq.addColorStop(min, color1)
+      sq.addColorStop(max, color2)
+      ctx.fillStyle = color1
+      // ctx.fillStyle = "black"
+    } else if(!blankSquare) {
+      // Duplicate , fix at some point you piece of poop
+      const lightColor = "rgb(45, 45, 45)"
+      const darkColor = "rgb(210,210,210)"
+      // const colorUsed = isPolarized ? darkColor : lightColor 
+      const colorUsed = isPolarized ? lightColor : darkColor 
     
+      ctx.fillStyle = colorUsed
+    }
+    if (!blankSquare)
+      ctx.fillRect(squareSize * x, squareSize * y, squareSize, squareSize)
+    // Ugly
+        
     //  draw square lines
-    let sLineWidth = .1
-    ctx.lineWidth = sLineWidth
-    ctx.strokeStyle = squareBorderColor
-    ctx.strokeRect(sLineWidth + (squareSize * x), sLineWidth + (squareSize * y), squareSize - (sLineWidth * 2), squareSize - (sLineWidth * 2))
+    if (!dropPiece) {
+      let sLineWidth = .1
+      ctx.lineWidth = sLineWidth
+      let rgb = isPolarized ? (0 + y*8) : (255 - y * 8)
+      // let rgb = 0 + y * 8
+      ctx.strokeStyle = `rgba(${rgb},${rgb},${rgb},${y*(y/config.board.height)})`
+      ctx.strokeRect(sLineWidth + (squareSize * x), sLineWidth + (squareSize * y), squareSize - (sLineWidth * 2), squareSize - (sLineWidth * 2))
+    }
+    // if (blankSquare)
   }
   
-  function drawPiece(p) {
-    let points = [];
+  function drawPiece(p, minDiff) {
+    // draw "drop" piece
+    for (let i = p.length - 1; i >= 0; i--) {
+      drawSquare(p[i].x, p[i].y + minDiff - 1, true)
+    }
+    // draw piece
     for (let i = p.length - 1; i >= 0; i--) {
       if (p[i].isOccupied){
         drawSquare(p[i].x, p[i].y)
-        const val = points.find(obj => obj.x == p[i].x) 
-        console.log(val)
-        if (!val)
-          points.push({x: p[i].x, y: p[i].y})
-        if (val && val.y < p[i].y)
-          val.y = p[i].y
       } 
     }
-    points.forEach(p => {
-      ctx.beginPath()
-      console.log("filling")
-      ctx.fillStyle = "rgba(50, 50, 50, .2)";
-      ctx.fillRect(p.x * squareSize, p.y * squareSize + squareSize, squareSize, (boardHeight - p.y) * squareSize)
-    })
   }
 
   function drawBoard(board) {
-    const colorUsed = isPolarized ? "rgb(20,20,20)" : "rgb(235, 235, 235)"
-    // Draw board stripes
-    for (let i = 0; i < boardWidth; i++) {
-      ctx.strokeStyle = colorUsed
-      ctx.beginPath()
-      ctx.lineWidth = .5;
-      ctx.moveTo(i * squareSize, 0)
-      ctx.lineTo(i * squareSize, squareSize * boardHeight)
-      ctx.stroke();
-    } 
     if (board != null)
       for (let y = board.length - 1; y >= 0; y--) {
         for (let x = 0; x < board[y].length; x++) {
           if (board[y][x].isOccupied) 
             drawSquare(x, y)
+          else 
+            drawSquare(x, y, false, true)
         }
-
       }
   }
   
   function drawEverything(board, piece) {
     ctx.clearRect(0, 0, c.width, c.height)
     drawBoard(board)
-    drawPiece(piece)
+
+    // Ugly
+    let highestYs = board.reduce((yIndexes, r, rI) => {
+      for (let c = 1; c <= r.length; c++) {
+        if (board[rI][c - 1].isOccupied && yIndexes[c] > rI)
+          yIndexes[c] = rI
+      }
+      return yIndexes
+    }, Array.from({ length: 11 }, () => 24))
+    highestYs.shift()
+    let dropPieceDrawHeight = piece.reduce((a, c) => {
+      if (!a[c.x])
+        a[c.x] = c.y
+      else if (a[c.x] < c.y)
+        a[c.x] = c.y
+      return a
+    }, {})
+    let minDiff = Object.keys(dropPieceDrawHeight)
+      .reduce((a, c) => {
+        let diff = highestYs[c] - dropPieceDrawHeight[c]
+        if (diff < a)
+          a = diff
+        return a
+      }, 24)
+    // Ugly
+
+    drawPiece(piece, minDiff)
   }
   
   function displayGameOver() {
     gameOverElement.style.opacity = 1
+    const game = document.querySelector(".game-over-text__game")
+    const over = document.querySelector(".game-over-text__over")
+    // game.style.transform = "translateX(0)"
+    // over.style.transform = "translateX(0)"
   }
 
   function displayLevelText(level) {
@@ -191,10 +257,12 @@ export default function(document) {
   function togglePause(isPaused) {
     console.log("toggling pause")
     if (isPaused) {
+      c.style.filter = "blur(0em)"
       const stackFirstPiece = document.querySelector(".state-info__piece-stack > *:first-child")
       gamePausedElement.innerText = ""
       stackFirstPiece.style.animation = "var(--animation-first-piece)"
     } else {
+      c.style.filter = "blur(.5em)"
       const stackFirstPiece = document.querySelector(".state-info__piece-stack > *:first-child")
       gamePausedElement.innerText = "PAUSED"
       stackFirstPiece.style.animation = "none"
@@ -203,6 +271,7 @@ export default function(document) {
   
   function resetUi(level) {
     displayLevelText(level)
+    c.style.filter = "blur(0em)"
     playButton.innerText = "Play"
     scoreElement.innerText = 0
     gameOverElement.setAttribute("style", "opacity: 0%")
@@ -224,7 +293,8 @@ export default function(document) {
     polarizeHandler,
     displayPieceStack,
     removePieceStack,
-    animateFirstPiece
+    animateFirstPiece,
+    rowRemovalAnimations
   }
 }
 

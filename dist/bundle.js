@@ -29,7 +29,7 @@ __webpack_require__.r(__webpack_exports__);
   board: {
     height: 24,
     width: 10,
-    borderWidth: 3
+    borderWidth: 0
   },
   keys: {
     pause: "KeyP"
@@ -73,6 +73,7 @@ __webpack_require__.r(__webpack_exports__);
   root.style.setProperty("--thickness-canvas-border", _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.board.borderWidth + "px")
   root.style.setProperty("--time-first-piece-animation", _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.pieceStack.firstPiece.animationTime + "ms")
 
+  const rowRemovalAnimationTime = 700;
   const c = document?.querySelector("#myCanvas")
   const squareSize = _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.square.size
   const gridHeight = squareSize * _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.board.height
@@ -124,9 +125,10 @@ __webpack_require__.r(__webpack_exports__);
       pieceEl.classList = `${stack[i].constructor.name} piece-stack__piece`
       for (let square of stack[i].PIECE) {
         let sq = document.createElement("div")
-        let width = 20 - (i * 2)       
+        let width = 20 - (i * 4)       
         sq.className = "piece-stack__square"
-        sq.style.cssText = `left: ${(square.x - 4)*width - i * 10}%; top: ${square.y * width + i * 2}%; width: ${width}%; height: ${width}%; opacity: ${100 - 20 * i}%;`   
+        sq.style.cssText = `left: ${(square.x - 4)*width - i * 20}%; top: ${square.y * width + (i * 10)}%; width: ${width}%; height: ${width}%; filter: blur(.${i}1em);`   
+        sq.style.opacity = i > 0 ? `.${40 - 7 * i}` : '.80';
         pieceEl.appendChild(sq)
       }
     }
@@ -153,87 +155,151 @@ __webpack_require__.r(__webpack_exports__);
   function clearBoard() {
     ctx.clearRect(0, 0, c.width, c.height)
   }
+
+  function rowRemovalAnimations(rowsToRemove) {
+    for (let i = 0; i < rowsToRemove.length; i++) {
+      console.log("drawing removal animations")
+      let stateInfo = document.querySelector(".state-info")
+      let pieceHeight = stateInfo.clientHeight / boardHeight
+      let width = stateInfo.clientWidth
+      let rowEl = document.createElement("div")
+      // rowEl.style.cssText = `opacity: 0; position: absolute; z-index: -1000; top: ${pieceHeight * rowsToRemove[i]}; width: ${width}; height: ${pieceHeight}; background: ${isPolarized ? primaryColor : secondaryColor}; 
+      // animation: piece-removal-animation ${rowRemovalAnimationTime}ms  ease-in forwards;`
+
+      // rowEl.style.cssText = `opacity: 0; position: absolute; z-index: -1000; top: ${pieceHeight * rowsToRemove[i]}; width: ${width}; height: ${pieceHeight}; background: ${isPolarized ? primaryColor : secondaryColor}; 
+      // animation: piece-removal-animation ease-in forwards;`
+      console.log(rowsToRemove[i])
+      let multiplier = 5
+      let rgb = isPolarized ? (255 - (rowsToRemove[i] * multiplier)) : rowsToRemove[i] * multiplier
+      // let rgb = (rowsToRemove[i] * 5)
+      rowEl.style.cssText = `opacity: 0; position: absolute; z-index: 1000; top: ${pieceHeight * rowsToRemove[i]}; width: ${width}; height: ${pieceHeight}; background: rgb(${rgb}, ${rgb}, ${rgb});
+      animation: piece-removal-animation ease-in-out forwards;`
+      rowEl.style.animationDuration = `${rowRemovalAnimationTime}ms`
+      rowEl.style.border = `1px solid black`
+      // rowEl.style.animationDelay = '1000ms'
+
+      stateInfo.appendChild(rowEl)
+      console.log(rowEl)
+      setTimeout(() => {
+        rowEl.remove()
+      }, rowRemovalAnimationTime)
+    }
+  }
   
-  function drawSquare(x, y) {
+  function drawSquare(x, y, dropPiece = false, blankSquare = false) {
+    let drawOpacity = dropPiece ? .1 : 1;
     ctx.beginPath()
-    let opacity = `${(y / _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.board.height)}`
+    let opacity = `${((y / 2) / _config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.board.height)}`
+    // let opacity = `${((y / 4) / config.board.height)}`
+    // let opacity = 0
     let rgbVal
     let modifiedVal
     if (isPolarized) {
-      rgbVal = 255 - (opacity * 255) + y * 3
-      modifiedVal = y > 0 ? rgbVal - y * 5: rgbVal
+      rgbVal = 255 - (opacity * 255)
+      modifiedVal = rgbVal
     } else {
-      rgbVal = (opacity * 255)
-      modifiedVal = y > 0 ? rgbVal - y * 5 : rgbVal
+      rgbVal = (opacity * 250)
+      modifiedVal = rgbVal
     }
 
-    let min = .3, max = .8;
-    let colorStop = opacity < min ? min : opacity > max ? max : opacity 
-    let sq = ctx.createLinearGradient(squareSize * x, squareSize * y, squareSize * x + squareSize, squareSize * y + squareSize)
-    let color1 = `rgb(${rgbVal}, ${rgbVal}, ${rgbVal})`;
-    let color2 = `rgb(${modifiedVal}, ${modifiedVal}, ${modifiedVal})`;
-    sq.addColorStop(.2, color1)
-    sq.addColorStop(colorStop, color2)
-    ctx.fillStyle = sq
-    ctx.fillRect(squareSize * x, squareSize * y, squareSize, squareSize)
+    // Ugly
+    if (!dropPiece) {
+      let min = .3, max = 1;
+      let sq = ctx.createLinearGradient(squareSize * x, squareSize * y, squareSize * x + squareSize, squareSize * y + squareSize)
+      let color1 = `rgba(${rgbVal}, ${rgbVal}, ${rgbVal}, ${drawOpacity})`;
+      let color2 = `rgba(${modifiedVal}, ${modifiedVal}, ${modifiedVal}, ${drawOpacity})`;
+      sq.addColorStop(min, color1)
+      sq.addColorStop(max, color2)
+      ctx.fillStyle = color1
+      // ctx.fillStyle = "black"
+    } else if(!blankSquare) {
+      // Duplicate , fix at some point you piece of poop
+      const lightColor = "rgb(45, 45, 45)"
+      const darkColor = "rgb(210,210,210)"
+      // const colorUsed = isPolarized ? darkColor : lightColor 
+      const colorUsed = isPolarized ? lightColor : darkColor 
     
+      ctx.fillStyle = colorUsed
+    }
+    if (!blankSquare)
+      ctx.fillRect(squareSize * x, squareSize * y, squareSize, squareSize)
+    // Ugly
+        
     //  draw square lines
-    let sLineWidth = .1
-    ctx.lineWidth = sLineWidth
-    ctx.strokeStyle = squareBorderColor
-    ctx.strokeRect(sLineWidth + (squareSize * x), sLineWidth + (squareSize * y), squareSize - (sLineWidth * 2), squareSize - (sLineWidth * 2))
+    if (!dropPiece) {
+      let sLineWidth = .1
+      ctx.lineWidth = sLineWidth
+      let rgb = isPolarized ? (0 + y*8) : (255 - y * 8)
+      // let rgb = 0 + y * 8
+      ctx.strokeStyle = `rgba(${rgb},${rgb},${rgb},${y*(y/_config_prod_js__WEBPACK_IMPORTED_MODULE_0__.default.board.height)})`
+      ctx.strokeRect(sLineWidth + (squareSize * x), sLineWidth + (squareSize * y), squareSize - (sLineWidth * 2), squareSize - (sLineWidth * 2))
+    }
+    // if (blankSquare)
   }
   
-  function drawPiece(p) {
-    let points = [];
+  function drawPiece(p, minDiff) {
+    // draw "drop" piece
+    for (let i = p.length - 1; i >= 0; i--) {
+      drawSquare(p[i].x, p[i].y + minDiff - 1, true)
+    }
+    // draw piece
     for (let i = p.length - 1; i >= 0; i--) {
       if (p[i].isOccupied){
         drawSquare(p[i].x, p[i].y)
-        const val = points.find(obj => obj.x == p[i].x) 
-        console.log(val)
-        if (!val)
-          points.push({x: p[i].x, y: p[i].y})
-        if (val && val.y < p[i].y)
-          val.y = p[i].y
       } 
     }
-    points.forEach(p => {
-      ctx.beginPath()
-      console.log("filling")
-      ctx.fillStyle = "rgba(50, 50, 50, .2)";
-      ctx.fillRect(p.x * squareSize, p.y * squareSize + squareSize, squareSize, (boardHeight - p.y) * squareSize)
-    })
   }
 
   function drawBoard(board) {
-    const colorUsed = isPolarized ? "rgb(20,20,20)" : "rgb(235, 235, 235)"
-    // Draw board stripes
-    for (let i = 0; i < boardWidth; i++) {
-      ctx.strokeStyle = colorUsed
-      ctx.beginPath()
-      ctx.lineWidth = .5;
-      ctx.moveTo(i * squareSize, 0)
-      ctx.lineTo(i * squareSize, squareSize * boardHeight)
-      ctx.stroke();
-    } 
     if (board != null)
       for (let y = board.length - 1; y >= 0; y--) {
         for (let x = 0; x < board[y].length; x++) {
           if (board[y][x].isOccupied) 
             drawSquare(x, y)
+          else 
+            drawSquare(x, y, false, true)
         }
-
       }
   }
   
   function drawEverything(board, piece) {
     ctx.clearRect(0, 0, c.width, c.height)
     drawBoard(board)
-    drawPiece(piece)
+
+    // Ugly
+    let highestYs = board.reduce((yIndexes, r, rI) => {
+      for (let c = 1; c <= r.length; c++) {
+        if (board[rI][c - 1].isOccupied && yIndexes[c] > rI)
+          yIndexes[c] = rI
+      }
+      return yIndexes
+    }, Array.from({ length: 11 }, () => 24))
+    highestYs.shift()
+    let dropPieceDrawHeight = piece.reduce((a, c) => {
+      if (!a[c.x])
+        a[c.x] = c.y
+      else if (a[c.x] < c.y)
+        a[c.x] = c.y
+      return a
+    }, {})
+    let minDiff = Object.keys(dropPieceDrawHeight)
+      .reduce((a, c) => {
+        let diff = highestYs[c] - dropPieceDrawHeight[c]
+        if (diff < a)
+          a = diff
+        return a
+      }, 24)
+    // Ugly
+
+    drawPiece(piece, minDiff)
   }
   
   function displayGameOver() {
     gameOverElement.style.opacity = 1
+    const game = document.querySelector(".game-over-text__game")
+    const over = document.querySelector(".game-over-text__over")
+    // game.style.transform = "translateX(0)"
+    // over.style.transform = "translateX(0)"
   }
 
   function displayLevelText(level) {
@@ -258,10 +324,12 @@ __webpack_require__.r(__webpack_exports__);
   function togglePause(isPaused) {
     console.log("toggling pause")
     if (isPaused) {
+      c.style.filter = "blur(0em)"
       const stackFirstPiece = document.querySelector(".state-info__piece-stack > *:first-child")
       gamePausedElement.innerText = ""
       stackFirstPiece.style.animation = "var(--animation-first-piece)"
     } else {
+      c.style.filter = "blur(.5em)"
       const stackFirstPiece = document.querySelector(".state-info__piece-stack > *:first-child")
       gamePausedElement.innerText = "PAUSED"
       stackFirstPiece.style.animation = "none"
@@ -270,6 +338,7 @@ __webpack_require__.r(__webpack_exports__);
   
   function resetUi(level) {
     displayLevelText(level)
+    c.style.filter = "blur(0em)"
     playButton.innerText = "Play"
     scoreElement.innerText = 0
     gameOverElement.setAttribute("style", "opacity: 0%")
@@ -291,7 +360,8 @@ __webpack_require__.r(__webpack_exports__);
     polarizeHandler,
     displayPieceStack,
     removePieceStack,
-    animateFirstPiece
+    animateFirstPiece,
+    rowRemovalAnimations
   }
 }
 
@@ -542,6 +612,64 @@ __webpack_require__.r(__webpack_exports__);
       : new _Pieces_js__WEBPACK_IMPORTED_MODULE_1__.iPiece()
     )
   }
+
+  function getBoardTopography(board) {
+    return board.reduce((acc, c, i) => {
+      c.forEach((n, j) => { 
+        if (n.isOccupied && i < acc[j]) {
+          acc[j] = i
+        }
+      })
+      return acc
+    }, Array.from({ length: board[0].length }, () => {
+      return board.length
+    }))
+  }
+
+  function getPieceTopography(piece) {
+    //////////////////////////////////////////////////
+    // get piece topography
+    // as of this state works with none rotations
+    let pieceTop = piece.reduce((acc, c, i) => {
+      let objI = acc.findIndex(obj => obj.x == c.x)
+      if (objI == -1)
+        acc.push({x: c.x, y: c.y})
+      else if (acc[objI].y < c.y)
+        acc[objI].y = c.y
+      return acc 
+    }, [])
+    console.log("pieceTop", pieceTop)
+    
+  }
+
+  function getTarget(board, piece) {
+    // store required steps to get to target
+    let targetSteps = {
+      rotations: 0, // later
+      movesX: 0,
+      direction: "left"
+    };
+    // get topography of board
+    let boardTop = getBoardTopography(board); 
+
+    //////////////////////////////////////////////////
+    // compare the piece with the board topography
+    // if board "floor" is flat, find rotations to get the piece as low as possible
+    // with no room below the piece
+    
+    // Find highest and lowest differences between square distances
+    let differences = piece.reduce((acc, c, _) => {
+      if (!acc.x.includes(c.x))
+        acc.x.push(c.x)
+      if (!acc.y.includes(c.y))
+        acc.y.push(c.y)
+      return acc
+    }, {x: [], y: []})
+    let xDiff = differences.x
+    let yDiff = differences.y
+    let rotations = 0
+    // if ()
+  }
   
   function tryLowerPiece(board, p) {
     // return -1 if piece gets locked
@@ -550,14 +678,14 @@ __webpack_require__.r(__webpack_exports__);
         p[i].y++
     } else {
       lockPiece(board, p)
-      return -1
+      return []
     }
     // if the new x, y has an occupied square return to previous x, y
     if (p.some(square => board[square.y][square.x].isOccupied)) {
       for (let i = 0; i < p.length; i++) 
         p[i].y--
       lockPiece(board, p)
-      return -1
+      return []
     }
     return p
   }
@@ -678,18 +806,15 @@ __webpack_require__.r(__webpack_exports__);
     let rowsToReplace = [];
     for (let y = board.length - 1; y >= 0; y--) {
       let isFullRow = true
-      for (let x = 0; x < board[y].length; x++) {
+      for (let x = 0; x < board[y].length; x++)
         if (!board[y][x].isOccupied) 
           isFullRow = false
-      }
-      if (isFullRow) {
+      if (isFullRow) 
         rowsToReplace.push(y)
-      }
     }
     if (rowsToReplace.length)
       replaceRows(board, rowsToReplace)      
-    let scoreMultiplier = rowsToReplace.length
-    return scoreMultiplier
+    return rowsToReplace
 
   }
   function addFullRow(board) {
@@ -730,9 +855,9 @@ __webpack_require__.r(__webpack_exports__);
     })
   }
 
-  function createTestBoard() {
+  function createTestBoard(n) {
     return Array.from({ length: _config_prod_js__WEBPACK_IMPORTED_MODULE_2__.default.board.height }, (v, _) => {
-      if (_ < 20) {
+      if (_ < n) {
         return v = Array.from({ length: _config_prod_js__WEBPACK_IMPORTED_MODULE_2__.default.board.width }, (_, x) => {
           return new _Square_js__WEBPACK_IMPORTED_MODULE_0__.default(x, 0)
         })
@@ -754,7 +879,7 @@ __webpack_require__.r(__webpack_exports__);
   }
   
   function calculateFps(level) {
-    return (1500 / (1.8 * level))
+    return (1600 / (1.8 * level))
   }
 
   return {
@@ -774,6 +899,7 @@ __webpack_require__.r(__webpack_exports__);
     movePiece,
     rotatePiece,
     addScore,
+    getTarget,
     PieceStack
   }
 })());
@@ -920,7 +1046,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function Tetris(document) {
+function Tetris(document, ai) {
   const Graphics = (0,_Graphics_Graphics_js__WEBPACK_IMPORTED_MODULE_1__.default)(document)
   Graphics.resetUi(0)
 
@@ -932,6 +1058,7 @@ function Tetris(document) {
   _Highscores_Highscore_js__WEBPACK_IMPORTED_MODULE_4__.default.renderScores(highscoreWrapper)
 
   let firstStart = true
+  let debug = false
   let board
   let piece
   let score
@@ -952,13 +1079,13 @@ function Tetris(document) {
     }
 
     if (firstStart) {
-      document.querySelector(".scoreboard").style.transform = "translateY(0)";
+      document.querySelector(".scoreboard").style.opacity = "1";
       firstStart = false
     }
 
     pieceStack = new _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.PieceStack()
-    board = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.createBoard()
-    piece = pieceStack.getPiece().PIECE
+    board = debug ? _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.createTestBoard(10) : _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.createBoard()
+    piece = debug ? _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.newTestPiece().PIECE : pieceStack.getPiece().PIECE
     score = _config_prod_js__WEBPACK_IMPORTED_MODULE_2__.default.initial.score
     level = _config_prod_js__WEBPACK_IMPORTED_MODULE_2__.default.initial.level
     fps = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.calculateFps(level)
@@ -985,20 +1112,23 @@ function Tetris(document) {
 
   function frame(direction, dropPiece = false) {
     if (dropPiece) {
-      while (piece !== -1) {
+      while (piece.length) {
         piece = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.movePiece(board, piece, direction)
       }
     }
     else
       piece = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.movePiece(board, piece, direction)
-    if (piece === -1) {
+    if (!piece.length) {
       piece = pieceStack.getPiece().PIECE
       Graphics.animateFirstPiece()
       Graphics.displayPieceStack(pieceStack.getStack())
       if (_Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.spaceIsOccupied(board, piece)) 
         handleGameOver()
     }
-    let scoreMultiplier = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.checkFullRows(board)
+    let rowsToReplace = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.checkFullRows(board)
+    if (rowsToReplace.length)
+      Graphics.rowRemovalAnimations(rowsToReplace)
+    let scoreMultiplier = rowsToReplace.length
     trackRowCount += scoreMultiplier
     score = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.addScore(scoreMultiplier, level, score);
     Graphics.updateScore(score);
@@ -1016,9 +1146,43 @@ function Tetris(document) {
     return window.setTimeout(tick, fps)
   }
 
-  function playGame() {
+  let target;
+  function aiTick() {
+    console.log("in timeout")
+    if (piece && !target) {
+      target = _Logic_js__WEBPACK_IMPORTED_MODULE_0__.default.getTarget(board, piece)
+
+    }
+    if (!isPaused) aiSchedule()
+  }
+
+    /*
+  Get piece topography
+
+  (S-PIECE TOPOGRAPHY)
+  0: {x: 0, y: 0}
+  1: {x: 1, y: 1}
+  2: {x: 2, y: 0}
+
+  (BOARD TOPOGRAPHY)
+  (10) [24, 24, 23, 22, 23, 24, 24, 24, 24, 24]
+  
+  Find topography distance differences from graph
+
+  Find the closest to optimal topography difference
+
+  Next 
+    -> Find necessary amount of rotations
+    -> Find required moves in x direction
+  */
+
+  function aiSchedule() {
+    return window.setTimeout(aiTick, 400)
+  }
+
+  function playGame(ai) {
     console.log("Game started")
-    return timeOutID = schedule()
+    return timeOutID = ai ? aiSchedule() : schedule();
   }
   
   async function handleGameOver(error = "") {
@@ -1070,7 +1234,7 @@ function Tetris(document) {
   playButton.onclick = () => {
     playButton.blur();
     initGame()
-    playGame()
+    playGame(ai)
     playButton.innerText = "Restart"
   } 
 
@@ -1082,7 +1246,7 @@ function Tetris(document) {
 
   const themeSwitchBtn = document.querySelector("#themeSwitch")
   themeSwitchBtn.onclick = () => Graphics.polarizeHandler(document.body, board, piece, pieceStack?.getStack())
-    
+
   const tetrisContainer = document.querySelector(".tetris-container")
   const canvas = document.querySelector("#myCanvas")
   window.onload = () => {
@@ -1234,8 +1398,8 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Logic_Tetris_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Logic/Tetris.js */ "./src/js/Logic/Tetris.js");
 
-
-(0,_Logic_Tetris_js__WEBPACK_IMPORTED_MODULE_0__.default)(document) 
+const ai = false;
+(0,_Logic_Tetris_js__WEBPACK_IMPORTED_MODULE_0__.default)(document, ai) 
 })();
 
 // This entry need to be wrapped in an IIFE because it need to be isolated against other entry modules.
