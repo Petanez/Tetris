@@ -23,7 +23,7 @@
   "scripts": {
     "test": "jest --coverage",
     "dev": "webpack --progress --config webpack.config.dev.js",
-    "build": "webpack --config webpack.config.js",
+    "build": "webpack  --config webpack.config.dev.js",
     "server": "node testServer.js"
   },
   "repository": {
