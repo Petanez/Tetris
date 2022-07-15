@@ -90,8 +90,8 @@ export default function(document) {
   }
 
   function rowRemovalAnimations(rowsToRemove) {
-    console.log("drawing removal animations")
     for (let i = 0; i < rowsToRemove.length; i++) {
+      console.log("drawing removal animations")
       let stateInfo = document.querySelector(".state-info")
       let pieceHeight = stateInfo.clientHeight / boardHeight
       let width = stateInfo.clientWidth
@@ -105,13 +105,14 @@ export default function(document) {
       let multiplier = 5
       let rgb = isPolarized ? (255 - (rowsToRemove[i] * multiplier)) : rowsToRemove[i] * multiplier
       // let rgb = (rowsToRemove[i] * 5)
-      rowEl.style.cssText = `opacity: 0; position: absolute; z-index: -1000; top: ${pieceHeight * rowsToRemove[i]}; width: ${width}; height: ${pieceHeight}; background: rgb(${rgb}, ${rgb}, ${rgb});
+      rowEl.style.cssText = `opacity: 0; position: absolute; z-index: 1000; top: ${pieceHeight * rowsToRemove[i]}; width: ${width}; height: ${pieceHeight}; background: rgb(${rgb}, ${rgb}, ${rgb});
       animation: piece-removal-animation ease-in-out forwards;`
       rowEl.style.animationDuration = `${rowRemovalAnimationTime}ms`
       rowEl.style.border = `1px solid black`
       // rowEl.style.animationDelay = '1000ms'
 
       stateInfo.appendChild(rowEl)
+      console.log(rowEl)
       setTimeout(() => {
         rowEl.remove()
       }, rowRemovalAnimationTime)
